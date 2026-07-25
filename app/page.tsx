@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { initialDeals, categories, Deal } from '@/data/deals';
+import { flashDealsData, FlashDeal, flashDurationHours, flashDurationMinutes } from '@/data/flashDeals'; // 🔥 घंटे और मिनट दोनों सही इम्पोर्ट किए गए हैं
+import { topDealsData, TopDeal } from '@/data/topDeals';
 
 // 🚀 Logo Image Import (भरोसेमंद लोडिंग के लिए)
 import logo from '@/public/logo.png';
@@ -52,7 +54,7 @@ export default function Home() {
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
+  const [selectedDeal, setSelectedDeal] = useState<Deal | FlashDeal | TopDeal | null>(null);
   const [copied, setCopied] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // 🚀 Loading State
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -85,8 +87,12 @@ export default function Home() {
   // 🚀 Search Container Ref for handling outside clicks
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
-  // ⚡ Flash Deals Countdown Timer State (e.g., 4 hours remaining)
-  const [timeLeft, setTimeLeft] = useState({ hours: 4, minutes: 52, seconds: 30 });
+  // ⚡ Flash Deals Countdown Timer State (घंटे और मिनट दोनों अब फाइल से कंट्रोल होंगे)
+  const [timeLeft, setTimeLeft] = useState({ 
+    hours: flashDurationHours, 
+    minutes: flashDurationMinutes, 
+    seconds: 0 
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -94,11 +100,16 @@ export default function Home() {
         if (prev.seconds > 0) {
           return { ...prev, seconds: prev.seconds - 1 };
         } else if (prev.minutes > 0) {
-          return { ...prev, minutes: 59, seconds: 59 };
+          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
         } else if (prev.hours > 0) {
           return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
         }
-        return { hours: 5, minutes: 0, seconds: 0 };
+        // जब पूरा समय खत्म हो जाएगा, तो यह वापस आपकी फाइल वाले सेट टाइम पर आ जाएगा
+        return { 
+          hours: flashDurationHours, 
+          minutes: flashDurationMinutes, 
+          seconds: 0 
+        };
       });
     }, 1000);
     return () => clearInterval(timer);
@@ -194,7 +205,7 @@ export default function Home() {
   };
 
   // 🚀 Native Web Share API with Clipboard Fallback
-  const handleShareDeal = async (e: React.MouseEvent, deal: Deal) => {
+  const handleShareDeal = async (e: React.MouseEvent, deal: Deal | FlashDeal | TopDeal) => {
     e.stopPropagation();
     const shareData = {
       title: deal.title,
@@ -243,11 +254,11 @@ export default function Home() {
     return matchesCategory && matchesSearch && matchesWishlist;
   });
 
-  // Top 10 Deals
-  const top10Deals = initialDeals.slice(0, 10);
+  // 🔥 Top 10 Deals
+  const top10Deals = topDealsData;
 
   // ⚡ Flash Deals
-  const flashDeals = initialDeals.slice(2, 8);
+  const flashDeals = flashDealsData;
 
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);
@@ -966,7 +977,7 @@ export default function Home() {
                 {selectedDeal.discount}
               </span>
               <span className="absolute bottom-3 left-3 bg-amber-500 text-white text-xs font-semibold px-2.5 py-1 rounded-md">
-                ⏳ {selectedDeal.expiresIn}
+                ⏳ Limited Time
               </span>
             </div>
 

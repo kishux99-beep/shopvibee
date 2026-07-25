@@ -50,21 +50,7 @@ export const initialDeals: Deal[] = [
     description: 'World-renowned whey protein powder to support muscle building and fast post-workout recovery.',
     features: ['24g Protein per serving', '5.5g BCAAs', 'Low Sugar & Informed Choice Certified']
   },
-  {
-    id: 2,
-    title: 'MuscleBlaze Biozyme Performance Whey Protein',
-    category: 'Supplements',
-    price: '₹3,299',
-    originalPrice: '₹4,599',
-    discount: '28% OFF',
-    image: 'https://images.unsplash.com/photo-1579722820308-d7cc55e11d5e?auto=format&fit=crop&q=80&w=800',
-    store: 'Amazon',
-    link: 'https://amazon.in',
-    expiresIn: '1 day left',
-    promoCode: 'MBZYME',
-    description: 'Clinically tested for Indian bodies, ensuring 50% higher protein absorption and low stomach discomfort.',
-    features: ['Enhanced Absorption Formula (EAF)', '25g Protein', 'Labdoor USA Verified']
-  },
+  
 
   // --- ELECTRONICS & WEARABLES ---
   {
