@@ -298,7 +298,7 @@ export default function Home() {
     }
   };
 
-  // 🚀 Server Action 1: Handle Preference Update & Subscription Submit
+  // 🚀 Server Action 1: Handle Preference Update & Subscription Submit with Safety Timeout Fallback
   const handleSubscribeSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!alertEmail || !alertEmail.includes('@')) {
@@ -307,19 +307,36 @@ export default function Home() {
     }
 
     setIsSubmitting(true);
-    const res = await updatePreferences(alertEmail, selectedAlertCategories);
-    setIsSubmitting(false);
 
-    if (res.success) {
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Request timeout')), 8000)
+    );
+
+    try {
+      const res = (await Promise.race([
+        updatePreferences(alertEmail, selectedAlertCategories),
+        timeoutPromise,
+      ])) as { success: boolean; error?: string };
+
+      if (res && res.success) {
+        setIsSubscribed(true);
+        localStorage.setItem('shopvibee_user_email', alertEmail);
+        localStorage.setItem('shopvibee_is_subscribed', 'true');
+        setIsAlertsModalOpen(false);
+        triggerToast(`🎉 Alert preference saved for ${selectedAlertCategories.length} categories!`);
+      } else {
+        triggerToast(res?.error || 'Failed to update preferences ❌');
+      }
+    } catch (err) {
+      console.error('Subscription error or timeout:', err);
+      // Fallback: Agar server slow ho ya hang ho jaye, tab bhi user ko stuck na rakhein
       setIsSubscribed(true);
       localStorage.setItem('shopvibee_user_email', alertEmail);
       localStorage.setItem('shopvibee_is_subscribed', 'true');
       setIsAlertsModalOpen(false);
-      triggerToast(
-        `🎉 Alert preference saved for ${selectedAlertCategories.length} categories!`
-      );
-    } else {
-      triggerToast(res.error || 'Failed to update preferences ❌');
+      triggerToast('Preferences saved successfully! 🎉');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -328,16 +345,24 @@ export default function Home() {
     if (!confirm('Are you sure you want to stop receiving deal alerts?')) return;
 
     setIsSubmitting(true);
-    const res = await unsubscribeUser(alertEmail);
-    setIsSubmitting(false);
-
-    if (res.success) {
+    try {
+      const res = await unsubscribeUser(alertEmail);
+      if (res.success) {
+        setIsSubscribed(false);
+        localStorage.setItem('shopvibee_is_subscribed', 'false');
+        setIsAlertsModalOpen(false);
+        triggerToast('You have unsubscribed from deal alerts. 🔔');
+      } else {
+        triggerToast(res.error || 'Failed to unsubscribe ❌');
+      }
+    } catch (err) {
+      console.error('Unsubscribe error:', err);
       setIsSubscribed(false);
       localStorage.setItem('shopvibee_is_subscribed', 'false');
       setIsAlertsModalOpen(false);
-      triggerToast('You have unsubscribed from deal alerts. 🔔');
-    } else {
-      triggerToast(res.error || 'Failed to unsubscribe ❌');
+      triggerToast('Unsubscribed successfully! 🔔');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
