@@ -35,7 +35,7 @@ export async function updatePreferences(email: string, categories: string[]) {
     // 🚀 Send Welcome / Confirmation Email via Resend
     try {
       await resend.emails.send({
-        from: 'ShopVibee Deals <onboarding@resend.dev>',
+       from: 'ShopVibee Deals <noreply@shopvibee.in>',
         to: formattedEmail,
         subject: '🎉 Welcome to ShopVibee Deal Alerts!',
         html: `
