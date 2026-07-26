@@ -14,8 +14,8 @@ export interface FlashDeal {
 }
 
 // ⏱️ यहाँ सेट करें कि फ्लैश डील कितने घंटे और कितने मिनट चलनी चाहिए
-export const flashDurationHours = 0;   // जैसे: 1 घंटा
-export const flashDurationMinutes = 1; // और 15 मिनट (कुल 1 घंटा 15 मिनट)
+export const flashDurationHours = 1;   // जैसे: 1 घंटा
+export const flashDurationMinutes = 15; // और 15 मिनट (कुल 1 घंटा 15 मिनट)
 
 export const flashDealsData: FlashDeal[] = [
   {

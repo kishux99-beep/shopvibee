@@ -87,7 +87,8 @@ export default function Home() {
   // 🚀 Search Container Ref for handling outside clicks
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
-  // ⚡ Flash Deals Countdown Timer State (घंटे और मिनट दोनों अब फाइल से कंट्रोल होंगे)
+  // ⚡ Flash Deals Countdown Timer State (Hydration Safe)
+  const [isMounted, setIsMounted] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ 
     hours: flashDurationHours, 
     minutes: flashDurationMinutes, 
@@ -95,20 +96,37 @@ export default function Home() {
   });
 
   useEffect(() => {
+    setIsMounted(true);
+    const totalDurationSeconds = (flashDurationHours * 3600) + (flashDurationMinutes * 60);
+    const savedEndTime = localStorage.getItem('shopvibee_flash_end_time');
+    const now = new Date().getTime();
+
+    if (savedEndTime && Number(savedEndTime) > now) {
+      const remainingSecs = Math.floor((Number(savedEndTime) - now) / 1000);
+      setTimeLeft({
+        hours: Math.floor(remainingSecs / 3600),
+        minutes: Math.floor((remainingSecs % 3600) / 60),
+        seconds: remainingSecs % 60
+      });
+    } else {
+      const newEndTime = now + (totalDurationSeconds * 1000);
+      localStorage.setItem('shopvibee_flash_end_time', newEndTime.toString());
+    }
+
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 };
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        } else if (prev.hours > 0) {
-          return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        let totalSecs = (prev.hours * 3600) + (prev.minutes * 60) + prev.seconds;
+        if (totalSecs > 0) {
+          totalSecs -= 1;
+        } else {
+          totalSecs = totalDurationSeconds;
+          const newEndTime = new Date().getTime() + (totalDurationSeconds * 1000);
+          localStorage.setItem('shopvibee_flash_end_time', newEndTime.toString());
         }
-        // जब पूरा समय खत्म हो जाएगा, तो यह वापस आपकी फाइल वाले सेट टाइम पर आ जाएगा
-        return { 
-          hours: flashDurationHours, 
-          minutes: flashDurationMinutes, 
-          seconds: 0 
+        return {
+          hours: Math.floor(totalSecs / 3600),
+          minutes: Math.floor((totalSecs % 3600) / 60),
+          seconds: totalSecs % 60
         };
       });
     }, 1000);
@@ -158,7 +176,6 @@ export default function Home() {
 
   // Load wishlist & cached subscription status from localStorage on mount
   useEffect(() => {
-    // Smooth loading simulation for skeleton effect
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 600);
@@ -531,11 +548,11 @@ export default function Home() {
 
                 <div className="bg-black/30 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20 flex items-center gap-2 text-xs font-mono font-bold">
                   <span>⏳ Ends in:</span>
-                  <span className="bg-white/20 px-2 py-1 rounded">{String(timeLeft.hours).padStart(2, '0')}h</span>
+                  <span className="bg-white/20 px-2 py-1 rounded">{String(isMounted ? timeLeft.hours : flashDurationHours).padStart(2, '0')}h</span>
                   <span>:</span>
-                  <span className="bg-white/20 px-2 py-1 rounded">{String(timeLeft.minutes).padStart(2, '0')}m</span>
+                  <span className="bg-white/20 px-2 py-1 rounded">{String(isMounted ? timeLeft.minutes : flashDurationMinutes).padStart(2, '0')}m</span>
                   <span>:</span>
-                  <span className="bg-white/20 px-2 py-1 rounded">{String(timeLeft.seconds).padStart(2, '0')}s</span>
+                  <span className="bg-white/20 px-2 py-1 rounded">{String(isMounted ? timeLeft.seconds : 0).padStart(2, '0')}s</span>
                 </div>
               </div>
 
