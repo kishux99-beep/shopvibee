@@ -15,15 +15,14 @@ export async function updatePreferences(email: string, categories: string[]) {
       return { success: false, error: 'कृपया सही ईमेल दर्ज करें।' }
     }
 
-    // update की जगह upsert का उपयोग किया गया है
-    // इससे "Record not found" का Prisma एरर नहीं आएगा
+    // Database upsert action
     const updated = await prisma.subscriber.upsert({
       where: { 
         email: formattedEmail 
       },
       update: {
         categories,
-        isActive: true, // अगर पहले inactive था तो सक्रिय हो जाएगा
+        isActive: true,
       },
       create: {
         email: formattedEmail,
@@ -32,28 +31,48 @@ export async function updatePreferences(email: string, categories: string[]) {
       },
     })
 
-    // 🚀 Send Welcome / Confirmation Email via Resend
+    // 🚀 Send Welcome / Confirmation Email via Resend with Clean Light Wrapper Layout
     try {
-      await resend.emails.send({
-       from: 'ShopVibee Deals <noreply@shopvibee.in>',
-        to: formattedEmail,
+      const emailResponse = await resend.emails.send({
+        from: 'ShopVibee <noreply@shopvibee.in>',
+        to: [formattedEmail],
         subject: '🎉 Welcome to ShopVibee Deal Alerts!',
         html: `
-          <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-            <h2 style="color: #4f46e5;">Aapki Deal Alert preferences save ho chuki hain!</h2>
-            <p>Hum aapko aapki pasandida categories ke best discounts sabse pehle bhejenge:</p>
-            <p style="background: #f3f4f6; padding: 10px; border-radius: 6px; font-weight: bold;">
-              ${categories.join(', ')}
-            </p>
-            <br/>
-            <p>Regards,</p>
-            <p><b>Team ShopVibee</b></p>
+          <div style="background-color: #f3f4f6; padding: 30px 0; font-family: Arial, sans-serif;">
+            <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+              
+              <!-- Logo Section -->
+              <div style="text-align: center; margin-bottom: 24px;">
+                <img src="https://shopvibee.in/logo.png" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
+              </div>
+
+              <!-- Content Heading -->
+              <h2 style="color: #1f2937; font-size: 20px; text-align: center; margin-bottom: 16px;">
+                Aapki Deal Alert preferences save ho chuki hain! 🎉
+              </h2>
+              
+              <p style="color: #4b5563; font-size: 15px; line-height: 1.5; text-align: center; margin-bottom: 20px;">
+                Hum aapko aapki pasandida categories ke best discounts sabse pehle bhejenge:
+              </p>
+
+              <!-- Categories Box -->
+              <div style="background-color: #f9fafb; border: 1px solid #e5e7eb; padding: 16px; border-radius: 8px; font-weight: bold; color: #374151; font-size: 14px; text-align: center; margin-bottom: 24px;">
+                ${categories.join(', ')}
+              </div>
+
+              <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
+
+              <!-- Footer -->
+              <p style="color: #6b7280; font-size: 14px; margin-bottom: 4px;">Regards,</p>
+              <p style="color: #1f2937; font-size: 14px; font-weight: bold; margin: 0;">Team ShopVibee</p>
+            </div>
           </div>
         `,
       })
-    } catch (emailError) {
-      console.error('Resend Email Error:', emailError)
-      // Email fail hone par bhi database update success maana jayega taaki user ka flow na ruke
+
+      console.log('Resend Success Response:', emailResponse)
+    } catch (emailError: any) {
+      console.error('Resend Email Error Detail:', JSON.stringify(emailError, null, 2))
     }
 
     revalidatePath('/')
