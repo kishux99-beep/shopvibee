@@ -6,7 +6,23 @@ import Link from 'next/link';
 import { initialDeals, categories, Deal } from '@/data/deals';
 import { flashDealsData, FlashDeal, flashDurationHours, flashDurationMinutes } from '@/data/flashDeals'; 
 import { topDealsData, TopDeal } from '@/data/topDeals';
-import { FaShieldAlt, FaCheckCircle, FaBolt, FaArrowRight, FaFire, FaArrowUp, FaTag } from 'react-icons/fa';
+import { 
+  FaShieldAlt, 
+  FaCheckCircle, 
+  FaBolt, 
+  FaArrowRight, 
+  FaFire, 
+  FaArrowUp, 
+  FaTag, 
+  FaThLarge, 
+  FaHeartbeat, 
+  FaDumbbell, 
+  FaLaptop, 
+  FaMobileAlt, 
+  FaHome, 
+  FaShoppingBag,
+  FaHeadphones
+} from 'react-icons/fa';
 
 // 🚀 Logo Image Import
 import logo from '@/public/logo.png';
@@ -36,13 +52,13 @@ function DealSkeleton() {
   return (
     <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm flex flex-col animate-pulse">
       <div className="aspect-video bg-gray-200 w-full" />
-      <div className="p-4 flex flex-col flex-1 justify-between space-y-3">
+      <div className="p-3 sm:p-4 flex flex-col flex-1 justify-between space-y-3">
         <div className="space-y-2">
           <div className="h-3 bg-gray-200 rounded w-1/4" />
           <div className="h-4 bg-gray-200 rounded w-3/4" />
           <div className="h-4 bg-gray-200 rounded w-1/2" />
         </div>
-        <div className="h-9 bg-gray-200 rounded-xl w-full mt-4" />
+        <div className="h-8 sm:h-9 bg-gray-200 rounded-xl w-full mt-2 sm:mt-4" />
       </div>
     </div>
   );
@@ -790,41 +806,60 @@ export default function Home() {
             </div>
           )}
 
-          {/* Category Filters */}
+          {/* Category Filters with Professional Compact Icons */}
           <div className="relative mb-6 group">
             <button
               onClick={() => scrollCategories('left')}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -ml-2 sm:-ml-3 z-20 bg-white text-gray-800 shadow-lg border border-gray-200 w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-50 transition active:scale-95"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -ml-2 sm:-ml-3 z-20 bg-white text-gray-800 shadow-lg border border-gray-200 w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-50 transition active:scale-95 hidden sm:flex"
             >
               &lt;
             </button>
 
             <div 
               ref={categoryScrollRef}
-              className="flex items-center gap-2 overflow-x-auto px-6 py-3 scrollbar-none scroll-smooth"
+              className="flex items-center gap-2.5 overflow-x-auto px-6 py-3 scrollbar-none scroll-smooth"
             >
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => {
-                    setShowWishlistOnly(false);
-                    setSelectedCategory(cat);
-                    triggerToast(`Filtered by ${cat}`);
-                  }}
-                  className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-200 shrink-0 active:scale-95 shadow-sm ${
-                    !showWishlistOnly && selectedCategory === cat
-                      ? 'bg-indigo-600 text-white shadow-indigo-200 scale-105'
-                      : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
+              {categories.map((cat) => {
+                const isSelected = !showWishlistOnly && selectedCategory === cat;
+                
+                // Professional & compact category icon mapping
+                let IconComponent = FaThLarge;
+                const lowerCat = cat.toLowerCase();
+
+                if (lowerCat.includes('all')) IconComponent = FaThLarge;
+                else if (lowerCat.includes('supplement') || lowerCat.includes('health')) IconComponent = FaHeartbeat;
+                else if (lowerCat.includes('fitness') || lowerCat.includes('sports')) IconComponent = FaDumbbell;
+                else if (lowerCat.includes('electronic') || lowerCat.includes('tech') || lowerCat.includes('laptop')) IconComponent = FaLaptop;
+                else if (lowerCat.includes('mobile')) IconComponent = FaMobileAlt;
+                else if (lowerCat.includes('wearable') || lowerCat.includes('smartwatch')) IconComponent = FaLaptop;
+                else if (lowerCat.includes('audio')) IconComponent = FaHeadphones;
+                else if (lowerCat.includes('home') || lowerCat.includes('furniture')) IconComponent = FaHome;
+                else if (lowerCat.includes('fashion') || lowerCat.includes('shoe')) IconComponent = FaShoppingBag;
+
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => {
+                      setShowWishlistOnly(false);
+                      setSelectedCategory(cat);
+                      triggerToast(`Filtered by ${cat}`);
+                    }}
+                    className={`flex flex-col items-center justify-center min-w-[78px] sm:min-w-[88px] px-2.5 py-2.5 rounded-2xl text-[11px] sm:text-xs font-medium transition-all duration-200 shrink-0 active:scale-95 shadow-sm border ${
+                      isSelected
+                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-indigo-200 scale-105 shadow-md'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
+                    }`}
+                  >
+                    <IconComponent className={`text-sm sm:text-base mb-1 transition-transform ${isSelected ? 'text-white scale-110' : 'text-indigo-600'}`} />
+                    <span className="truncate w-full text-center tracking-tight">{cat}</span>
+                  </button>
+                );
+              })}
             </div>
 
             <button
               onClick={() => scrollCategories('right')}
-              className="absolute right-0 top-1/2 -translate-y-1/2 -mr-2 sm:-mr-3 z-20 bg-white text-gray-800 shadow-lg border border-gray-200 w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-50 transition active:scale-95"
+              className="absolute right-0 top-1/2 -translate-y-1/2 -mr-2 sm:-mr-3 z-20 bg-white text-gray-800 shadow-lg border border-gray-200 w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-50 transition active:scale-95 hidden sm:flex"
             >
               &gt;
             </button>
@@ -845,15 +880,15 @@ export default function Home() {
             </span>
           </div>
 
-          {/* Deals Grid */}
+          {/* Deals Grid - 2 Products per row on Mobile, 4 on Desktop */}
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {[...Array(6)].map((_, i) => (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+              {[...Array(8)].map((_, i) => (
                 <DealSkeleton key={i} />
               ))}
             </div>
           ) : filteredDeals.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
               {filteredDeals.map((deal) => {
                 const isWishlisted = wishlist.includes(deal.id);
                 return (
@@ -872,20 +907,20 @@ export default function Home() {
                         className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                       />
                       
-                      <span className="absolute top-3 left-3 bg-red-500 text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:py-1 rounded-md shadow-sm z-10">
+                      <span className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-red-500 text-white text-[9px] sm:text-xs font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md shadow-sm z-10">
                         {deal.discount}
                       </span>
 
                       {deal.originalPrice && (
-                        <span className="absolute top-3 left-20 bg-emerald-600 text-white text-[10px] sm:text-xs font-extrabold px-2 py-0.5 sm:py-1 rounded-md shadow-md flex items-center gap-1 z-10">
+                        <span className="hidden sm:flex absolute top-3 left-20 bg-emerald-600 text-white text-xs font-extrabold px-2 py-1 rounded-md shadow-md items-center gap-1 z-10">
                           <span>📉</span> Price Drop
                         </span>
                       )}
 
-                      <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
+                      <div className="absolute top-2 sm:top-3 right-2 sm:right-3 flex items-center gap-1 sm:gap-1.5 z-10">
                         <button
                           onClick={(e) => handleShareDeal(e, deal)}
-                          className="p-2 rounded-full bg-black/30 hover:bg-black/50 text-white backdrop-blur-md transition active:scale-75"
+                          className="p-1.5 sm:p-2 rounded-full bg-black/30 hover:bg-black/50 text-white backdrop-blur-md transition active:scale-75 text-xs"
                           title="Share Deal"
                         >
                           ↗️
@@ -893,7 +928,7 @@ export default function Home() {
 
                         <button
                           onClick={(e) => toggleWishlist(e, deal.id)}
-                          className={`p-2 rounded-full backdrop-blur-md transition active:scale-75 ${
+                          className={`p-1.5 sm:p-2 rounded-full backdrop-blur-md transition active:scale-75 text-xs ${
                             isWishlisted
                               ? 'bg-rose-500/90 text-white'
                               : 'bg-black/30 hover:bg-black/50 text-white'
@@ -904,22 +939,22 @@ export default function Home() {
                         </button>
                       </div>
 
-                      <span className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white text-[10px] font-medium px-2 py-0.5 rounded">
+                      <span className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3 bg-black/60 backdrop-blur-sm text-white text-[9px] sm:text-[10px] font-medium px-1.5 sm:px-2 py-0.5 rounded">
                         {deal.store}
                       </span>
                     </div>
 
-                    <div className="p-4 flex flex-col flex-1 justify-between">
+                    <div className="p-3 sm:p-4 flex flex-col flex-1 justify-between">
                       <div>
-                        <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-indigo-600">
+                        <span className="text-[9px] sm:text-xs font-semibold uppercase tracking-wider text-indigo-600">
                           {deal.category}
                         </span>
-                        <h3 className="font-semibold text-gray-900 text-sm sm:text-base mt-0.5 line-clamp-1 group-hover:text-indigo-600 transition">
+                        <h3 className="font-semibold text-gray-900 text-xs sm:text-base mt-0.5 line-clamp-1 group-hover:text-indigo-600 transition">
                           {deal.title}
                         </h3>
-                        <div className="flex items-baseline gap-2 mt-2 sm:mt-3">
-                          <span className="text-base sm:text-lg font-bold text-gray-900">{deal.price}</span>
-                          <span className="text-xs sm:text-sm text-gray-400 line-through">{deal.originalPrice}</span>
+                        <div className="flex items-baseline gap-1.5 sm:gap-2 mt-2 sm:mt-3">
+                          <span className="text-xs sm:text-lg font-bold text-gray-900">{deal.price}</span>
+                          <span className="text-[10px] sm:text-sm text-gray-400 line-through">{deal.originalPrice}</span>
                         </div>
                       </div>
                       <button
@@ -928,7 +963,7 @@ export default function Home() {
                           setSelectedDeal(deal);
                           setCopied(false);
                         }}
-                        className="mt-4 block w-full text-center bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold py-2 rounded-xl text-xs sm:text-sm transition active:scale-95"
+                        className="mt-3 sm:mt-4 block w-full text-center bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-sm transition active:scale-95"
                       >
                         View Deal Details &rarr;
                       </button>
