@@ -2,10 +2,11 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link'; // 🚀 Next.js Link properly imported
+import Link from 'next/link';
 import { initialDeals, categories, Deal } from '@/data/deals';
 import { flashDealsData, FlashDeal, flashDurationHours, flashDurationMinutes } from '@/data/flashDeals'; 
 import { topDealsData, TopDeal } from '@/data/topDeals';
+import { FaShieldAlt, FaCheckCircle, FaBolt, FaArrowRight, FaFire, FaArrowUp, FaTag } from 'react-icons/fa';
 
 // 🚀 Logo Image Import
 import logo from '@/public/logo.png';
@@ -58,6 +59,9 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Back to Top Button Visibility State
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Wishlist State
   const [wishlist, setWishlist] = useState<number[]>([]);
@@ -121,7 +125,21 @@ export default function Home() {
         };
       });
     }, 1000);
-    return () => clearInterval(timer);
+
+    // Scroll event listener for Back-to-Top button
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -133,6 +151,13 @@ export default function Home() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   const scrollCategories = (direction: 'left' | 'right') => {
     if (categoryScrollRef.current) {
@@ -346,7 +371,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans flex flex-col justify-between">
+    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans flex flex-col justify-between relative">
       <div>
         {toastMessage && (
           <div className="fixed bottom-6 right-6 z-50 bg-indigo-600 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-bold animate-bounce transition-all border border-indigo-400/30">
@@ -355,8 +380,25 @@ export default function Home() {
           </div>
         )}
 
+        {/* Back to Top Floating Button */}
+        {showScrollTop && (
+          <button
+            onClick={scrollToTop}
+            className="fixed bottom-6 left-6 z-40 bg-indigo-600 hover:bg-indigo-700 text-white w-11 h-11 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-indigo-400/30"
+            title="Back to Top"
+          >
+            <FaArrowUp className="text-sm" />
+          </button>
+        )}
+
+        {/* Sticky Announcement / Top Bar */}
+        <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-[11px] sm:text-xs font-semibold py-2 px-4 text-center sticky top-0 z-50 shadow-sm flex items-center justify-center gap-2">
+          <FaTag className="text-amber-300 animate-pulse" />
+          <span>🔥 Limited Time Offer: Use promo codes on deals to save extra on your favorite supplements & tech!</span>
+        </div>
+
         {/* Header */}
-        <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <header className="sticky top-[31px] sm:top-[33px] z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
             
             <div className="w-full sm:w-auto flex items-center justify-between">
@@ -516,18 +558,69 @@ export default function Home() {
           </div>
         </header>
 
-        {/* Hero Banner */}
-        <section className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white py-8 sm:py-12 px-4 text-center">
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
-            Today's Top Curated Deals
-          </h1>
-          <p className="mt-2 sm:mt-3 text-indigo-100 max-w-xl mx-auto text-xs sm:text-base">
-            Handpicked discounts on supplements, electronics, and lifestyle directly to save your time & money.
-          </p>
+        {/* High-Impact Hero Section */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 text-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
+          
+          {/* Background Glow Effect */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-600/25 blur-[120px] rounded-full pointer-events-none" />
+
+          <div className="max-w-5xl mx-auto text-center relative z-10">
+            
+            {/* Top Announcement / Trust Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs sm:text-sm font-medium mb-6 shadow-inner backdrop-blur-md">
+              <FaFire className="text-amber-400 animate-pulse" />
+              <span>Handpicked Fitness & Tech Deals • Updated Daily</span>
+            </div>
+
+            {/* Bold Value Proposition Headline */}
+            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight sm:leading-none text-white max-w-3xl mx-auto">
+              Unlock the Best <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">Curated Deals</span> & Discounts.
+            </h1>
+
+            {/* Subtitle */}
+            <p className="mt-6 text-sm sm:text-base text-gray-300 max-w-2xl mx-auto leading-relaxed">
+              Skip the endless searching. We bring you hand-verified product discounts, top supplement recommendations, and exclusive tech offers all in one place.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
+                href="#deals"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-8 py-4 rounded-2xl text-sm transition-all duration-300 shadow-lg shadow-indigo-600/30 hover:scale-[1.02]"
+              >
+                <FaBolt className="text-amber-300" />
+                <span>Explore Live Deals</span>
+                <FaArrowRight className="text-xs ml-1" />
+              </a>
+              <Link
+                href="/contact"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gray-800/80 hover:bg-gray-800 text-gray-200 hover:text-white font-medium px-8 py-4 rounded-2xl text-sm border border-gray-700/60 transition-all duration-300 backdrop-blur-md"
+              >
+                <span>Partner / Sponsor</span>
+              </Link>
+            </div>
+
+            {/* Trust Badges Bar */}
+            <div className="mt-14 pt-8 border-t border-gray-800/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-gray-400 text-xs sm:text-sm font-medium">
+              <div className="flex items-center justify-center gap-2.5 bg-gray-800/40 py-3 px-4 rounded-xl border border-gray-800">
+                <FaCheckCircle className="text-emerald-400 text-base" />
+                <span>100% Verified Deals</span>
+              </div>
+              <div className="flex items-center justify-center gap-2.5 bg-gray-800/40 py-3 px-4 rounded-xl border border-gray-800">
+                <FaShieldAlt className="text-indigo-400 text-base" />
+                <span>Trusted by Shoppers</span>
+              </div>
+              <div className="flex items-center justify-center gap-2.5 bg-gray-800/40 py-3 px-4 rounded-xl border border-gray-800">
+                <FaBolt className="text-amber-400 text-base" />
+                <span>Zero Spam, Pure Value</span>
+              </div>
+            </div>
+
+          </div>
         </section>
 
         {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <main id="deals" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           
           {/* Flash Deals Section */}
           {!showWishlistOnly && !searchQuery && selectedCategory === 'All' && (
@@ -862,6 +955,102 @@ export default function Home() {
             </div>
           )}
         </main>
+
+        {/* Trust & Testimonials Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full border border-indigo-100">
+              Real Experiences
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-3">
+              Trusted by Fitness & Tech Shoppers
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-500 mt-2">
+              Here is what our community has to say about finding genuine deals and discounts on ShopVibee.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Testimonial 1 */}
+            <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+              <div>
+                <div className="flex items-center gap-1 text-amber-400 text-sm mb-3">
+                  ★★★★★
+                </div>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  "ShopVibee ne mera whey protein aur supplements ka kafi paisa bacha liya. Yahan milne wale verified coupon codes 100% kaam karte hain!"
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-gray-50 flex items-center gap-3">
+                <div className="w-9 h-9 bg-indigo-100 text-indigo-700 font-bold rounded-full flex items-center justify-center text-xs">
+                  AK
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs sm:text-sm text-gray-900">Aman Kumar</h4>
+                  <span className="text-[10px] text-gray-400">Fitness Enthusiast</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 2 */}
+            <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+              <div>
+                <div className="flex items-center gap-1 text-amber-400 text-sm mb-3">
+                  ★★★★★
+                </div>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  "The flash deals section is amazing. Found a great discount on tech gadgets with zero hassle. Highly recommend checking it daily."
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-gray-50 flex items-center gap-3">
+                <div className="w-9 h-9 bg-purple-100 text-purple-700 font-bold rounded-full flex items-center justify-center text-xs">
+                  RP
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs sm:text-sm text-gray-900">Rahul Sharma</h4>
+                  <span className="text-[10px] text-gray-400">Tech Shopper</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 3 */}
+            <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+              <div>
+                <div className="flex items-center gap-1 text-amber-400 text-sm mb-3">
+                  ★★★★★
+                </div>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  "Clean interface, no annoying ads, and straight-to-the-point genuine affiliate deals. My go-to site before buying anything online!"
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-gray-50 flex items-center gap-3">
+                <div className="w-9 h-9 bg-emerald-100 text-emerald-700 font-bold rounded-full flex items-center justify-center text-xs">
+                  NV
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs sm:text-sm text-gray-900">Neha Verma</h4>
+                  <span className="text-[10px] text-gray-400">Online Shopper</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Partner Trust Bar */}
+          <div className="mt-12 pt-8 border-t border-gray-100 text-center">
+            <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-4">
+              Featured Brands & Partner Merchants
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12 opacity-70 grayscale hover:grayscale-0 transition duration-300">
+              <span className="font-extrabold text-sm sm:text-base text-gray-700 tracking-wider">WELLVERSED</span>
+              <span className="font-extrabold text-sm sm:text-base text-gray-700 tracking-wider">AMAZON DEALS</span>
+              <span className="font-extrabold text-sm sm:text-base text-gray-700 tracking-wider">FLIPKART PICKS</span>
+              <span className="font-extrabold text-sm sm:text-base text-gray-700 tracking-wider">SECURE PAYMENTS</span>
+            </div>
+          </div>
+        </section>
+
       </div>
 
       {/* Get Alerts & Preferences Modal */}
@@ -1108,7 +1297,6 @@ export default function Home() {
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
             <p>© {new Date().getFullYear()} ShopVibee Deals. All rights reserved.</p>
             
-            {/* 🚀 Active Footer Navigation Links using Next.js Link */}
             <div className="flex items-center gap-4">
               <Link href="/privacy" className="hover:text-indigo-600 transition underline">
                 Privacy Policy
