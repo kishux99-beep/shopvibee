@@ -2,11 +2,12 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link'; // 🚀 Next.js Link properly imported
 import { initialDeals, categories, Deal } from '@/data/deals';
-import { flashDealsData, FlashDeal, flashDurationHours, flashDurationMinutes } from '@/data/flashDeals'; // 🔥 घंटे और मिनट दोनों सही इम्पोर्ट किए गए हैं
+import { flashDealsData, FlashDeal, flashDurationHours, flashDurationMinutes } from '@/data/flashDeals'; 
 import { topDealsData, TopDeal } from '@/data/topDeals';
 
-// 🚀 Logo Image Import (भरोसेमंद लोडिंग के लिए)
+// 🚀 Logo Image Import
 import logo from '@/public/logo.png';
 
 // 🚀 Server Actions Import
@@ -50,13 +51,12 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   
-  // 🚀 Debounced Search Query (300ms delay to prevent heavy re-renders)
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedDeal, setSelectedDeal] = useState<Deal | FlashDeal | TopDeal | null>(null);
   const [copied, setCopied] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // 🚀 Loading State
+  const [isLoading, setIsLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Wishlist State
@@ -65,29 +65,20 @@ export default function Home() {
 
   // Get Alerts Modal & Subscription State
   const [isAlertsModalOpen, setIsAlertsModalOpen] = useState(false);
-  const [isSubscribed, setIsSubscribed] = useState(false); // Tracks active subscription status
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const [alertEmail, setAlertEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // Available categories for preferences (excluding 'All')
   const alertCategoriesList = categories.filter((c) => c !== 'All');
   const [selectedAlertCategories, setSelectedAlertCategories] = useState<string[]>(
     alertCategoriesList
   );
 
-  // 🚀 Category Scroll Ref for Amazon-style scrolling
   const categoryScrollRef = useRef<HTMLDivElement>(null);
-  
-  // 🚀 Top 10 Deals Scroll Ref
   const top10ScrollRef = useRef<HTMLDivElement>(null);
-
-  // 🚀 Flash Deals Scroll Ref
   const flashDealsScrollRef = useRef<HTMLDivElement>(null);
-
-  // 🚀 Search Container Ref for handling outside clicks
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
-  // ⚡ Flash Deals Countdown Timer State (Hydration Safe)
   const [isMounted, setIsMounted] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ 
     hours: flashDurationHours, 
@@ -133,7 +124,6 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  // Close search suggestions when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
@@ -174,7 +164,6 @@ export default function Home() {
     }
   };
 
-  // Load wishlist & cached subscription status from localStorage on mount
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -197,7 +186,6 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Save wishlist to localStorage when updated
   const toggleWishlist = (e: React.MouseEvent, dealId: number) => {
     e.stopPropagation();
     let updatedWishlist: number[];
@@ -221,7 +209,6 @@ export default function Home() {
     }, 2500);
   };
 
-  // 🚀 Native Web Share API with Clipboard Fallback
   const handleShareDeal = async (e: React.MouseEvent, deal: Deal | FlashDeal | TopDeal) => {
     e.stopPropagation();
     const shareData = {
@@ -243,7 +230,6 @@ export default function Home() {
     }
   };
 
-  // 🚀 Live Search Auto-Suggestions Across All Products/Categories
   const searchSuggestions = searchQuery.trim() === '' ? [] : initialDeals.filter((deal) => {
     const q = searchQuery.toLowerCase();
     return (
@@ -253,7 +239,6 @@ export default function Home() {
     );
   }).slice(0, 6);
 
-  // Real-Time Multi-Field Filter Logic using Debounced Search Query
   const filteredDeals = initialDeals.filter((deal) => {
     const matchesCategory =
       selectedCategory === 'All' || deal.category === selectedCategory;
@@ -271,10 +256,7 @@ export default function Home() {
     return matchesCategory && matchesSearch && matchesWishlist;
   });
 
-  // 🔥 Top 10 Deals
   const top10Deals = topDealsData;
-
-  // ⚡ Flash Deals
   const flashDeals = flashDealsData;
 
   const handleCopyCode = (code: string) => {
@@ -298,7 +280,6 @@ export default function Home() {
     }
   };
 
-  // 🚀 Server Action 1: Handle Preference Update & Subscription Submit with Safety Timeout Fallback
   const handleSubscribeSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!alertEmail || !alertEmail.includes('@')) {
@@ -329,7 +310,6 @@ export default function Home() {
       }
     } catch (err) {
       console.error('Subscription error or timeout:', err);
-      // Fallback: Agar server slow ho ya hang ho jaye, tab bhi user ko stuck na rakhein
       setIsSubscribed(true);
       localStorage.setItem('shopvibee_user_email', alertEmail);
       localStorage.setItem('shopvibee_is_subscribed', 'true');
@@ -340,7 +320,6 @@ export default function Home() {
     }
   };
 
-  // 🚀 Server Action 2: Handle Unsubscribe Logic
   const handleUnsubscribeSubmit = async () => {
     if (!confirm('Are you sure you want to stop receiving deal alerts?')) return;
 
@@ -369,7 +348,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans flex flex-col justify-between">
       <div>
-        {/* 🚀 Toast Notification Pop-up */}
         {toastMessage && (
           <div className="fixed bottom-6 right-6 z-50 bg-indigo-600 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-bold animate-bounce transition-all border border-indigo-400/30">
             <span className="text-base">✨</span>
@@ -381,7 +359,6 @@ export default function Home() {
         <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
             
-            {/* Top Row for Mobile / Left Section for Desktop */}
             <div className="w-full sm:w-auto flex items-center justify-between">
               <div 
                 onClick={() => {
@@ -402,7 +379,6 @@ export default function Home() {
                 </span>
               </div>
               
-              {/* Mobile Action Controls */}
               <div className="flex items-center gap-2 sm:hidden">
                 <button
                   onClick={() => setIsAlertsModalOpen(true)}
@@ -466,7 +442,6 @@ export default function Home() {
                 )}
               </div>
 
-              {/* Auto-Suggest Dropdown */}
               {isSearchFocused && searchSuggestions.length > 0 && (
                 <div className="absolute left-0 right-0 mt-2 bg-white border border-gray-200 rounded-2xl shadow-2xl z-50 overflow-hidden divide-y divide-gray-100">
                   <div className="px-4 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider bg-gray-50">
@@ -502,7 +477,6 @@ export default function Home() {
               )}
             </div>
 
-            {/* Desktop Navbar Actions */}
             <div className="hidden sm:flex items-center gap-3">
               <button
                 onClick={() => {
@@ -1133,12 +1107,20 @@ export default function Home() {
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
             <p>© {new Date().getFullYear()} ShopVibee Deals. All rights reserved.</p>
+            
+            {/* 🚀 Active Footer Navigation Links using Next.js Link */}
             <div className="flex items-center gap-4">
-              <span className="hover:underline cursor-pointer">Privacy Policy</span>
+              <Link href="/privacy" className="hover:text-indigo-600 transition underline">
+                Privacy Policy
+              </Link>
               <span>•</span>
-              <span className="hover:underline cursor-pointer">Terms of Service</span>
+              <Link href="/terms" className="hover:text-indigo-600 transition underline">
+                Terms of Service
+              </Link>
               <span>•</span>
-              <span className="hover:underline cursor-pointer">Contact Us</span>
+              <Link href="/contact" className="hover:text-indigo-600 transition underline">
+                Contact Us
+              </Link>
             </div>
           </div>
 
