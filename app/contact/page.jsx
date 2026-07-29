@@ -77,7 +77,7 @@ export default function ContactUs() {
 
           {/* Email Support Card */}
           <a
-            href="mailto:support@shopvibee.com"
+            href="mailto:shopvibee.in@gmail.com"
             className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group"
           >
             <div className="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300 shadow-sm">
