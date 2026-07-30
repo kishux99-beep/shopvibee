@@ -86,7 +86,7 @@ export default function ContactUs() {
             <h3 className="font-bold text-gray-900 text-base mb-1">Email Support</h3>
             <p className="text-xs text-gray-500 mb-4">For business, partnerships & detailed queries.</p>
             <span className="mt-auto text-xs font-bold text-indigo-600 group-hover:underline flex items-center gap-1">
-              shopvibee.in@gmail.com &rarr;
+              support@shopvibee.com &rarr;
             </span>
           </a>
 
