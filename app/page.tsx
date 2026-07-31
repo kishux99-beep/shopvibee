@@ -13,7 +13,6 @@ import {
   FaArrowRight, 
   FaFire, 
   FaArrowUp, 
-  FaTag, 
   FaThLarge, 
   FaHeartbeat, 
   FaDumbbell, 
@@ -21,7 +20,10 @@ import {
   FaMobileAlt, 
   FaHome, 
   FaShoppingBag,
-  FaHeadphones
+  FaHeadphones,
+  FaWhatsapp,
+  FaTelegramPlane,
+  FaBell
 } from 'react-icons/fa';
 
 // 🚀 Logo Image Import
@@ -271,6 +273,14 @@ export default function Home() {
     }
   };
 
+  const handleSocialClick = (platform: 'whatsapp' | 'telegram') => {
+    const link = platform === 'whatsapp' 
+      ? 'https://whatsapp.com/channel/your_channel_id' 
+      : 'https://t.me/your_channel_id';
+    
+    window.open(link, '_blank');
+  };
+
   const searchSuggestions = searchQuery.trim() === '' ? [] : initialDeals.filter((deal) => {
     const q = searchQuery.toLowerCase();
     return (
@@ -407,14 +417,8 @@ export default function Home() {
           </button>
         )}
 
-        {/* Sticky Announcement / Top Bar */}
-        <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-[11px] sm:text-xs font-semibold py-2 px-4 text-center sticky top-0 z-50 shadow-sm flex items-center justify-center gap-2">
-          <FaTag className="text-amber-300 animate-pulse" />
-          <span>🔥 Limited Time Offer: Use promo codes on deals to save extra on your favorite supplements & tech!</span>
-        </div>
-
         {/* Header */}
-        <header className="sticky top-[31px] sm:top-[33px] z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
             
             <div className="w-full sm:w-auto flex items-center justify-between">
@@ -574,35 +578,35 @@ export default function Home() {
           </div>
         </header>
 
-        {/* High-Impact Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 text-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
+        {/* High-Impact Hero Section - Compact & Sleek Look */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 text-white py-10 sm:py-14 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
           
           {/* Background Glow Effect */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-600/25 blur-[120px] rounded-full pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-indigo-600/20 blur-[100px] rounded-full pointer-events-none" />
 
-          <div className="max-w-5xl mx-auto text-center relative z-10">
+          <div className="max-w-4xl mx-auto text-center relative z-10">
             
             {/* Top Announcement / Trust Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs sm:text-sm font-medium mb-6 shadow-inner backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[11px] sm:text-xs font-medium mb-4 shadow-inner backdrop-blur-md">
               <FaFire className="text-amber-400 animate-pulse" />
               <span>Handpicked Fitness & Tech Deals • Updated Daily</span>
             </div>
 
             {/* Bold Value Proposition Headline */}
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight sm:leading-none text-white max-w-3xl mx-auto">
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-white max-w-2xl mx-auto">
               Unlock the Best <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">Curated Deals</span> & Discounts.
             </h1>
 
             {/* Subtitle */}
-            <p className="mt-6 text-sm sm:text-base text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-3 text-xs sm:text-sm text-gray-300 max-w-xl mx-auto leading-relaxed">
               Skip the endless searching. We bring you hand-verified product discounts, top supplement recommendations, and exclusive tech offers all in one place.
             </p>
 
             {/* Action Buttons */}
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
                 href="#deals"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-8 py-4 rounded-2xl text-sm transition-all duration-300 shadow-lg shadow-indigo-600/30 hover:scale-[1.02]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-indigo-600/30 hover:scale-[1.02]"
               >
                 <FaBolt className="text-amber-300" />
                 <span>Explore Live Deals</span>
@@ -610,24 +614,24 @@ export default function Home() {
               </a>
               <Link
                 href="/contact"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gray-800/80 hover:bg-gray-800 text-gray-200 hover:text-white font-medium px-8 py-4 rounded-2xl text-sm border border-gray-700/60 transition-all duration-300 backdrop-blur-md"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gray-800/80 hover:bg-gray-800 text-gray-200 hover:text-white font-medium px-6 py-3 rounded-xl text-xs sm:text-sm border border-gray-700/60 transition-all duration-300 backdrop-blur-md"
               >
                 <span>Partner / Sponsor</span>
               </Link>
             </div>
 
             {/* Trust Badges Bar */}
-            <div className="mt-14 pt-8 border-t border-gray-800/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-gray-400 text-xs sm:text-sm font-medium">
-              <div className="flex items-center justify-center gap-2.5 bg-gray-800/40 py-3 px-4 rounded-xl border border-gray-800">
-                <FaCheckCircle className="text-emerald-400 text-base" />
+            <div className="mt-8 pt-6 border-t border-gray-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3 text-gray-400 text-xs font-medium">
+              <div className="flex items-center justify-center gap-2 bg-gray-800/40 py-2.5 px-3 rounded-xl border border-gray-800">
+                <FaCheckCircle className="text-emerald-400 text-sm" />
                 <span>100% Verified Deals</span>
               </div>
-              <div className="flex items-center justify-center gap-2.5 bg-gray-800/40 py-3 px-4 rounded-xl border border-gray-800">
-                <FaShieldAlt className="text-indigo-400 text-base" />
+              <div className="flex items-center justify-center gap-2 bg-gray-800/40 py-2.5 px-3 rounded-xl border border-gray-800">
+                <FaShieldAlt className="text-indigo-400 text-sm" />
                 <span>Trusted by Shoppers</span>
               </div>
-              <div className="flex items-center justify-center gap-2.5 bg-gray-800/40 py-3 px-4 rounded-xl border border-gray-800">
-                <FaBolt className="text-amber-400 text-base" />
+              <div className="flex items-center justify-center gap-2 bg-gray-800/40 py-2.5 px-3 rounded-xl border border-gray-800">
+                <FaBolt className="text-amber-400 text-sm" />
                 <span>Zero Spam, Pure Value</span>
               </div>
             </div>
@@ -803,6 +807,50 @@ export default function Home() {
                   &gt;
                 </button>
               </div>
+            </div>
+          )}
+
+          {/* Instant Loot Alerts Banner (WhatsApp & Telegram) */}
+          {!showWishlistOnly && !searchQuery && selectedCategory === 'All' && (
+            <div className="mb-10 bg-gradient-to-r from-indigo-900 via-purple-900 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-indigo-500/20 flex flex-col md:flex-row items-center justify-between gap-6">
+              
+              <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+              <div className="flex items-center gap-4 text-center md:text-left relative z-10">
+                <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-amber-400 text-2xl shrink-0 border border-white/10 shadow-inner">
+                  <FaBell className="animate-bounce" />
+                </div>
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-widest bg-indigo-500/30 text-indigo-300 px-2.5 py-1 rounded-full border border-indigo-400/30">
+                    ⚡ Instant Loot Alerts
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-extrabold mt-2 tracking-tight">
+                    Never Miss a Price Drop Again!
+                  </h3>
+                  <p className="text-xs sm:text-sm text-gray-300 mt-1 max-w-xl">
+                    Join our exclusive WhatsApp & Telegram channels for lightning-fast fitness supplement and tech deal notifications directly on your phone.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto shrink-0 relative z-10">
+                <button
+                  onClick={() => handleSocialClick('telegram')}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#229ED9] hover:bg-[#1f8fb5] text-white font-bold px-6 py-3.5 rounded-2xl text-xs sm:text-sm transition-all shadow-lg shadow-sky-500/20 active:scale-95 hover:scale-105"
+                >
+                  <FaTelegramPlane className="text-lg" />
+                  <span>Join Telegram Channel</span>
+                </button>
+
+                <button
+                  onClick={() => handleSocialClick('whatsapp')}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold px-6 py-3.5 rounded-2xl text-xs sm:text-sm transition-all shadow-lg shadow-emerald-500/20 active:scale-95 hover:scale-105"
+                >
+                  <FaWhatsapp className="text-lg" />
+                  <span>Join WhatsApp Channel</span>
+                </button>
+              </div>
+
             </div>
           )}
 
