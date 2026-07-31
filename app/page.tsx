@@ -275,8 +275,8 @@ export default function Home() {
 
   const handleSocialClick = (platform: 'whatsapp' | 'telegram') => {
     const link = platform === 'whatsapp' 
-      ? 'https://whatsapp.com/channel/your_channel_id' 
-      : 'https://t.me/your_channel_id';
+      ? 'https://whatsapp.com/channel/0029Vb90AINC1Fu2dZh9IQ0E' 
+      : 'https://t.me/shopvibeein';
     
     window.open(link, '_blank');
   };
