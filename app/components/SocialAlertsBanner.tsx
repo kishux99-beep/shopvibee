@@ -6,7 +6,7 @@ export default function SocialAlertsBanner() {
   const handleSocialClick = (platform: 'whatsapp' | 'telegram') => {
     // Yahan par aap apne actual WhatsApp group ya Telegram channel ka link daal sakte hain
     const link = platform === 'whatsapp' 
-      ?  'https://whatsapp.com/channel/0029Vb90AINC1Fu2dZh9IQ0E'
+      ? 'https://whatsapp.com/channel/0029Vb90AINC1Fu2dZh9IQ0E'
       : 'https://t.me/shopvibeein';
     
     window.open(link, '_blank');
