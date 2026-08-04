@@ -78,6 +78,9 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Dynamic Category Clicks Tracking State for Hot Badge Highlight
+  const [categoryClicks, setCategoryClicks] = useState<Record<string, number>>({});
+
   // Back to Top Button Visibility State
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -154,6 +157,16 @@ export default function Home() {
     };
     window.addEventListener('scroll', handleScroll);
 
+    // Load category clicks from localStorage
+    const savedCategoryClicks = localStorage.getItem('shopvibee_category_clicks');
+    if (savedCategoryClicks) {
+      try {
+        setCategoryClicks(JSON.parse(savedCategoryClicks));
+      } catch (e) {
+        console.error('Failed to parse category clicks', e);
+      }
+    }
+
     return () => {
       clearInterval(timer);
       window.removeEventListener('scroll', handleScroll);
@@ -228,6 +241,36 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  // Handle dynamic category click tracking for Hot Badge Highlight
+  const handleCategorySelect = (cat: string) => {
+    setShowWishlistOnly(false);
+    setSelectedCategory(cat);
+    triggerToast(`Filtered by ${cat}`);
+
+    const updatedClicks = {
+      ...categoryClicks,
+      [cat]: (categoryClicks[cat] || 0) + 1,
+    };
+    setCategoryClicks(updatedClicks);
+    localStorage.setItem('shopvibee_category_clicks', JSON.stringify(updatedClicks));
+  };
+
+  // Determine the top trending category dynamically (highest clicks, minimum 1 click to avoid random picking on load)
+  const getTrendingCategory = () => {
+    let maxClicks = 0;
+    let trendingCat = '';
+    Object.entries(categoryClicks).forEach(([cat, clicks]) => {
+      if (clicks > maxClicks) {
+        maxClicks = clicks;
+        trendingCat = cat;
+      }
+    });
+    // Default fallback to 'Supplements' if no clicks recorded yet so the feature looks dynamic right away
+    return trendingCat || 'Supplements';
+  };
+
+  const currentHotCategory = getTrendingCategory();
 
   const toggleWishlist = (e: React.MouseEvent, dealId: number) => {
     e.stopPropagation();
@@ -854,7 +897,7 @@ export default function Home() {
             </div>
           )}
 
-          {/* Category Filters with Professional Compact Icons */}
+          {/* Category Filters with Professional Compact Icons & Dynamic Trending Hot Badge */}
           <div className="relative mb-6 group">
             <button
               onClick={() => scrollCategories('left')}
@@ -865,10 +908,11 @@ export default function Home() {
 
             <div 
               ref={categoryScrollRef}
-              className="flex items-center gap-2.5 overflow-x-auto px-6 py-3 scrollbar-none scroll-smooth"
+              className="flex items-center gap-3 overflow-x-auto px-6 py-3 scrollbar-none scroll-smooth"
             >
               {categories.map((cat) => {
                 const isSelected = !showWishlistOnly && selectedCategory === cat;
+                const isHot = cat === currentHotCategory && cat !== 'All';
                 
                 // Professional & compact category icon mapping
                 let IconComponent = FaThLarge;
@@ -887,17 +931,20 @@ export default function Home() {
                 return (
                   <button
                     key={cat}
-                    onClick={() => {
-                      setShowWishlistOnly(false);
-                      setSelectedCategory(cat);
-                      triggerToast(`Filtered by ${cat}`);
-                    }}
-                    className={`flex flex-col items-center justify-center min-w-[78px] sm:min-w-[88px] px-2.5 py-2.5 rounded-2xl text-[11px] sm:text-xs font-medium transition-all duration-200 shrink-0 active:scale-95 shadow-sm border ${
+                    onClick={() => handleCategorySelect(cat)}
+                    className={`relative flex flex-col items-center justify-center min-w-[82px] sm:min-w-[92px] px-2.5 py-3 rounded-2xl text-[11px] sm:text-xs font-medium transition-all duration-300 shrink-0 active:scale-95 shadow-sm border ${
                       isSelected
                         ? 'bg-indigo-600 text-white border-indigo-600 shadow-indigo-200 scale-105 shadow-md'
                         : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
                     }`}
                   >
+                    {/* Glowing Hot Badge for Trending Category */}
+                    {isHot && (
+                      <span className="absolute -top-2.5 -right-1.5 bg-gradient-to-r from-amber-500 to-rose-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full shadow-md animate-bounce tracking-tighter flex items-center gap-0.5 border border-white/40 z-10">
+                        🔥 Hot
+                      </span>
+                    )}
+
                     <IconComponent className={`text-sm sm:text-base mb-1 transition-transform ${isSelected ? 'text-white scale-110' : 'text-indigo-600'}`} />
                     <span className="truncate w-full text-center tracking-tight">{cat}</span>
                   </button>
