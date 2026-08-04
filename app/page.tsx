@@ -78,9 +78,6 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Dynamic Category Clicks Tracking State for Hot Badge Highlight
-  const [categoryClicks, setCategoryClicks] = useState<Record<string, number>>({});
-
   // Back to Top Button Visibility State
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -157,16 +154,6 @@ export default function Home() {
     };
     window.addEventListener('scroll', handleScroll);
 
-    // Load category clicks from localStorage
-    const savedCategoryClicks = localStorage.getItem('shopvibee_category_clicks');
-    if (savedCategoryClicks) {
-      try {
-        setCategoryClicks(JSON.parse(savedCategoryClicks));
-      } catch (e) {
-        console.error('Failed to parse category clicks', e);
-      }
-    }
-
     return () => {
       clearInterval(timer);
       window.removeEventListener('scroll', handleScroll);
@@ -242,35 +229,31 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Handle dynamic category click tracking for Hot Badge Highlight
+  // Secure Real-Data Based Trending Calculation (Counts active deals per category dynamically)
+  const getTrendingCategoryByDealCount = () => {
+    const categoryCounts: Record<string, number> = {};
+    initialDeals.forEach((deal) => {
+      categoryCounts[deal.category] = (categoryCounts[deal.category] || 0) + 1;
+    });
+
+    let maxDeals = 0;
+    let trendingCat = 'Supplements';
+    Object.entries(categoryCounts).forEach(([cat, count]) => {
+      if (count > maxDeals) {
+        maxDeals = count;
+        trendingCat = cat;
+      }
+    });
+    return trendingCat;
+  };
+
+  const currentHotCategory = getTrendingCategoryByDealCount();
+
   const handleCategorySelect = (cat: string) => {
     setShowWishlistOnly(false);
     setSelectedCategory(cat);
     triggerToast(`Filtered by ${cat}`);
-
-    const updatedClicks = {
-      ...categoryClicks,
-      [cat]: (categoryClicks[cat] || 0) + 1,
-    };
-    setCategoryClicks(updatedClicks);
-    localStorage.setItem('shopvibee_category_clicks', JSON.stringify(updatedClicks));
   };
-
-  // Determine the top trending category dynamically (highest clicks, minimum 1 click to avoid random picking on load)
-  const getTrendingCategory = () => {
-    let maxClicks = 0;
-    let trendingCat = '';
-    Object.entries(categoryClicks).forEach(([cat, clicks]) => {
-      if (clicks > maxClicks) {
-        maxClicks = clicks;
-        trendingCat = cat;
-      }
-    });
-    // Default fallback to 'Supplements' if no clicks recorded yet so the feature looks dynamic right away
-    return trendingCat || 'Supplements';
-  };
-
-  const currentHotCategory = getTrendingCategory();
 
   const toggleWishlist = (e: React.MouseEvent, dealId: number) => {
     e.stopPropagation();
@@ -897,7 +880,7 @@ export default function Home() {
             </div>
           )}
 
-          {/* Category Filters with Professional Compact Icons & Dynamic Trending Hot Badge */}
+          {/* Category Filters with Professional Compact Icons & Secure Real Deal Count Hot Badge */}
           <div className="relative mb-6 group">
             <button
               onClick={() => scrollCategories('left')}
@@ -938,7 +921,7 @@ export default function Home() {
                         : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
                     }`}
                   >
-                    {/* Glowing Hot Badge for Trending Category */}
+                    {/* Glowing Hot Badge for Real Deal-Count Based Trending Category */}
                     {isHot && (
                       <span className="absolute -top-2.5 -right-1.5 bg-gradient-to-r from-amber-500 to-rose-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full shadow-md animate-bounce tracking-tighter flex items-center gap-0.5 border border-white/40 z-10">
                         🔥 Hot
