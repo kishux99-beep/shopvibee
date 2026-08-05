@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { initialDeals, categories, Deal } from '@/data/deals';
 import { flashDealsData, FlashDeal, flashDurationHours, flashDurationMinutes } from '@/data/flashDeals'; 
 import { topDealsData, TopDeal } from '@/data/topDeals';
@@ -67,13 +68,13 @@ function DealSkeleton() {
 }
 
 export default function Home() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedDeal, setSelectedDeal] = useState<Deal | FlashDeal | TopDeal | null>(null);
   const [copied, setCopied] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -144,7 +145,6 @@ export default function Home() {
       });
     }, 1000);
 
-    // Scroll event listener for Back-to-Top button
     const handleScroll = () => {
       if (window.scrollY > 400) {
         setShowScrollTop(true);
@@ -158,6 +158,24 @@ export default function Home() {
       clearInterval(timer);
       window.removeEventListener('scroll', handleScroll);
     };
+  }, []);
+
+  // Sync wishlist from localStorage on window focus / mount
+  useEffect(() => {
+    const syncWishlist = () => {
+      const savedWishlist = localStorage.getItem('shopvibee_wishlist');
+      if (savedWishlist) {
+        try {
+          setWishlist(JSON.parse(savedWishlist));
+        } catch (e) {
+          console.error('Failed to parse wishlist', e);
+        }
+      }
+    };
+
+    syncWishlist();
+    window.addEventListener('focus', syncWishlist);
+    return () => window.removeEventListener('focus', syncWishlist);
   }, []);
 
   useEffect(() => {
@@ -212,15 +230,6 @@ export default function Home() {
       setIsLoading(false);
     }, 600);
 
-    const savedWishlist = localStorage.getItem('shopvibee_wishlist');
-    if (savedWishlist) {
-      try {
-        setWishlist(JSON.parse(savedWishlist));
-      } catch (e) {
-        console.error('Failed to parse wishlist', e);
-      }
-    }
-
     const savedEmail = localStorage.getItem('shopvibee_user_email');
     const savedSubState = localStorage.getItem('shopvibee_is_subscribed');
     if (savedEmail) setAlertEmail(savedEmail);
@@ -229,7 +238,6 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Secure Real-Data Based Trending Calculation (Counts active deals per category dynamically)
   const getTrendingCategoryByDealCount = () => {
     const categoryCounts: Record<string, number> = {};
     initialDeals.forEach((deal) => {
@@ -283,7 +291,7 @@ export default function Home() {
     const shareData = {
       title: deal.title,
       text: `🔥 Check out this deal on ShopVibee: ${deal.title} at ${deal.price} (${deal.discount})!`,
-      url: window.location.href,
+      url: `${window.location.origin}/deal/${deal.id}`,
     };
 
     if (navigator.share) {
@@ -307,7 +315,14 @@ export default function Home() {
     window.open(link, '_blank');
   };
 
-  const searchSuggestions = searchQuery.trim() === '' ? [] : initialDeals.filter((deal) => {
+  // Combine initialDeals, flashDealsData, and topDealsData for search and wishlist filtering
+  const allAvailableDeals: (Deal | FlashDeal | TopDeal)[] = [
+    ...initialDeals,
+    ...flashDealsData,
+    ...topDealsData,
+  ];
+
+  const searchSuggestions = searchQuery.trim() === '' ? [] : allAvailableDeals.filter((deal) => {
     const q = searchQuery.toLowerCase();
     return (
       deal.title.toLowerCase().includes(q) ||
@@ -316,32 +331,31 @@ export default function Home() {
     );
   }).slice(0, 6);
 
-  const filteredDeals = initialDeals.filter((deal) => {
-    const matchesCategory =
-      selectedCategory === 'All' || deal.category === selectedCategory;
+  const filteredDeals = Array.from(
+    new Map(
+      allAvailableDeals
+        .filter((deal) => {
+          const matchesCategory =
+            selectedCategory === 'All' || deal.category === selectedCategory;
 
-    const query = debouncedSearchQuery ? debouncedSearchQuery.toLowerCase().trim() : '';
-    const matchesSearch =
-      !query ||
-      (deal.title && deal.title.toLowerCase().includes(query)) ||
-      (deal.category && deal.category.toLowerCase().includes(query)) ||
-      (deal.description && deal.description.toLowerCase().includes(query)) ||
-      (deal.store && deal.store.toLowerCase().includes(query));
+          const query = debouncedSearchQuery ? debouncedSearchQuery.toLowerCase().trim() : '';
+          const matchesSearch =
+            !query ||
+            (deal.title && deal.title.toLowerCase().includes(query)) ||
+            (deal.category && deal.category.toLowerCase().includes(query)) ||
+            (deal.description && deal.description.toLowerCase().includes(query)) ||
+            (deal.store && deal.store.toLowerCase().includes(query));
 
-    const matchesWishlist = showWishlistOnly ? wishlist.includes(deal.id) : true;
+          const matchesWishlist = showWishlistOnly ? wishlist.includes(deal.id) : true;
 
-    return matchesCategory && matchesSearch && matchesWishlist;
-  });
+          return matchesCategory && matchesSearch && matchesWishlist;
+        })
+        .map((deal) => [deal.id, deal])
+    ).values()
+  );
 
   const top10Deals = topDealsData;
   const flashDeals = flashDealsData;
-
-  const handleCopyCode = (code: string) => {
-    navigator.clipboard.writeText(code);
-    setCopied(true);
-    triggerToast(`Promo code '${code}' copied! 📋`);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const handleCategoryCheckboxChange = (catName: string) => {
     if (selectedAlertCategories.includes(catName)) {
@@ -539,9 +553,8 @@ export default function Home() {
                     <div
                       key={item.id}
                       onClick={() => {
-                        setSearchQuery(item.title);
                         setIsSearchFocused(false);
-                        setSelectedDeal(item);
+                        router.push(`/deal/${item.id}`);
                       }}
                       className="px-4 py-3 hover:bg-indigo-50 cursor-pointer flex items-center justify-between transition group"
                     >
@@ -604,31 +617,24 @@ export default function Home() {
           </div>
         </header>
 
-        {/* High-Impact Hero Section - Compact & Sleek Look */}
+        {/* High-Impact Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 text-white py-10 sm:py-14 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
-          
-          {/* Background Glow Effect */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-indigo-600/20 blur-[100px] rounded-full pointer-events-none" />
 
           <div className="max-w-4xl mx-auto text-center relative z-10">
-            
-            {/* Top Announcement / Trust Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[11px] sm:text-xs font-medium mb-4 shadow-inner backdrop-blur-md">
               <FaFire className="text-amber-400 animate-pulse" />
               <span>Handpicked Fitness & Tech Deals • Updated Daily</span>
             </div>
 
-            {/* Bold Value Proposition Headline */}
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-white max-w-2xl mx-auto">
               Unlock the Best <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">Curated Deals</span> & Discounts.
             </h1>
 
-            {/* Subtitle */}
             <p className="mt-3 text-xs sm:text-sm text-gray-300 max-w-xl mx-auto leading-relaxed">
               Skip the endless searching. We bring you hand-verified product discounts, top supplement recommendations, and exclusive tech offers all in one place.
             </p>
 
-            {/* Action Buttons */}
             <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
                 href="#deals"
@@ -646,7 +652,6 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Trust Badges Bar */}
             <div className="mt-8 pt-6 border-t border-gray-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3 text-gray-400 text-xs font-medium">
               <div className="flex items-center justify-center gap-2 bg-gray-800/40 py-2.5 px-3 rounded-xl border border-gray-800">
                 <FaCheckCircle className="text-emerald-400 text-sm" />
@@ -709,10 +714,7 @@ export default function Home() {
                   {flashDeals.map((deal) => (
                     <div
                       key={deal.id}
-                      onClick={() => {
-                        setSelectedDeal(deal);
-                        setCopied(false);
-                      }}
+                      onClick={() => router.push(`/deal/${deal.id}`)}
                       className="min-w-[260px] max-w-[260px] sm:min-w-[280px] sm:max-w-[280px] bg-white text-gray-900 rounded-2xl overflow-hidden border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col cursor-pointer group/card shrink-0 hover:-translate-y-1 relative"
                     >
                       <div className="relative aspect-video bg-gray-100 overflow-hidden">
@@ -786,10 +788,7 @@ export default function Home() {
                   {top10Deals.map((deal, idx) => (
                     <div
                       key={deal.id}
-                      onClick={() => {
-                        setSelectedDeal(deal);
-                        setCopied(false);
-                      }}
+                      onClick={() => router.push(`/deal/${deal.id}`)}
                       className="min-w-[260px] max-w-[260px] sm:min-w-[280px] sm:max-w-[280px] bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer group/card shrink-0 hover:-translate-y-1 relative"
                     >
                       <div className="relative aspect-video bg-gray-100 overflow-hidden">
@@ -836,7 +835,7 @@ export default function Home() {
             </div>
           )}
 
-          {/* Instant Loot Alerts Banner (WhatsApp & Telegram) */}
+          {/* Instant Loot Alerts Banner */}
           {!showWishlistOnly && !searchQuery && selectedCategory === 'All' && (
             <div className="mb-10 bg-gradient-to-r from-indigo-900 via-purple-900 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-indigo-500/20 flex flex-col md:flex-row items-center justify-between gap-6">
               
@@ -880,7 +879,7 @@ export default function Home() {
             </div>
           )}
 
-          {/* Category Filters with Professional Compact Icons & Secure Real Deal Count Hot Badge */}
+          {/* Category Filters */}
           <div className="relative mb-6 group">
             <button
               onClick={() => scrollCategories('left')}
@@ -897,7 +896,6 @@ export default function Home() {
                 const isSelected = !showWishlistOnly && selectedCategory === cat;
                 const isHot = cat === currentHotCategory && cat !== 'All';
                 
-                // Professional & compact category icon mapping
                 let IconComponent = FaThLarge;
                 const lowerCat = cat.toLowerCase();
 
@@ -921,7 +919,6 @@ export default function Home() {
                         : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
                     }`}
                   >
-                    {/* Glowing Hot Badge for Real Deal-Count Based Trending Category */}
                     {isHot && (
                       <span className="absolute -top-2.5 -right-1.5 bg-gradient-to-r from-amber-500 to-rose-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full shadow-md animate-bounce tracking-tighter flex items-center gap-0.5 border border-white/40 z-10">
                         🔥 Hot
@@ -958,7 +955,7 @@ export default function Home() {
             </span>
           </div>
 
-          {/* Deals Grid - 2 Products per row on Mobile, 4 on Desktop */}
+          {/* Deals Grid */}
           {isLoading ? (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
               {[...Array(8)].map((_, i) => (
@@ -972,10 +969,7 @@ export default function Home() {
                 return (
                   <div 
                     key={deal.id} 
-                    onClick={() => {
-                      setSelectedDeal(deal);
-                      setCopied(false);
-                    }}
+                    onClick={() => router.push(`/deal/${deal.id}`)}
                     className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer group hover:-translate-y-1 relative"
                   >
                     <div className="relative aspect-video bg-gray-100 overflow-hidden">
@@ -1038,8 +1032,7 @@ export default function Home() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setSelectedDeal(deal);
-                          setCopied(false);
+                          router.push(`/deal/${deal.id}`);
                         }}
                         className="mt-3 sm:mt-4 block w-full text-center bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-sm transition active:scale-95"
                       >
@@ -1269,105 +1262,6 @@ export default function Home() {
                 We respect your privacy. Unsubscribe at any time.
               </p>
             )}
-          </div>
-        </div>
-      )}
-
-      {/* Product Detail Modal */}
-      {selectedDeal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl relative max-h-[90vh] flex flex-col border">
-            
-            <button 
-              onClick={() => setSelectedDeal(null)}
-              className="absolute top-3 right-3 z-10 bg-black/40 hover:bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center transition"
-            >
-              ✕
-            </button>
-
-            <div className="relative h-56 sm:h-64 bg-gray-100 shrink-0">
-              <img 
-                src={selectedDeal.image} 
-                alt={selectedDeal.title}
-                className="w-full h-full object-cover" 
-              />
-              <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-md">
-                {selectedDeal.discount}
-              </span>
-              <span className="absolute bottom-3 left-3 bg-amber-500 text-white text-xs font-semibold px-2.5 py-1 rounded-md">
-                ⏳ Limited Time
-              </span>
-            </div>
-
-            <div className="p-5 sm:p-6 overflow-y-auto flex-1">
-              <div className="flex items-center justify-between text-xs font-medium text-gray-500 mb-1">
-                <span className="uppercase tracking-wider text-indigo-600 font-semibold">{selectedDeal.category}</span>
-                <span className="bg-gray-100 text-gray-800 px-2 py-0.5 rounded font-medium">Store: {selectedDeal.store}</span>
-              </div>
-
-              <h2 className="text-lg sm:text-xl font-bold text-gray-900">{selectedDeal.title}</h2>
-
-              <div className="flex items-baseline gap-3 my-3">
-                <span className="text-2xl sm:text-3xl font-extrabold text-gray-900">{selectedDeal.price}</span>
-                <span className="text-base text-gray-400 line-through">{selectedDeal.originalPrice}</span>
-              </div>
-
-              {selectedDeal.promoCode && (
-                <div className="my-3 p-3 bg-indigo-50 border border-dashed border-indigo-200 rounded-2xl flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] uppercase tracking-wider text-indigo-500 font-bold block">Extra Discount Code</span>
-                    <span className="text-sm font-mono font-extrabold text-indigo-900">{selectedDeal.promoCode}</span>
-                  </div>
-                  <button
-                    onClick={() => handleCopyCode(selectedDeal.promoCode!)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition active:scale-95 ${
-                      copied
-                        ? 'bg-emerald-600 text-white'
-                        : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-                    }`}
-                  >
-                    {copied ? '✓ Copied!' : 'Copy Code'}
-                  </button>
-                </div>
-              )}
-
-              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mt-2">
-                {selectedDeal.description}
-              </p>
-
-              <div className="mt-4">
-                <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide mb-2">Deal Highlights</h4>
-                <ul className="space-y-1.5">
-                  {selectedDeal.features.map((feature, idx) => (
-                    <li key={idx} className="text-xs text-gray-600 flex items-center gap-2">
-                      <span className="text-indigo-600 font-bold">✓</span> {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="p-4 border-t border-gray-100 bg-gray-50 shrink-0 flex items-center gap-2">
-              <button
-                onClick={(e) => handleShareDeal(e, selectedDeal)}
-                className="p-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-2xl transition font-semibold text-sm flex items-center justify-center gap-1.5 active:scale-95"
-                title="Share Deal"
-              >
-                <span>↗️</span>
-                <span className="hidden sm:inline">Share</span>
-              </button>
-
-              <a
-                href={selectedDeal.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => triggerToast(`Redirecting to ${selectedDeal.store}... 🚀`)}
-                className="flex-1 text-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-indigo-200 transition text-sm sm:text-base active:scale-95"
-              >
-                Buy Now on {selectedDeal.store} &rarr;
-              </a>
-            </div>
-
           </div>
         </div>
       )}
