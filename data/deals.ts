@@ -43,9 +43,10 @@ export const initialDeals: Deal[] = [
     price: '₹5,499',
     originalPrice: '₹7,699',
     discount: '28% OFF',
-    image: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80&w=800',
+    image: 'https://i.ibb.co/WWV5wrkQ/Whats-App-Image-2026-01-15-at-9-24-49-AM.jpg',
     images: [
       'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80&w=800',
+      'https://i.ibb.co/WWV5wrkQ/Whats-App-Image-2026-01-15-at-9-24-49-AM.jpg',
       'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=800'
     ],
     store: 'Wellversed',

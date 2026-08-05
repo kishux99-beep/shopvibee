@@ -49,4 +49,20 @@ export const topDealsData: TopDeal[] = [
     description: 'Industry-leading noise cancellation with two processors and 8 microphones for pristine sound quality.',
     features: ['30-hour battery life', 'Crystal clear hands-free calling', 'Ultra-comfortable lightweight design']
   },
+  {
+    id: 1,
+    title: 'Optimum Nutrition (ON) Gold Standard 100% Whey Protein',
+    category: 'Supplements',
+    price: '₹5,499',
+    originalPrice: '₹7,699',
+    discount: '28% OFF',
+    image: 'https://i.ibb.co/WWV5wrkQ/Whats-App-Image-2026-01-15-at-9-24-49-AM.jpg',
+    
+    store: 'Wellversed',
+    link: 'https://wellversed.in',
+    expiresIn: '3 days left',
+    promoCode: 'VIBEE28',
+    description: 'World-renowned whey protein powder to support muscle building and fast post-workout recovery.',
+    features: ['24g Protein per serving', '5.5g BCAAs', 'Low Sugar & Informed Choice Certified']
+  },
 ];
