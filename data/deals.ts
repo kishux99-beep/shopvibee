@@ -46,7 +46,6 @@ export const initialDeals: Deal[] = [
     image: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80&w=800',
     images: [
       'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1579722820308-d74e571500a0?auto=format&fit=crop&q=80&w=800',
       'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=800'
     ],
     store: 'Wellversed',
