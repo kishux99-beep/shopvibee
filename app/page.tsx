@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { initialDeals, categories, Deal } from '@/data/deals';
 import { flashDealsData, FlashDeal, flashDurationHours, flashDurationMinutes } from '@/data/flashDeals'; 
 import { topDealsData, TopDeal } from '@/data/topDeals';
@@ -68,13 +67,13 @@ function DealSkeleton() {
 }
 
 export default function Home() {
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedDeal, setSelectedDeal] = useState<Deal | FlashDeal | TopDeal | null>(null);
   const [copied, setCopied] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -145,6 +144,7 @@ export default function Home() {
       });
     }, 1000);
 
+    // Scroll event listener for Back-to-Top button
     const handleScroll = () => {
       if (window.scrollY > 400) {
         setShowScrollTop(true);
@@ -283,7 +283,7 @@ export default function Home() {
     const shareData = {
       title: deal.title,
       text: `🔥 Check out this deal on ShopVibee: ${deal.title} at ${deal.price} (${deal.discount})!`,
-      url: `${window.location.origin}/deal/${deal.id}`,
+      url: window.location.href,
     };
 
     if (navigator.share) {
@@ -335,6 +335,13 @@ export default function Home() {
 
   const top10Deals = topDealsData;
   const flashDeals = flashDealsData;
+
+  const handleCopyCode = (code: string) => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    triggerToast(`Promo code '${code}' copied! 📋`);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleCategoryCheckboxChange = (catName: string) => {
     if (selectedAlertCategories.includes(catName)) {
@@ -532,8 +539,9 @@ export default function Home() {
                     <div
                       key={item.id}
                       onClick={() => {
+                        setSearchQuery(item.title);
                         setIsSearchFocused(false);
-                        router.push(`/deal/${item.id}`);
+                        setSelectedDeal(item);
                       }}
                       className="px-4 py-3 hover:bg-indigo-50 cursor-pointer flex items-center justify-between transition group"
                     >
@@ -596,24 +604,31 @@ export default function Home() {
           </div>
         </header>
 
-        {/* Hero Section */}
+        {/* High-Impact Hero Section - Compact & Sleek Look */}
         <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 text-white py-10 sm:py-14 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
+          
+          {/* Background Glow Effect */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-indigo-600/20 blur-[100px] rounded-full pointer-events-none" />
 
           <div className="max-w-4xl mx-auto text-center relative z-10">
+            
+            {/* Top Announcement / Trust Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[11px] sm:text-xs font-medium mb-4 shadow-inner backdrop-blur-md">
               <FaFire className="text-amber-400 animate-pulse" />
               <span>Handpicked Fitness & Tech Deals • Updated Daily</span>
             </div>
 
+            {/* Bold Value Proposition Headline */}
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-white max-w-2xl mx-auto">
               Unlock the Best <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">Curated Deals</span> & Discounts.
             </h1>
 
+            {/* Subtitle */}
             <p className="mt-3 text-xs sm:text-sm text-gray-300 max-w-xl mx-auto leading-relaxed">
               Skip the endless searching. We bring you hand-verified product discounts, top supplement recommendations, and exclusive tech offers all in one place.
             </p>
 
+            {/* Action Buttons */}
             <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
                 href="#deals"
@@ -623,7 +638,30 @@ export default function Home() {
                 <span>Explore Live Deals</span>
                 <FaArrowRight className="text-xs ml-1" />
               </a>
+              <Link
+                href="/contact"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gray-800/80 hover:bg-gray-800 text-gray-200 hover:text-white font-medium px-6 py-3 rounded-xl text-xs sm:text-sm border border-gray-700/60 transition-all duration-300 backdrop-blur-md"
+              >
+                <span>Partner / Sponsor</span>
+              </Link>
             </div>
+
+            {/* Trust Badges Bar */}
+            <div className="mt-8 pt-6 border-t border-gray-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3 text-gray-400 text-xs font-medium">
+              <div className="flex items-center justify-center gap-2 bg-gray-800/40 py-2.5 px-3 rounded-xl border border-gray-800">
+                <FaCheckCircle className="text-emerald-400 text-sm" />
+                <span>100% Verified Deals</span>
+              </div>
+              <div className="flex items-center justify-center gap-2 bg-gray-800/40 py-2.5 px-3 rounded-xl border border-gray-800">
+                <FaShieldAlt className="text-indigo-400 text-sm" />
+                <span>Trusted by Shoppers</span>
+              </div>
+              <div className="flex items-center justify-center gap-2 bg-gray-800/40 py-2.5 px-3 rounded-xl border border-gray-800">
+                <FaBolt className="text-amber-400 text-sm" />
+                <span>Zero Spam, Pure Value</span>
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -633,6 +671,8 @@ export default function Home() {
           {/* Flash Deals Section */}
           {!showWishlistOnly && !searchQuery && selectedCategory === 'All' && (
             <div className="mb-10 bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 rounded-3xl p-4 sm:p-6 text-white shadow-xl relative overflow-hidden">
+              <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+              
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-3">
                   <span className="text-2xl sm:text-3xl animate-bounce">⚡</span>
@@ -669,7 +709,10 @@ export default function Home() {
                   {flashDeals.map((deal) => (
                     <div
                       key={deal.id}
-                      onClick={() => router.push(`/deal/${deal.id}`)}
+                      onClick={() => {
+                        setSelectedDeal(deal);
+                        setCopied(false);
+                      }}
                       className="min-w-[260px] max-w-[260px] sm:min-w-[280px] sm:max-w-[280px] bg-white text-gray-900 rounded-2xl overflow-hidden border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col cursor-pointer group/card shrink-0 hover:-translate-y-1 relative"
                     >
                       <div className="relative aspect-video bg-gray-100 overflow-hidden">
@@ -743,7 +786,10 @@ export default function Home() {
                   {top10Deals.map((deal, idx) => (
                     <div
                       key={deal.id}
-                      onClick={() => router.push(`/deal/${deal.id}`)}
+                      onClick={() => {
+                        setSelectedDeal(deal);
+                        setCopied(false);
+                      }}
                       className="min-w-[260px] max-w-[260px] sm:min-w-[280px] sm:max-w-[280px] bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer group/card shrink-0 hover:-translate-y-1 relative"
                     >
                       <div className="relative aspect-video bg-gray-100 overflow-hidden">
@@ -790,7 +836,51 @@ export default function Home() {
             </div>
           )}
 
-          {/* Category Filters */}
+          {/* Instant Loot Alerts Banner (WhatsApp & Telegram) */}
+          {!showWishlistOnly && !searchQuery && selectedCategory === 'All' && (
+            <div className="mb-10 bg-gradient-to-r from-indigo-900 via-purple-900 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-indigo-500/20 flex flex-col md:flex-row items-center justify-between gap-6">
+              
+              <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+              <div className="flex items-center gap-4 text-center md:text-left relative z-10">
+                <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-amber-400 text-2xl shrink-0 border border-white/10 shadow-inner">
+                  <FaBell className="animate-bounce" />
+                </div>
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-widest bg-indigo-500/30 text-indigo-300 px-2.5 py-1 rounded-full border border-indigo-400/30">
+                    ⚡ Instant Loot Alerts
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-extrabold mt-2 tracking-tight">
+                    Never Miss a Price Drop Again!
+                  </h3>
+                  <p className="text-xs sm:text-sm text-gray-300 mt-1 max-w-xl">
+                    Join our exclusive WhatsApp & Telegram channels for lightning-fast fitness supplement and tech deal notifications directly on your phone.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto shrink-0 relative z-10">
+                <button
+                  onClick={() => handleSocialClick('telegram')}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#229ED9] hover:bg-[#1f8fb5] text-white font-bold px-6 py-3.5 rounded-2xl text-xs sm:text-sm transition-all shadow-lg shadow-sky-500/20 active:scale-95 hover:scale-105"
+                >
+                  <FaTelegramPlane className="text-lg" />
+                  <span>Join Telegram Channel</span>
+                </button>
+
+                <button
+                  onClick={() => handleSocialClick('whatsapp')}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold px-6 py-3.5 rounded-2xl text-xs sm:text-sm transition-all shadow-lg shadow-emerald-500/20 active:scale-95 hover:scale-105"
+                >
+                  <FaWhatsapp className="text-lg" />
+                  <span>Join WhatsApp Channel</span>
+                </button>
+              </div>
+
+            </div>
+          )}
+
+          {/* Category Filters with Professional Compact Icons & Secure Real Deal Count Hot Badge */}
           <div className="relative mb-6 group">
             <button
               onClick={() => scrollCategories('left')}
@@ -807,6 +897,7 @@ export default function Home() {
                 const isSelected = !showWishlistOnly && selectedCategory === cat;
                 const isHot = cat === currentHotCategory && cat !== 'All';
                 
+                // Professional & compact category icon mapping
                 let IconComponent = FaThLarge;
                 const lowerCat = cat.toLowerCase();
 
@@ -830,6 +921,7 @@ export default function Home() {
                         : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
                     }`}
                   >
+                    {/* Glowing Hot Badge for Real Deal-Count Based Trending Category */}
                     {isHot && (
                       <span className="absolute -top-2.5 -right-1.5 bg-gradient-to-r from-amber-500 to-rose-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full shadow-md animate-bounce tracking-tighter flex items-center gap-0.5 border border-white/40 z-10">
                         🔥 Hot
@@ -866,7 +958,7 @@ export default function Home() {
             </span>
           </div>
 
-          {/* Deals Grid */}
+          {/* Deals Grid - 2 Products per row on Mobile, 4 on Desktop */}
           {isLoading ? (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
               {[...Array(8)].map((_, i) => (
@@ -880,7 +972,10 @@ export default function Home() {
                 return (
                   <div 
                     key={deal.id} 
-                    onClick={() => router.push(`/deal/${deal.id}`)}
+                    onClick={() => {
+                      setSelectedDeal(deal);
+                      setCopied(false);
+                    }}
                     className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer group hover:-translate-y-1 relative"
                   >
                     <div className="relative aspect-video bg-gray-100 overflow-hidden">
@@ -893,6 +988,12 @@ export default function Home() {
                       <span className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-red-500 text-white text-[9px] sm:text-xs font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md shadow-sm z-10">
                         {deal.discount}
                       </span>
+
+                      {deal.originalPrice && (
+                        <span className="hidden sm:flex absolute top-3 left-20 bg-emerald-600 text-white text-xs font-extrabold px-2 py-1 rounded-md shadow-md items-center gap-1 z-10">
+                          <span>📉</span> Price Drop
+                        </span>
+                      )}
 
                       <div className="absolute top-2 sm:top-3 right-2 sm:right-3 flex items-center gap-1 sm:gap-1.5 z-10">
                         <button
@@ -937,7 +1038,8 @@ export default function Home() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          router.push(`/deal/${deal.id}`);
+                          setSelectedDeal(deal);
+                          setCopied(false);
                         }}
                         className="mt-3 sm:mt-4 block w-full text-center bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-sm transition active:scale-95"
                       >
@@ -966,6 +1068,102 @@ export default function Home() {
             </div>
           )}
         </main>
+
+        {/* Trust & Testimonials Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full border border-indigo-100">
+              Real Experiences
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-3">
+              Trusted by Fitness & Tech Shoppers
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-500 mt-2">
+              Here is what our community has to say about finding genuine deals and discounts on ShopVibee.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Testimonial 1 */}
+            <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+              <div>
+                <div className="flex items-center gap-1 text-amber-400 text-sm mb-3">
+                  ★★★★★
+                </div>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  "ShopVibee ne mera whey protein aur supplements ka kafi paisa bacha liya. Yahan milne wale verified coupon codes 100% kaam karte hain!"
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-gray-50 flex items-center gap-3">
+                <div className="w-9 h-9 bg-indigo-100 text-indigo-700 font-bold rounded-full flex items-center justify-center text-xs">
+                  AK
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs sm:text-sm text-gray-900">Aman Kumar</h4>
+                  <span className="text-[10px] text-gray-400">Fitness Enthusiast</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 2 */}
+            <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+              <div>
+                <div className="flex items-center gap-1 text-amber-400 text-sm mb-3">
+                  ★★★★★
+                </div>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  "The flash deals section is amazing. Found a great discount on tech gadgets with zero hassle. Highly recommend checking it daily."
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-gray-50 flex items-center gap-3">
+                <div className="w-9 h-9 bg-purple-100 text-purple-700 font-bold rounded-full flex items-center justify-center text-xs">
+                  RP
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs sm:text-sm text-gray-900">Rahul Sharma</h4>
+                  <span className="text-[10px] text-gray-400">Tech Shopper</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 3 */}
+            <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+              <div>
+                <div className="flex items-center gap-1 text-amber-400 text-sm mb-3">
+                  ★★★★★
+                </div>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  "Clean interface, no annoying ads, and straight-to-the-point genuine affiliate deals. My go-to site before buying anything online!"
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-gray-50 flex items-center gap-3">
+                <div className="w-9 h-9 bg-emerald-100 text-emerald-700 font-bold rounded-full flex items-center justify-center text-xs">
+                  NV
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs sm:text-sm text-gray-900">Neha Verma</h4>
+                  <span className="text-[10px] text-gray-400">Online Shopper</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Partner Trust Bar */}
+          <div className="mt-12 pt-8 border-t border-gray-100 text-center">
+            <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-4">
+              Featured Brands & Partner Merchants
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12 opacity-70 grayscale hover:grayscale-0 transition duration-300">
+              <span className="font-extrabold text-sm sm:text-base text-gray-700 tracking-wider">WELLVERSED</span>
+              <span className="font-extrabold text-sm sm:text-base text-gray-700 tracking-wider">AMAZON DEALS</span>
+              <span className="font-extrabold text-sm sm:text-base text-gray-700 tracking-wider">FLIPKART PICKS</span>
+              <span className="font-extrabold text-sm sm:text-base text-gray-700 tracking-wider">SECURE PAYMENTS</span>
+            </div>
+          </div>
+        </section>
+
       </div>
 
       {/* Get Alerts & Preferences Modal */}
@@ -1065,6 +1263,111 @@ export default function Home() {
                 </button>
               </div>
             )}
+
+            {!isSubscribed && (
+              <p className="text-[11px] text-center text-gray-400 mt-4">
+                We respect your privacy. Unsubscribe at any time.
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Product Detail Modal */}
+      {selectedDeal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl relative max-h-[90vh] flex flex-col border">
+            
+            <button 
+              onClick={() => setSelectedDeal(null)}
+              className="absolute top-3 right-3 z-10 bg-black/40 hover:bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center transition"
+            >
+              ✕
+            </button>
+
+            <div className="relative h-56 sm:h-64 bg-gray-100 shrink-0">
+              <img 
+                src={selectedDeal.image} 
+                alt={selectedDeal.title}
+                className="w-full h-full object-cover" 
+              />
+              <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-md">
+                {selectedDeal.discount}
+              </span>
+              <span className="absolute bottom-3 left-3 bg-amber-500 text-white text-xs font-semibold px-2.5 py-1 rounded-md">
+                ⏳ Limited Time
+              </span>
+            </div>
+
+            <div className="p-5 sm:p-6 overflow-y-auto flex-1">
+              <div className="flex items-center justify-between text-xs font-medium text-gray-500 mb-1">
+                <span className="uppercase tracking-wider text-indigo-600 font-semibold">{selectedDeal.category}</span>
+                <span className="bg-gray-100 text-gray-800 px-2 py-0.5 rounded font-medium">Store: {selectedDeal.store}</span>
+              </div>
+
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900">{selectedDeal.title}</h2>
+
+              <div className="flex items-baseline gap-3 my-3">
+                <span className="text-2xl sm:text-3xl font-extrabold text-gray-900">{selectedDeal.price}</span>
+                <span className="text-base text-gray-400 line-through">{selectedDeal.originalPrice}</span>
+              </div>
+
+              {selectedDeal.promoCode && (
+                <div className="my-3 p-3 bg-indigo-50 border border-dashed border-indigo-200 rounded-2xl flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] uppercase tracking-wider text-indigo-500 font-bold block">Extra Discount Code</span>
+                    <span className="text-sm font-mono font-extrabold text-indigo-900">{selectedDeal.promoCode}</span>
+                  </div>
+                  <button
+                    onClick={() => handleCopyCode(selectedDeal.promoCode!)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition active:scale-95 ${
+                      copied
+                        ? 'bg-emerald-600 text-white'
+                        : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                    }`}
+                  >
+                    {copied ? '✓ Copied!' : 'Copy Code'}
+                  </button>
+                </div>
+              )}
+
+              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mt-2">
+                {selectedDeal.description}
+              </p>
+
+              <div className="mt-4">
+                <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide mb-2">Deal Highlights</h4>
+                <ul className="space-y-1.5">
+                  {selectedDeal.features.map((feature, idx) => (
+                    <li key={idx} className="text-xs text-gray-600 flex items-center gap-2">
+                      <span className="text-indigo-600 font-bold">✓</span> {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="p-4 border-t border-gray-100 bg-gray-50 shrink-0 flex items-center gap-2">
+              <button
+                onClick={(e) => handleShareDeal(e, selectedDeal)}
+                className="p-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-2xl transition font-semibold text-sm flex items-center justify-center gap-1.5 active:scale-95"
+                title="Share Deal"
+              >
+                <span>↗️</span>
+                <span className="hidden sm:inline">Share</span>
+              </button>
+
+              <a
+                href={selectedDeal.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => triggerToast(`Redirecting to ${selectedDeal.store}... 🚀`)}
+                className="flex-1 text-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-indigo-200 transition text-sm sm:text-base active:scale-95"
+              >
+                Buy Now on {selectedDeal.store} &rarr;
+              </a>
+            </div>
+
           </div>
         </div>
       )}
@@ -1072,6 +1375,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-white border-t border-gray-100 pt-10 pb-6 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-gray-100">
             <div>
               <div className="flex items-center gap-2 mb-3">
@@ -1120,6 +1424,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
+
         </div>
       </footer>
     </div>
