@@ -6,6 +6,7 @@ export interface Deal {
   originalPrice?: string;
   discount: string;
   image: string;
+  images?: string[]; // 🚀 Multiple images array support added
   store: string;
   link: string;
   expiresIn: string;
@@ -43,6 +44,11 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹7,699',
     discount: '28% OFF',
     image: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1579722820308-d74e571500a0?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Wellversed',
     link: 'https://wellversed.in',
     expiresIn: '3 days left',
@@ -50,7 +56,6 @@ export const initialDeals: Deal[] = [
     description: 'World-renowned whey protein powder to support muscle building and fast post-workout recovery.',
     features: ['24g Protein per serving', '5.5g BCAAs', 'Low Sugar & Informed Choice Certified']
   },
-  
 
   // --- ELECTRONICS & WEARABLES ---
   {
@@ -61,6 +66,12 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹34,990',
     discount: '23% OFF',
     image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Flipkart',
     link: 'https://flipkart.com',
     expiresIn: '5 hours left',
@@ -76,6 +87,11 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹41,900',
     discount: '10% OFF',
     image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1509744956145-d4d1e21b0e5d?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1510017803434-a899398421b3?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Reliance Digital',
     link: 'https://reliancedigital.in',
     expiresIn: '2 days left',
@@ -93,6 +109,11 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹1,14,900',
     discount: '19% OFF',
     image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Amazon',
     link: 'https://amazon.in',
     expiresIn: '4 days left',
@@ -110,6 +131,10 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹22,999',
     discount: '35% OFF',
     image: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Flipkart',
     link: 'https://flipkart.com',
     expiresIn: '1 day left',
@@ -127,6 +152,10 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹14,999',
     discount: '33% OFF',
     image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Croma',
     link: 'https://croma.com',
     expiresIn: '6 hours left',
@@ -144,6 +173,10 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹58,900',
     discount: '18% OFF',
     image: 'https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Dyson India',
     link: 'https://dyson.in',
     expiresIn: '2 days left',
@@ -161,6 +194,10 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹2,999',
     discount: '46% OFF',
     image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Myntra',
     link: 'https://myntra.com',
     expiresIn: '3 days left',
@@ -178,6 +215,11 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹11,995',
     discount: '30% OFF',
     image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Nike India',
     link: 'https://nike.com',
     expiresIn: '1 day left',
@@ -195,6 +237,10 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹54,990',
     discount: '13% OFF',
     image: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1622979135225-d2ba269bc1df?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Flipkart',
     link: 'https://flipkart.com',
     expiresIn: '12 hours left',
@@ -212,6 +258,10 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹9,995',
     discount: '30% OFF',
     image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Amazon',
     link: 'https://amazon.in',
     expiresIn: '3 days left',
@@ -229,6 +279,10 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹4,990',
     discount: '43% OFF',
     image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Amazon',
     link: 'https://amazon.in',
     expiresIn: '2 days left',
@@ -246,6 +300,10 @@ export const initialDeals: Deal[] = [
     originalPrice: '₹699',
     discount: '20% OFF',
     image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1608248597359-f538356f5b0d?auto=format&fit=crop&q=80&w=800'
+    ],
     store: 'Nykaa',
     link: 'https://nykaa.com',
     expiresIn: '4 days left',
