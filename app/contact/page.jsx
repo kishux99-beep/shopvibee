@@ -43,7 +43,7 @@ export default function ContactUs() {
           
           {/* WhatsApp Card */}
           <a
-            href="https://wa.me/+918057717153" 
+            href="https://wa.me/@shopvibeee" 
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group"
