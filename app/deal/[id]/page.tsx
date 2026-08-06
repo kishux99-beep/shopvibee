@@ -211,7 +211,7 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
                   className="w-full h-full object-cover transition-all duration-300 select-none pointer-events-none" 
                 />
                 <span className="absolute top-3 left-3 bg-red-600 text-white text-xs font-extrabold px-3 py-1 rounded-lg shadow-md animate-pulse z-10">
-                  {deal.discount} OFF
+                  {deal.discount}
                 </span>
                 <span className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-md z-10">
                   Store: {deal.store}
