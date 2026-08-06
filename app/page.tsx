@@ -549,9 +549,9 @@ export default function Home() {
                   <div className="px-4 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider bg-gray-50">
                     Matching Products & Categories
                   </div>
-                  {searchSuggestions.map((item) => (
+                  {searchSuggestions.map((item, idx) => (
                     <div
-                      key={item.id}
+                      key={`${item.id}-${idx}`}
                       onClick={() => {
                         setIsSearchFocused(false);
                         router.push(`/deal/${item.id}`);

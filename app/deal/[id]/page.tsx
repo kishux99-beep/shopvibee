@@ -32,6 +32,9 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // 🔍 Category-Scoped Search State
+  const [searchQuery, setSearchQuery] = useState('');
+
   // Check initial wishlist status from localStorage on load
   useEffect(() => {
     if (deal) {
@@ -118,10 +121,13 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
     );
   }
 
-  // Same category ke related products filter karna (current product ko chhod kar)
+  // Same category ke related products filter karna (Search query ke sath bhi match karega)
   const relatedDeals = allDeals.filter(
-    (d) => d.category === deal.category && d.id !== deal.id
-  ).slice(0, 4);
+    (d) => 
+      d.category === deal.category && 
+      d.id !== deal.id &&
+      d.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans flex flex-col justify-between">
@@ -136,11 +142,26 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
       <div>
         {/* Header */}
         <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 group">
-              <Image src={logo} alt="ShopVibee Logo" className="h-12 sm:h-16 w-auto object-contain" priority />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+            <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
+              <Image src={logo} alt="ShopVibee Logo" className="h-10 sm:h-14 w-auto object-contain" priority />
             </Link>
-            <Link href="/" className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-700 bg-indigo-50 px-3 py-2 rounded-xl transition">
+
+            {/* 🔍 Category-Scoped Search Bar */}
+            <div className="flex-1 max-w-md">
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  placeholder={`Search in ${deal.category}...`}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-gray-100 text-xs sm:text-sm text-gray-900 px-4 py-2 pl-9 rounded-xl border border-transparent focus:border-indigo-600 focus:bg-white focus:outline-none transition"
+                />
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">🔍</span>
+              </div>
+            </div>
+
+            <Link href="/" className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-700 bg-indigo-50 px-3 py-2 rounded-xl transition flex-shrink-0">
               <FaArrowLeft /> Back to Deals
             </Link>
           </div>
@@ -170,7 +191,7 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
                   Store: {deal.store}
                 </span>
 
-                {/* Left & Right Slide Navigation Arrows (Hidden on Mobile, Visible on Desktop md+) */}
+                {/* Left & Right Slide Navigation Arrows */}
                 {productImages.length > 1 && (
                   <>
                     <button
@@ -326,12 +347,12 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
             </div>
           </div>
 
-          {/* Related / Similar Products Section */}
+          {/* Related / Similar Products Section (Yeh ab search query ke hisab se filter hoga) */}
           {relatedDeals.length > 0 && (
             <div className="mt-12">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg sm:text-xl font-extrabold text-gray-900 border-l-4 border-indigo-600 pl-3">
-                  Similar {deal.category} Deals ⚡
+                  {searchQuery ? `Search Results in ${deal.category}` : `Similar ${deal.category} Deals`} ⚡
                 </h3>
               </div>
 
@@ -372,6 +393,13 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Agar search query se kuch match na ho */}
+          {searchQuery && relatedDeals.length === 0 && (
+            <div className="mt-12 text-center py-12 bg-white rounded-2xl border border-gray-100">
+              <p className="text-sm text-gray-500">No matching products found in "{deal.category}" for "{searchQuery}".</p>
             </div>
           )}
         </main>
