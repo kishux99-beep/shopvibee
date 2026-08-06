@@ -184,6 +184,24 @@ export const initialDeals: Deal[] = [
     description: 'Intelligent cordless vacuum with laser illumination that reveals microscopic dust.',
     features: ['Laser reveals invisible dust', 'Counts and measures microscopic dust particles', 'Up to 60 mins run time']
   },
+  {
+    id: 15,
+    title: 'Gun Pistol Lighter Heavy Weight Metal Body Real and Original Like Gun Pistol for Decorative, Smoking Filled with Gas',
+    category: 'Home',
+    price: '₹1,399',
+    originalPrice: '₹2,999',
+    discount: '-53% OFF',
+    image: 'https://i.ibb.co/qMgZb5Kg/r-Sn-Rn-ILSLDgd-MZry-ZINf-Tk-Ow-Czrxbvt-K.jpg',
+    images: [
+      'https://i.ibb.co/qMgZb5Kg/r-Sn-Rn-ILSLDgd-MZry-ZINf-Tk-Ow-Czrxbvt-K.jpg',
+      'https://i.ibb.co/qMgZb5Kg/r-Sn-Rn-ILSLDgd-MZry-ZINf-Tk-Ow-Czrxbvt-K.jpg'
+    ],
+    store: 'Amazon',
+    link: 'https://link.amazon/B0b50YOCH',
+    expiresIn: '2 days left',
+    description: 'Made from high quality Allow Metal Having a high-grade and high-quality lighter is the first smokers should take into consideration. Designed for convenience, this classic shaped refillable gas lighter is long lasting and sharp flamed. Antique design revolver pistol gun lighter THIS IS NOT A USB LIGHTER. It is best suited for those who like to have a surprise element in their accessories. The lighter is very durable and easy to use, a perfect gift for your best friend. Can be refilled at any local cigarette vendor / betel shop. Superb Quality Refillable Cigarette Lighter material to ensure its durability. Runs on Butane Gas, easily available. Perfect gift for your love ones. Keep outing of children, it is not a toy. NOTE: DUE TO SHIPPING RESTRICTIONS, THERE MAY BE NO FUEL IN THE LIGHTER. PLEASE GET IT FILLED FROM A LOCAL SHOP. Superb Quality Refillable Cigarette Lighter Material To Ensure Its Durability. Strong Body It Is More Decoration Or Collection Than A Lighter Help Shows Your Noble Quality And Notable Social Position.',
+    features: ['Colour  :  Z83 BLACK', 'Material :	Metal', 'Style :	Pistol', 'Item Weight   :	450 Grams', 'Fuel Type :	Butane', 'Product 	: 10L x 15W x 5Th ', 'Dimensions : Centimeters', 'Number of Items	: 1', 'Net Quantity	 : 1.0 Count', 'Number of Packs	 : 1', ]
+  },
 
   // --- 👕 FASHION ---
   {
