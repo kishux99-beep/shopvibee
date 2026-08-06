@@ -161,9 +161,12 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
               </div>
             </div>
 
-            <Link href="/" className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-700 bg-indigo-50 px-3 py-2 rounded-xl transition flex-shrink-0">
-              <FaArrowLeft /> Back to Deals
-            </Link>
+            <button
+              onClick={() => router.back()}
+              className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-700 bg-indigo-50 px-3 py-2 rounded-xl transition flex-shrink-0 cursor-pointer active:scale-95"
+            >
+              <FaArrowLeft /> Back
+            </button>
           </div>
         </header>
 
