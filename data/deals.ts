@@ -59,7 +59,7 @@ export const initialDeals: Deal[] = [
 
   // --- ELECTRONICS & WEARABLES ---
   {
-    id: 3,
+    id: 2,
     title: 'Sony WH-1000XM5 Wireless Noise Cancelling Headphones',
     category: 'Electronics',
     price: '₹26,990',
@@ -80,7 +80,7 @@ export const initialDeals: Deal[] = [
     features: ['30-hour battery life', 'Crystal clear hands-free calling', 'Ultra-comfortable lightweight design']
   },
   {
-    id: 4,
+    id: 3,
     title: 'Apple Watch Series 9 (GPS, 41mm)',
     category: 'Wearables',
     price: '₹37,900',
@@ -102,7 +102,7 @@ export const initialDeals: Deal[] = [
 
   // --- 💻 LAPTOPS ---
   {
-    id: 5,
+    id: 4,
     title: 'Apple MacBook Air M2 (13.6-inch, 8GB RAM, 256GB SSD)',
     category: 'Laptops',
     price: '₹92,900',
@@ -124,7 +124,7 @@ export const initialDeals: Deal[] = [
 
   // --- ⌚ SMARTWATCHES ---
   {
-    id: 6,
+    id: 5,
     title: 'Amazfit GTR 4 Smartwatch with Dual-Band GPS',
     category: 'Smartwatches',
     price: '₹14,999',
@@ -145,7 +145,7 @@ export const initialDeals: Deal[] = [
 
   // --- 🎧 AUDIO ---
   {
-    id: 7,
+    id: 6,
     title: 'JBL Flip 6 Portable Bluetooth Waterproof Speaker',
     category: 'Audio',
     price: '₹9,999',
@@ -166,7 +166,7 @@ export const initialDeals: Deal[] = [
 
   // --- 🏠 HOME ---
   {
-    id: 8,
+    id: 7,
     title: 'Dyson V12 Detect Slim Cordless Vacuum Cleaner',
     category: 'Home',
     price: '₹47,900',
@@ -185,7 +185,7 @@ export const initialDeals: Deal[] = [
     features: ['Laser reveals invisible dust', 'Counts and measures microscopic dust particles', 'Up to 60 mins run time']
   },
   {
-    id: 15,
+    id: 8,
     title: 'Gun Pistol Lighter Heavy Weight Metal Body Real and Original Like Gun Pistol for Decorative, Smoking Filled with Gas',
     category: 'Home',
     price: '₹1,399',
