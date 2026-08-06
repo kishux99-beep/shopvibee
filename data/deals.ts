@@ -194,7 +194,11 @@ export const initialDeals: Deal[] = [
     image: 'https://i.ibb.co/qMgZb5Kg/r-Sn-Rn-ILSLDgd-MZry-ZINf-Tk-Ow-Czrxbvt-K.jpg',
     images: [
       'https://i.ibb.co/qMgZb5Kg/r-Sn-Rn-ILSLDgd-MZry-ZINf-Tk-Ow-Czrxbvt-K.jpg',
-      'https://i.ibb.co/qMgZb5Kg/r-Sn-Rn-ILSLDgd-MZry-ZINf-Tk-Ow-Czrxbvt-K.jpg'
+      'https://i.ibb.co/QFWRhFZD/Jv-NUy-Bq-LSXbtu-DCg-Ouv-SQh-AIn-Rmae-Wd-E.jpg',
+      'https://i.ibb.co/rKBScv5q/rh-Qlq-Xc-DLSXVy-Jqbfrd-NEMrlhx-Pfx-VLf.jpg',
+      'https://i.ibb.co/C3nwByfd/ege-Wa-KPPLSXNy-Ja-Od-GWFs-KGjacpzbq-Ad.jpg',
+      'https://i.ibb.co/GSSPgsx/b-Sk-YBt-GLSXUi-Ut-RHvq-Tj-Mhl-DIaa-ZVi-RZ.jpg',
+      'https://i.ibb.co/fYL7S0M8/oteo-LSXHf-OZHg-ZLe-GJgyfjurm-JIDl-OXO.jpg',
     ],
     store: 'Amazon',
     link: 'https://link.amazon/B0b50YOCH',
