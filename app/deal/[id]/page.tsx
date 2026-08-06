@@ -170,7 +170,7 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
                   Store: {deal.store}
                 </span>
 
-                {/* Left & Right Slide Navigation Arrows */}
+                {/* Left & Right Slide Navigation Arrows (Hidden on Mobile, Visible on Desktop md+) */}
                 {productImages.length > 1 && (
                   <>
                     <button
@@ -178,7 +178,7 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
                         e.stopPropagation();
                         setActiveImage((prev) => (prev === 0 ? productImages.length - 1 : prev - 1));
                       }}
-                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center transition opacity-80 sm:opacity-0 sm:group-hover:opacity-100 z-20 text-sm font-bold"
+                      className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full items-center justify-center transition opacity-80 sm:opacity-0 sm:group-hover:opacity-100 z-20 text-sm font-bold"
                       aria-label="Previous Image"
                     >
                       &lt;
@@ -188,7 +188,7 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
                         e.stopPropagation();
                         setActiveImage((prev) => (prev === productImages.length - 1 ? 0 : prev + 1));
                       }}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center transition opacity-80 sm:opacity-0 sm:group-hover:opacity-100 z-20 text-sm font-bold"
+                      className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full items-center justify-center transition opacity-80 sm:opacity-0 sm:group-hover:opacity-100 z-20 text-sm font-bold"
                       aria-label="Next Image"
                     >
                       &gt;
@@ -336,9 +336,9 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {relatedDeals.map((item) => (
+                {relatedDeals.map((item, idx) => (
                   <div
-                    key={item.id}
+                    key={`${item.id}-${idx}`}
                     onClick={() => router.push(`/deal/${item.id}`)}
                     className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer group hover:-translate-y-1"
                   >
