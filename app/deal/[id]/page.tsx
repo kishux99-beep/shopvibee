@@ -35,6 +35,29 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
   // 🔍 Category-Scoped Search State
   const [searchQuery, setSearchQuery] = useState('');
 
+  // 🚀 Sticky Buy Bar Visibility State & Ref
+  const [isMainBuyVisible, setIsMainBuyVisible] = useState(false);
+  const mainBuyRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsMainBuyVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 } // Jab 10% main button screen par dikhne lagega toh sticky bar hide ho jayega
+    );
+
+    if (mainBuyRef.current) {
+      observer.observe(mainBuyRef.current);
+    }
+
+    return () => {
+      if (mainBuyRef.current) {
+        observer.unobserve(mainBuyRef.current);
+      }
+    };
+  }, [deal]);
+
   // Check initial wishlist status from localStorage on load
   useEffect(() => {
     if (deal) {
@@ -130,10 +153,10 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans flex flex-col justify-between">
+    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans flex flex-col justify-between pb-20 sm:pb-0">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-indigo-600 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-bold animate-bounce">
+        <div className="fixed bottom-20 sm:bottom-6 right-6 z-50 bg-indigo-600 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-bold animate-bounce">
           <span>✨</span>
           <span>{toastMessage}</span>
         </div>
@@ -330,8 +353,8 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
                 )}
               </div>
 
-              {/* Affiliate Redirect CTA Button */}
-              <div className="mt-8 pt-4 border-t border-gray-100">
+              {/* Affiliate Redirect CTA Button with Ref for Observer */}
+              <div ref={mainBuyRef} className="mt-8 pt-4 border-t border-gray-100">
                 <a
                   href={deal.link}
                   target="_blank"
@@ -350,7 +373,7 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
             </div>
           </div>
 
-          {/* Related / Similar Products Section (Yeh ab search query ke hisab se filter hoga) */}
+          {/* Related / Similar Products Section */}
           {relatedDeals.length > 0 && (
             <div className="mt-12">
               <div className="flex items-center justify-between mb-6">
@@ -407,6 +430,35 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
           )}
         </main>
       </div>
+
+      {/* 🚀 Floating / Sticky Bottom Buy Bar (Shows only when main buy button is NOT visible) */}
+      {!isMainBuyVisible && (
+        <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-3 shadow-2xl transition-transform duration-300 animate-slide-up">
+          <div className="max-w-4xl mx-auto flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 overflow-hidden">
+              <img src={productImages[activeImage]} alt={deal.title} className="w-10 h-10 rounded-xl object-cover border flex-shrink-0" />
+              <div className="overflow-hidden">
+                <h4 className="text-xs font-bold text-gray-900 truncate">{deal.title}</h4>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-xs font-black text-indigo-600">{deal.price}</span>
+                  {deal.originalPrice && <span className="text-[10px] text-gray-400 line-through">{deal.originalPrice}</span>}
+                </div>
+              </div>
+            </div>
+
+            <a
+              href={deal.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => triggerToast(`Redirecting to secure affiliate store (${deal.store})... 🚀`)}
+              className="flex-shrink-0 flex items-center gap-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-extrabold px-5 py-2.5 rounded-xl text-xs shadow-md shadow-indigo-600/30 active:scale-95 transition"
+            >
+              <FaBolt className="text-amber-300 text-xs" />
+              <span>Buy Now on {deal.store} &rarr;</span>
+            </a>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-100 py-6 mt-12 text-center text-xs text-gray-400">
