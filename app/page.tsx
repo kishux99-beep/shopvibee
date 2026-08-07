@@ -1305,6 +1305,10 @@ export default function Home() {
             <p>© {new Date().getFullYear()} ShopVibee Deals. All rights reserved.</p>
             
             <div className="flex items-center gap-4">
+              <Link href="/about" className="hover:text-indigo-600 transition underline">
+                About Us
+              </Link>
+              <span>•</span>
               <Link href="/privacy" className="hover:text-indigo-600 transition underline">
                 Privacy Policy
               </Link>
