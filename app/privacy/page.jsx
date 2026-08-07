@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FaArrowLeft, FaShieldAlt, FaLock, FaUserSecret, FaEnvelope } from 'react-icons/fa';
+import { FaArrowLeft, FaShieldAlt } from 'react-icons/fa';
 
 export default function PrivacyPolicy() {
   return (
@@ -72,10 +72,10 @@ export default function PrivacyPolicy() {
           <section className="space-y-3">
             <h2 className="text-lg sm:text-xl font-bold text-gray-900 flex items-center gap-2.5">
               <span className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm">3</span>
-              How We Use Your Information
+              Google AdSense & Cookies
             </h2>
             <p className="text-xs sm:text-sm text-gray-600 leading-relaxed pl-10">
-              The information we collect is used in various ways, including to: provide, operate, and maintain our website; improve and personalize your experience; send you relevant deal alerts and promotional updates (if opted in); and prevent fraudulent activity.
+              Google, as a third-party vendor, uses cookies to serve ads on ShopVibee. Google's use of advertising cookies enables it and its partners to serve ads to our users based on their visits to our site and/or other sites on the Internet.
             </p>
           </section>
 
@@ -85,6 +85,19 @@ export default function PrivacyPolicy() {
           <section className="space-y-3">
             <h2 className="text-lg sm:text-xl font-bold text-gray-900 flex items-center gap-2.5">
               <span className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm">4</span>
+              Log Files & Analytics
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed pl-10">
+              ShopVibee follows a standard procedure of using log files to analyze web traffic, including IP addresses, browser types, and date/time stamps.
+            </p>
+          </section>
+
+          <hr className="border-gray-100" />
+
+          {/* Section 5 */}
+          <section className="space-y-3">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 flex items-center gap-2.5">
+              <span className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm">5</span>
               Third-Party Privacy Policies
             </h2>
             <p className="text-xs sm:text-sm text-gray-600 leading-relaxed pl-10">
