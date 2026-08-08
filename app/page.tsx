@@ -28,7 +28,7 @@ import {
 } from 'react-icons/fa';
 
 // 🚀 Logo Image Import
-import logo from '@/public/logo.png';
+import logo from '@/public/logo-dark.png';
 
 // 🚀 Server Actions Import
 import { updatePreferences, unsubscribeUser } from '@/app/actions/subscriber';

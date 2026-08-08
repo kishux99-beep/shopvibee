@@ -41,9 +41,9 @@ export async function updatePreferences(email: string, categories: string[]) {
           <div style="background-color: #f3f4f6; padding: 30px 0; font-family: Arial, sans-serif;">
             <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
               
-              <!-- Logo Section -->
+              <!-- Logo Section with White Background Padding for Perfect Visibility -->
               <div style="text-align: center; margin-bottom: 24px;">
-                <img src="https://shopvibee.in/logo.png" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
+                <img src="https://shopvibee.in/logo-light.png" alt="ShopVibee Logo" style="width: 150px; height: auto; display: inline-block; background-color: #ffffff; padding: 8px 12px; border-radius: 8px;" />
               </div>
 
               <!-- Content Heading -->
@@ -113,7 +113,7 @@ export async function unsubscribeUser(email: string) {
               
               <!-- Logo Section -->
               <div style="text-align: center; margin-bottom: 24px;">
-                <img src="https://shopvibee.in/logo.png" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
+                <img src="https://shopvibee.in/logo-light.png" alt="ShopVibee Logo" style="width: 150px; height: auto; display: inline-block; background-color: #ffffff; padding: 8px 12px; border-radius: 8px;" />
               </div>
 
               <!-- Content Heading -->
@@ -151,10 +151,10 @@ export async function unsubscribeUser(email: string) {
     return { success: false, error: 'Unsubscribe करने में समस्या आई।' }
   }
 }
-// 3. Category Update ya New Deal hone par Subscribed Users ko Email Alert bhejne ka Server Action
+
+// 3. Category Update ya New Deal hone पर Subscribed Users को Email Alert भेजने का Server Action
 export async function sendCategoryUpdateAlert(category: string, dealTitle: string, dealPrice: string, dealLink: string) {
   try {
-    // Database se un active subscribers ko dhoondhein jinhone yeh category select ki hai
     const subscribers = await prisma.subscriber.findMany({
       where: {
         isActive: true,
@@ -170,7 +170,6 @@ export async function sendCategoryUpdateAlert(category: string, dealTitle: strin
 
     let successCount = 0
 
-    // Sabhi target subscribers ko ek-ek karke email bhejna
     for (const sub of subscribers) {
       try {
         await resend.emails.send({
@@ -183,7 +182,7 @@ export async function sendCategoryUpdateAlert(category: string, dealTitle: strin
                 
                 <!-- Logo Section -->
                 <div style="text-align: center; margin-bottom: 24px;">
-                  <img src="https://shopvibee.in/logo-light.png" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
+                  <img src="https://shopvibee.in/logo.png" alt="ShopVibee Logo" style="width: 150px; height: auto; display: inline-block; background-color: #ffffff; padding: 8px 12px; border-radius: 8px;" />
                 </div>
 
                 <!-- Content Heading -->
