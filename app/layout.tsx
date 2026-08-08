@@ -5,6 +5,9 @@ import { Providers } from './providers';
 export const metadata: Metadata = {
   title: 'ShopVibee - Top Curated Deals',
   description: 'Handpicked discounts and deals on supplements, electronics, and lifestyle.',
+  icons: {
+    icon: '/favicon.ico', // Yeh aapke public folder wale logo.png ko favicon bana dega
+  },
 };
 
 export default function RootLayout({
