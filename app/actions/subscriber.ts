@@ -183,7 +183,7 @@ export async function sendCategoryUpdateAlert(category: string, dealTitle: strin
                 
                 <!-- Logo Section -->
                 <div style="text-align: center; margin-bottom: 24px;">
-                  <img src="https://shopvibee.in/logo.png" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
+                  <img src="https://shopvibee.in/logo-light.png" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
                 </div>
 
                 <!-- Content Heading -->
