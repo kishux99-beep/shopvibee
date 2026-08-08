@@ -450,10 +450,10 @@ export default function Home() {
         {showScrollTop && (
           <button
             onClick={scrollToTop}
-            className="fixed bottom-6 left-6 z-40 bg-indigo-600 hover:bg-indigo-700 text-white w-11 h-11 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-indigo-400/30"
+            className="fixed bottom-11 left-6 z-40 bg-indigo-600 hover:bg-indigo-700 text-white w-11 h-11 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-indigo-400/30"
             title="Back to Top"
           >
-            <FaArrowUp className="text-sm" />
+            <FaArrowUp className="text-sm sm:text-sm" />
           </button>
         )}
 
