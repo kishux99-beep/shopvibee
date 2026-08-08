@@ -451,13 +451,19 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
               />
               <div className="overflow-hidden">
                 <h4 className="text-xs sm:text-sm font-bold text-gray-900 truncate">{deal.title}</h4>
-                <div className="flex items-baseline gap-2 mt-0.5">
-                  <span className="text-xs sm:text-sm font-black text-indigo-600">{deal.price}</span>
-                  {deal.originalPrice && <span className="text-[11px] text-gray-400 line-through">{deal.originalPrice}</span>}
-                </div>
+                <div className="flex items-center gap-2 mt-0.5">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-xs sm:text-sm font-black text-indigo-600">{deal.price}</span>
+                    {deal.originalPrice && <span className="text-[11px] text-gray-400 line-through">{deal.originalPrice}</span>}
+                  </div>
+                  {deal.discount && (
+                    <span className="text-[10px] font-extrabold bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded border border-emerald-200">
+                      {deal.discount}🔥
+                    </span>
+                 )}
+               </div>
               </div>
-            </div>
-
+           </div>
             <a
               href={deal.link}
               target="_blank"
