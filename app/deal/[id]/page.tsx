@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { initialDeals, Deal } from '@/data/deals';
 import { flashDealsData, FlashDeal } from '@/data/flashDeals';
 import { topDealsData, TopDeal } from '@/data/topDeals';
-import logo from '@/public/logo.png';
+import logo from '@/public/logo-dark.png';
 import { FaArrowLeft, FaShieldAlt, FaBolt, FaHeart, FaShareAlt } from 'react-icons/fa';
 
 export default function DealDetailPage({ params }: { params: Promise<{ id: string }> }) {
