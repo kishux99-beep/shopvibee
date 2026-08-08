@@ -38,46 +38,53 @@ export const initialDeals: Deal[] = [
   // --- SUPPLEMENTS ---
   {
     id: 1,
-    title: 'Optimum Nutrition (ON) Gold Standard 100% Whey Protein',
+    title: 'Wellcore - Pure Micronised Creatine Monohydrate (122g, 33 Servings) Fruit Fusion Lab Tested | Supports Athletic Performance and Power',
     category: 'Supplements',
-    price: '₹5,499',
-    originalPrice: '₹7,699',
-    discount: '28% OFF',
-    image: 'https://i.ibb.co/WWV5wrkQ/Whats-App-Image-2026-01-15-at-9-24-49-AM.jpg',
+    price: '₹610',
+    originalPrice: '₹699.00',
+    discount: '13% OFF',
+    image: 'https://i.ibb.co/Hf8nZC2S/imageqy-TWkaqh-RGKVzbovwpk-Ndy-Tshej.jpg',
     images: [
-      'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80&w=800',
-      'https://i.ibb.co/WWV5wrkQ/Whats-App-Image-2026-01-15-at-9-24-49-AM.jpg',
-      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=800'
+      'https://i.ibb.co/Hf8nZC2S/imageqy-TWkaqh-RGKVzbovwpk-Ndy-Tshej.jpg',
+      'https://i.ibb.co/FbPpjDHd/image-Mx-KBSz-ZLih-Ftyu-Uq-Ux-VUiplt-LJa.png',
+      'https://i.ibb.co/rKschnc0/imaged-Gwdr-Itz-IXNDKPpc-ELqv-JPGCw-Ru.jpg',
+      'https://i.ibb.co/Q7ZR8SCq/imageepzu-DMmf-Wxe-ETLlk-HTa-RUi-GVq-Eq.png',
+      'https://i.ibb.co/p6GsHFL2/imagee-Js-WWum-TEXpg-IMQLJj-NLh-FJYud-O.jpg',
+      'https://i.ibb.co/RkYrKtdy/image-GEk-Sdl-OWam-OBo-SQZn-QMkl-OJizp-Z.jpg',
+      'https://i.ibb.co/yFq8KhMp/image-Tcqc-QNXkks-Kfw-Gs-Daz-PIuirujz-H.png',
     ],
     store: 'Wellversed',
-    link: 'https://wellversed.in',
-    expiresIn: '3 days left',
-    promoCode: 'VIBEE28',
-    description: 'World-renowned whey protein powder to support muscle building and fast post-workout recovery.',
-    features: ['24g Protein per serving', '5.5g BCAAs', 'Low Sugar & Informed Choice Certified']
+    link: 'https://store.wellversed.in/products/wellcore-pure-micronised-creatine-monohydrate-122g-33-servings-lab-tested-fruit-fusion-supports-athletic-performance-and-power',
+    expiresIn: '',
+    promoCode: 'KRISH',
+    description: 'HELPS BUILD MUSCLE & STRENGTH: Every scoop of Wellcore Creatine Monohydrate delivers the fuel for your physical performance. It helps you train harder, lift heavier, and recover faster.',
+    features: ['Weight : 122g', 'Servings : 33 ', 'Lab Tested', 'Supports Athletic Performance and Power', 'Fruit Fusion Flavor']
   },
 
   // --- ELECTRONICS & WEARABLES ---
   {
     id: 2,
-    title: 'Sony WH-1000XM5 Wireless Noise Cancelling Headphones',
+    title: 'JBL Tune 520BT Wireless On Ear Headphones with Mic, Upto 57H Battery, Speed Charge : 5 Min Charge Gives Up to 3H of Playback, Multipoint Connect, Customizable Bass with Headphones App, BT 5.3 (Black)',
     category: 'Electronics',
-    price: '₹26,990',
-    originalPrice: '₹34,990',
-    discount: '23% OFF',
-    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800',
+    price: '₹2,799',
+    originalPrice: '₹4,999',
+    discount: '44% OFF',
+    image: 'https://i.ibb.co/Y7SXD7WG/RECIa-Dy-LSXEd-ETVPa-SXCyb-Us-Qxa-Zj-Byo.jpg',
     images: [
-      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?auto=format&fit=crop&q=80&w=800'
+      'https://i.ibb.co/Y7SXD7WG/RECIa-Dy-LSXEd-ETVPa-SXCyb-Us-Qxa-Zj-Byo.jpg',
+      'https://i.ibb.co/TBBdxM9y/q-JHs-Oj-LSXJIOng-Pj-ZOJjd-IOGa-TKt-Sgn-L.jpg',
+      'https://i.ibb.co/fVzxBpT0/Tlx-VSLSXc-Zdk-Et-Gis-Mx-Sge-Rq-Pq-AIwx-IG.jpg"',
+      'https://i.ibb.co/4nGC3RG7/rabekv-PLSXUPnc-Jf-SIil-FRAXj-Ldrpx-Mb.jpg',
+      'https://i.ibb.co/LXBL6M0p/cf-Fi-ERLSXWUIbia-UQtu-Cm-UWLMLNKpau-K.jpg',
+      'https://i.ibb.co/wF5VcWsP/h-XUoe-Nl-KLSXFm-Iw-Xbdftuxtt-Ya-NCn-WYf.jpg',
+
     ],
-    store: 'Flipkart',
-    link: 'https://flipkart.com',
-    expiresIn: '5 hours left',
-    promoCode: 'SONY23',
-    description: 'Industry-leading noise cancellation with two processors and 8 microphones for pristine sound quality.',
-    features: ['30-hour battery life', 'Crystal clear hands-free calling', 'Ultra-comfortable lightweight design']
+    store: 'Amazon',
+    link: 'https://link.amazon/B0ayX6mS3',
+    expiresIn: '',
+    promoCode: '',
+    description: 'With up to 57-hour battery life and quick charging of 5min gives 3Hrs playback, you’ ll have enough power for multi-day road trips and long festival weekends JBL Tune 520BT feature the renowned JBL Pure Bass sound, the same that powers the most famous venues all around the world Customize your listening experience with JBL Headphones App to tailor the sound to your taste with the EQ.',
+    features: ['Brand	: JBL', 'Connectivity : Technology	Wireless', 'Communication Technology :	Bluetooth', 'Included Components	: 1 x JBL Tune 520BT headphones 1 x USB-C Charging Cable 1 x Warranty', 'Colour	Black',]
   },
   {
     id: 3,
@@ -125,22 +132,26 @@ export const initialDeals: Deal[] = [
   // --- ⌚ SMARTWATCHES ---
   {
     id: 5,
-    title: 'Amazfit GTR 4 Smartwatch with Dual-Band GPS',
+    title: 'Noise Pulse 2 Max 1.85" Display, Bluetooth Calling Smart Watch, 10 Days Battery, 550 NITS Brightness, Smart DND, 100 Sports Modes, Smartwatch for Men and Women (Deep Wine)',
     category: 'Smartwatches',
-    price: '₹14,999',
-    originalPrice: '₹22,999',
-    discount: '35% OFF',
-    image: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&q=80&w=800',
+    price: '₹1,099',
+    originalPrice: '₹5,999',
+    discount: '-82% OFF',
+    image: 'https://i.ibb.co/7dZqtCJ2/BFKQBZ-1.jpg',
     images: [
-      'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?auto=format&fit=crop&q=80&w=800'
+      'https://i.ibb.co/7dZqtCJ2/BFKQBZ-1.jpg',
+      'https://i.ibb.co/YBNgcHWr/GQRFZS-1.jpg',
+      'https://i.ibb.co/r2GPhKRm/QNKNFL-1.jpg',
+      'https://i.ibb.co/XZ6KgD1r/REBYOZ-1.jpg',
+      'https://i.ibb.co/qKTNXhd/SMLBSD-1.jpg',
+      'https://i.ibb.co/tMkL1vz9/VOKZMC-1.jpg',
     ],
-    store: 'Flipkart',
-    link: 'https://flipkart.com',
-    expiresIn: '1 day left',
-    promoCode: 'AMAZFIT35',
-    description: 'A classic sports smartwatch featuring industry-leading GPS tracking and 150+ sports modes.',
-    features: ['14-day battery life', 'Bluetooth phone calls', 'HD AMOLED display']
+    store: 'Amazon',
+    link: 'https://link.amazon/B0fT0zGiD',
+    expiresIn: '',
+    promoCode: '',
+    description: 'Noise Pulse 2 Max is a feature-packed smartwatch that combines style and functionality. With a large 1.85" display, Bluetooth calling, and a long-lasting battery, it keeps you connected and on top of your fitness goals.',
+    features: ['Operating System	: android, ios', 'Display Size :	1.85 Inches', 'Battery Life :	10 Days', 'Bluetooth Calling :	Yes', 'Sports Modes  :	100', 'Brightness	: 550 NITS']
   },
 
   // --- 🎧 AUDIO ---

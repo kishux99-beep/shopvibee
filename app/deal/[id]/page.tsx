@@ -156,7 +156,7 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans flex flex-col justify-between pb-20 sm:pb-0">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-20 sm:bottom-6 right-6 z-50 bg-indigo-600 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-bold animate-bounce">
+        <div className="fixed bottom-24 sm:bottom-6 right-6 z-50 bg-indigo-600 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-bold animate-bounce">
           <span>✨</span>
           <span>{toastMessage}</span>
         </div>
@@ -431,17 +431,21 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
         </main>
       </div>
 
-      {/* 🚀 Floating / Sticky Bottom Buy Bar (Shows only when main buy button is NOT visible) */}
+      {/* 🚀 Modern Floating Sticky Buy Bar */}
       {!isMainBuyVisible && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-3 shadow-2xl transition-transform duration-300 animate-slide-up">
-          <div className="max-w-4xl mx-auto flex items-center justify-between gap-3">
+        <div className="fixed bottom-4 left-4 right-4 z-40 max-w-2xl mx-auto bg-white/95 backdrop-blur-xl border border-gray-100 p-3 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 animate-slide-up">
+          <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3 overflow-hidden">
-              <img src={productImages[activeImage]} alt={deal.title} className="w-10 h-10 rounded-xl object-cover border flex-shrink-0" />
+              <img 
+                src={productImages[activeImage]} 
+                alt={deal.title} 
+                className="w-12 h-12 rounded-2xl object-cover border border-gray-100 flex-shrink-0 shadow-sm" 
+              />
               <div className="overflow-hidden">
-                <h4 className="text-xs font-bold text-gray-900 truncate">{deal.title}</h4>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-xs font-black text-indigo-600">{deal.price}</span>
-                  {deal.originalPrice && <span className="text-[10px] text-gray-400 line-through">{deal.originalPrice}</span>}
+                <h4 className="text-xs sm:text-sm font-bold text-gray-900 truncate">{deal.title}</h4>
+                <div className="flex items-baseline gap-2 mt-0.5">
+                  <span className="text-xs sm:text-sm font-black text-indigo-600">{deal.price}</span>
+                  {deal.originalPrice && <span className="text-[11px] text-gray-400 line-through">{deal.originalPrice}</span>}
                 </div>
               </div>
             </div>
@@ -451,9 +455,9 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => triggerToast(`Redirecting to secure affiliate store (${deal.store})... 🚀`)}
-              className="flex-shrink-0 flex items-center gap-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-extrabold px-5 py-2.5 rounded-xl text-xs shadow-md shadow-indigo-600/30 active:scale-95 transition"
+              className="flex-shrink-0 flex items-center gap-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:to-pink-700 text-white font-extrabold px-5 sm:px-6 py-3 rounded-2xl text-xs sm:text-sm shadow-lg shadow-indigo-600/30 active:scale-95 transition-all duration-300 hover:scale-[1.02]"
             >
-              <FaBolt className="text-amber-300 text-xs" />
+              <FaBolt className="text-amber-300 text-sm animate-pulse" />
               <span>Buy Now on {deal.store} &rarr;</span>
             </a>
           </div>
