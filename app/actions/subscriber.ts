@@ -43,7 +43,7 @@ export async function updatePreferences(email: string, categories: string[]) {
               
               <!-- Logo Section -->
               <div style="text-align: center; margin-bottom: 24px;">
-                <img src="https://shopvibee.in/logo-email.png" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
+                <img src="https://shopvibee.in/logo-email.png?v=2" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
               </div>
 
               <!-- Content Heading -->
@@ -113,7 +113,7 @@ export async function unsubscribeUser(email: string) {
               
               <!-- Logo Section -->
               <div style="text-align: center; margin-bottom: 24px;">
-                <img src="https://shopvibee.in/logo-email.png" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
+                <img src="https://shopvibee.in/logo-email.png?v=2" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
               </div>
 
               <!-- Content Heading -->
@@ -183,7 +183,7 @@ export async function sendCategoryUpdateAlert(category: string, dealTitle: strin
                 
                 <!-- Logo Section -->
                 <div style="text-align: center; margin-bottom: 24px;">
-                  <img src="https://shopvibee.in/logo-email.png" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
+                  <img src="https://shopvibee.in/logo-email.png?v=2" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
                 </div>
 
                 <!-- Content Heading -->
