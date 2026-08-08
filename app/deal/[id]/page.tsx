@@ -309,10 +309,18 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
                   {deal.title}
                 </h1>
 
-                <div className="flex items-baseline gap-3 my-4">
-                  <span className="text-2xl sm:text-3xl font-extrabold text-gray-900">{deal.price}</span>
-                  {deal.originalPrice && (
-                    <span className="text-base text-gray-400 line-through">{deal.originalPrice}</span>
+                {/* Price and Discount Section */}
+                <div className="flex flex-col my-4">
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-2xl sm:text-3xl font-extrabold text-gray-900">{deal.price}</span>
+                    {deal.originalPrice && (
+                      <span className="text-base text-gray-400 line-through">{deal.originalPrice}</span>
+                    )}
+                  </div>
+                  {deal.discount && (
+                    <span className="text-xs sm:text-sm font-extrabold text-emerald-600 mt-1">
+                      🔥 {deal.discount} Discount
+                    </span>
                   )}
                 </div>
 

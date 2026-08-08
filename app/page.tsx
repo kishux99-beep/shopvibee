@@ -976,19 +976,12 @@ export default function Home() {
                       <img
                         src={deal.image}
                         alt={deal.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                        className="w-full h-full object-contain p-0 transition duration-600 group-hover:scale-130"
                       />
                       
                       <span className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-red-500 text-white text-[9px] sm:text-xs font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md shadow-sm z-10">
                         {deal.discount}
                       </span>
-
-                      {deal.originalPrice && (
-                        <span className="hidden sm:flex absolute top-3 left-20 bg-emerald-600 text-white text-xs font-extrabold px-2 py-1 rounded-md shadow-md items-center gap-1 z-10">
-                          <span>📉</span> Price Drop
-                        </span>
-                      )}
-
                       <div className="absolute top-2 sm:top-3 right-2 sm:right-3 flex items-center gap-1 sm:gap-1.5 z-10">
                         <button
                           onClick={(e) => handleShareDeal(e, deal)}
@@ -1024,10 +1017,15 @@ export default function Home() {
                         <h3 className="font-semibold text-gray-900 text-xs sm:text-base mt-0.5 line-clamp-1 group-hover:text-indigo-600 transition">
                           {deal.title}
                         </h3>
-                        <div className="flex items-baseline gap-1.5 sm:gap-2 mt-2 sm:mt-3">
-                          <span className="text-xs sm:text-lg font-bold text-gray-900">{deal.price}</span>
-                          <span className="text-[10px] sm:text-sm text-gray-400 line-through">{deal.originalPrice}</span>
-                        </div>
+                  <div className="flex flex-col mt-1.5 sm:mt-3">
+                    <div className="flex items-baseline gap-1.5 sm:gap-2">
+                      <span className="text-xs sm:text-lg font-bold text-gray-900">{deal.price}</span>
+                       <span className="text-[10px] sm:text-sm text-gray-400 line-through">{deal.originalPrice}</span>
+                     </div>
+                     <span className="text-[10px] sm:text-xs font-extrabold text-emerald-600 mt-0.5">
+                      🔥 {deal.discount} Discount
+                     </span>
+                   </div>
                       </div>
                       <button
                         onClick={(e) => {
@@ -1036,7 +1034,7 @@ export default function Home() {
                         }}
                         className="mt-3 sm:mt-4 block w-full text-center bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-sm transition active:scale-95"
                       >
-                        View Deal Details &rarr;
+                        View Deal &rarr;
                       </button>
                     </div>
                   </div>
