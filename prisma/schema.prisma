@@ -23,3 +23,17 @@ model DealInteraction {
   action    String
   createdAt DateTime @default(now())
 }
+
+// 🚀 Naya Deal Model Admin Panel ke liye
+model Deal {
+  id            Int      @id @default(autoincrement())
+  title         String
+  category      String
+  price         String
+  originalPrice String?
+  discount      String?   // ? lagane se yeh optional ho jayega
+  store         String?   // ? lagane se yeh optional ho jayega
+  image         String?   // ? lagane se yeh optional ho jayega
+  link          String
+  createdAt     DateTime @default(now())
+}
