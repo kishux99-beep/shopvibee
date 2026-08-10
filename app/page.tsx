@@ -82,6 +82,16 @@ export default function Home() {
   // Back to Top Button Visibility State
   const [showScrollTop, setShowScrollTop] = useState(false);
 
+  const [reviews, setReviews] = useState<any[]>([]);
+const [newReview, setNewReview] = useState({ name: '', comment: '', rating: 5 });
+
+useEffect(() => {
+  fetch('/api/reviews')
+    .then(res => res.json())
+    .then(data => { if (data.success) setReviews(data.reviews); })
+    .catch(err => console.error(err));
+}, []);
+
   // Wishlist State
   const [wishlist, setWishlist] = useState<number[]>([]);
   const [showWishlistOnly, setShowWishlistOnly] = useState(false);
@@ -1061,102 +1071,121 @@ export default function Home() {
         </main>
 
         {/* Trust & Testimonials Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full border border-indigo-100">
-              Real Experiences
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-100">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full border border-indigo-100">
+              Real Community Experiences
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-3">
-              Trusted by Fitness & Tech Shoppers
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-500 mt-2">
-              Here is what our community has to say about finding genuine deals and discounts on ShopVibee.
-            </p>
+            <h2 className="text-3xl font-extrabold text-gray-900 mt-4">Trusted by Fitness & Tech Shoppers</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            {/* Testimonial 1 */}
-            <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition">
-              <div>
-                <div className="flex items-center gap-1 text-amber-400 text-sm mb-3">
-                  ★★★★★
-                </div>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  "ShopVibee ne mera whey protein aur supplements ka kafi paisa bacha liya. Yahan milne wale verified coupon codes 100% kaam karte hain!"
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-gray-50 flex items-center gap-3">
-                <div className="w-9 h-9 bg-indigo-100 text-indigo-700 font-bold rounded-full flex items-center justify-center text-xs">
-                  AK
-                </div>
+          {/* Database se aane wale real reviews yahan dikhenge */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {reviews.map((r) => (
+              <div key={r.id} className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
                 <div>
-                  <h4 className="font-bold text-xs sm:text-sm text-gray-900">Aman Kumar</h4>
-                  <span className="text-[10px] text-gray-400">Fitness Enthusiast</span>
+                  <div className="flex text-amber-400 mb-4 text-sm">{'★'.repeat(r.rating)}</div>
+                  <p className="text-sm text-gray-600 leading-relaxed">"{r.comment}"</p>
                 </div>
+                <div className="mt-8 pt-6 border-t border-gray-50 font-bold text-sm text-gray-900">— {r.name}</div>
               </div>
-            </div>
+           ))}
+         </div>
 
-            {/* Testimonial 2 */}
-            <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition">
-              <div>
-                <div className="flex items-center gap-1 text-amber-400 text-sm mb-3">
-                  ★★★★★
-                </div>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  "The flash deals section is amazing. Found a great discount on tech gadgets with zero hassle. Highly recommend checking it daily."
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-gray-50 flex items-center gap-3">
-                <div className="w-9 h-9 bg-purple-100 text-purple-700 font-bold rounded-full flex items-center justify-center text-xs">
-                  RP
-                </div>
-                <div>
-                  <h4 className="font-bold text-xs sm:text-sm text-gray-900">Rahul Sharma</h4>
-                  <span className="text-[10px] text-gray-400">Tech Shopper</span>
-                </div>
-              </div>
-            </div>
+        {/* Review Submission Form with Interactive Stars */}
+<div className="mt-16 bg-white p-8 rounded-3xl max-w-xl mx-auto border border-gray-200 shadow-xl">
+  <h3 className="font-bold text-xl mb-6 text-center">Share Your Experience!</h3>
+  
+  {/* ⭐ Interactive Star Rating Selector */}
+  <div className="flex items-center justify-center gap-2 mb-4">
+    <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mr-2">Your Rating:</span>
+    {[1, 2, 3, 4, 5].map((star) => (
+      <button
+        type="button"
+        key={star}
+        onClick={() => setNewReview({ ...newReview, rating: star })}
+        className={`text-2xl transition-transform active:scale-90 focus:outline-none ${
+          star <= newReview.rating ? 'text-amber-400 scale-110' : 'text-gray-300 hover:text-amber-200'
+        }`}
+      >
+        ★
+      </button>
+    ))}
+  </div>
 
-            {/* Testimonial 3 */}
-            <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition">
-              <div>
-                <div className="flex items-center gap-1 text-amber-400 text-sm mb-3">
-                  ★★★★★
-                </div>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  "Clean interface, no annoying ads, and straight-to-the-point genuine affiliate deals. My go-to site before buying anything online!"
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-gray-50 flex items-center gap-3">
-                <div className="w-9 h-9 bg-emerald-100 text-emerald-700 font-bold rounded-full flex items-center justify-center text-xs">
-                  NV
-                </div>
-                <div>
-                  <h4 className="font-bold text-xs sm:text-sm text-gray-900">Neha Verma</h4>
-                  <span className="text-[10px] text-gray-400">Online Shopper</span>
-                </div>
-              </div>
-            </div>
+  <input 
+    className="w-full p-4 mb-4 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm" 
+    placeholder="Your Name" 
+    value={newReview.name}
+    onChange={(e) => setNewReview({...newReview, name: e.target.value})} 
+  />
+  <textarea 
+    className="w-full p-4 mb-4 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm" 
+    placeholder="How was your experience?" 
+    rows={3}
+    value={newReview.comment}
+    onChange={(e) => setNewReview({...newReview, comment: e.target.value})} 
+  />
+  <button 
+    onClick={async () => {
+      if (!newReview.name || !newReview.comment) {
+        alert("Please fill in all fields!");
+        return;
+      }
+      const res = await fetch('/api/reviews', {
+        method: 'POST',
+        body: JSON.stringify(newReview),
+        headers: {'Content-Type': 'application/json'}
+      });
+      if (res.ok) { 
+        alert('Review Submitted Successfully! 🚀'); 
+        window.location.reload(); 
+      } else { 
+        alert('Error: You may have already reviewed.'); 
+      }
+    }}
+    className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition active:scale-95 shadow-lg shadow-indigo-200"
+  >
+    Post My Review ✍️
+  </button>
+</div>
+      </section>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+  {reviews.map((r) => (
+    <div key={r.id} className="relative bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
+      
+      {/* Yeh Delete Button ab loop ke ANDAR hai, isliye 'r.id' sahi se milega */}
+      <button 
+  onClick={async () => {
+    // Prompt hata kar simple confirm use kar rahe hain (No typing needed!)
+    if (!window.confirm("Are you sure you want to delete this review?")) return;
 
-          </div>
+    const res = await fetch('/api/reviews/delete', {
+      method: 'POST',
+      body: JSON.stringify({ id: r.id, adminPassword: "Krish@8865" }),
+      headers: {'Content-Type': 'application/json'}
+    });
 
-          {/* Partner Trust Bar */}
-          <div className="mt-12 pt-8 border-t border-gray-100 text-center">
-            <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-4">
-              Featured Brands & Partner Merchants
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12 opacity-70 grayscale hover:grayscale-0 transition duration-300">
-              <span className="font-extrabold text-sm sm:text-base text-gray-700 tracking-wider">WELLVERSED</span>
-              <span className="font-extrabold text-sm sm:text-base text-gray-700 tracking-wider">AMAZON DEALS</span>
-              <span className="font-extrabold text-sm sm:text-base text-gray-700 tracking-wider">FLIPKART PICKS</span>
-              <span className="font-extrabold text-sm sm:text-base text-gray-700 tracking-wider">SECURE PAYMENTS</span>
-            </div>
-          </div>
-        </section>
+    if (res.ok) {
+      window.location.reload();
+    } else {
+      alert("Failed to delete!");
+    }
+  }}
+  className="absolute top-3 right-3 text-red-400 hover:text-red-600 text-xs font-bold"
+>
+  Delete ✕
+</button>
 
+      <div>
+        <div className="flex text-amber-400 mb-4 text-sm">{'★'.repeat(r.rating)}</div>
+        <p className="text-sm text-gray-600 leading-relaxed">"{r.comment}"</p>
       </div>
-
+      <div className="mt-8 pt-6 border-t border-gray-50 font-bold text-sm text-gray-900">— {r.name}</div>
+    </div>
+  ))}
+</div>
       {/* Get Alerts & Preferences Modal */}
       {isAlertsModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">

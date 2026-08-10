@@ -87,6 +87,30 @@ export const initialDeals: Deal[] = [
     description: 'With up to 57-hour battery life and quick charging of 5min gives 3Hrs playback, you’ ll have enough power for multi-day road trips and long festival weekends JBL Tune 520BT feature the renowned JBL Pure Bass sound, the same that powers the most famous venues all around the world Customize your listening experience with JBL Headphones App to tailor the sound to your taste with the EQ. "More information is available on Amazon.",',
     features: ['Brand	: JBL', 'Connectivity : Technology	Wireless', 'Communication Technology :	Bluetooth', 'Included Components	: 1 x JBL Tune 520BT headphones 1 x USB-C Charging Cable 1 x Warranty', 'Colour	Black',]
   },
+   {
+    id: 7,
+    title: 'Bluetooth Calling Smart Watch for Men & Women | HD Touch Display | Heart Rate Monitor | Fitness Tracker | Sports Modes "More information is available on Amazon."',
+    category: 'Wearables',
+    price: '₹425',
+    originalPrice: '₹799',
+    discount: '47% OFF',
+    image: 'https://i.ibb.co/S7vc4d9H/61y-Rx-Moh-ZVL-SL1500.jpg',
+    images: [
+      'https://i.ibb.co/S7vc4d9H/61y-Rx-Moh-ZVL-SL1500.jpg',
+      'https://i.ibb.co/35rmFpQY/71a5k6-NFAz-L-SL1500.jpg',
+      'https://i.ibb.co/vx9pyHR4/61twp-Nyk-Zg-L-SL1500.jpg',
+      'https://i.ibb.co/GvzD5zDy/61-J22i5-COJL-SL1500.jpg',
+      'https://i.ibb.co/HTg1LLJd/61-Vvr2-Uxo8-L-SL1500.jpg',
+
+    ],
+    store: 'Amazon',
+    link: 'https://link.amazon/B00rOKtoE',
+    expiresIn: '',
+    promoCode: '',
+    description: 'Bluetooth Calling Smart Watch for Men & Women | HD Touch Display | Heart Rate Monitor | Fitness Tracker | Sports Modes "More information is available on Amazon.",',
+    features: ['Operating System	: Android Wear 2.8', 'Special Feature :	Lightweight', 'Communication Technology :	Bluetooth', 'Battery Capacity	 : 180 Milliamp Hours', 'Wireless Communication Standard	: Bluetooth',]
+  },
+
   {
     id: 3,
     title: 'Digitek DWM-010 Mic Wireless with Type-C, Mic for YouTube Wireless Recording, 2.4GHz Wireless Microphone with Noise Reduction, 40m Range, 7H Battery, LED Light Indicator',
@@ -111,9 +135,57 @@ export const initialDeals: Deal[] = [
     description: 'Digitek DWM-010 Mic Wireless with Type-C, Mic for YouTube Wireless Recording, 2.4GHz Wireless Microphone with Noise Reduction, 40m Range, 7H Battery, LED Light Indicator "More information is available on Amazon."',
     features: ['Recommended Uses For Product :	Reels, Streaming, Video Conference, Vlogging', ' Brand : Digitek ', 'Model Name  :	DWM 010' , 'Connectivity Technology  :	Wireless','Connector Type	: USB Type-C' ]
   },
+  // --- FURNITURE ---
+  {
+    id: 8,
+    title: 'FireBees Modern Wooden Bedside Table with 3 Shelves | Compact Side Table for Bedroom & Living Room | Bed Side Table Organizer, End Table & Home Furniture | Dark Brown (40.6x25.4x50.8 cm) "More information is available on Amazon."',
+    category: 'Furniture',
+    price: '₹799',
+    originalPrice: '₹1,500',
+    discount: '47% OFF',
+    image: 'https://i.ibb.co/TqFN8Gnt/61m-KGRj0-i-L-SL1024.jpg',
+    images: [
+      'https://i.ibb.co/TqFN8Gnt/61m-KGRj0-i-L-SL1024.jpg',
+      'https://i.ibb.co/tkR5kRF/514-GXCbjva-L-SL1024.jpg',
+      'https://i.ibb.co/hk4GSfT/510-C1-Xey0b-L-SL1024.jpg',
+      'https://i.ibb.co/Q4kQcY8/61-HNnz45-Tt-L-SL1280.jpg',
+      'https://i.ibb.co/Ps7qxGpd/41-H-Dsp6ft-L-SL1024.jpg',
+      'https://i.ibb.co/RkkBsP51/41l-Hox12n7-L-SL1024.jpg',
+    ],
+    store: 'Amazon',
+    link: 'https://link.amazon/B019apDpf',
+    expiresIn: '',
+    promoCode: '',
+    description: 'FireBees Modern Wooden Bedside Table with 3 Shelves | Compact Side Table for Bedroom & Living Room | Bed Side Table Organizer, End Table & Home Furniture | Dark Brown (40.6x25.4x50.8 cm) "More information is available on Amazon."',
+    features: ['Brand :	FireBees', 'Product Dimensions	: 26D x 41W x 51H Centimeters', 'Indoor/Outdoor Usage	: Indoor ' , 'Style	: Modern','Colour	: Dark Brown', ]
+  },
  
 
   // --- 💻 LAPTOPS ---
+    {
+    id: 9,
+    title: 'EBook 11.6" HD Laptop | Best Student & Office Work Laptop | Celeron N4020 | 4GB DDR4 | 128GB eMMC + M.2 SSD Expandable Slot | Win 11 Home |31Wh Battery | UHD Graphics 600 | Black "More information is available on Amazon."',
+    category: 'Laptops',
+    price: '₹9,990',
+    originalPrice: '₹25,000',
+    discount: '60% OFF',
+    image: 'https://i.ibb.co/PsVX2Tg8/71-F8-TUSryh-L-SL1500.jpg',
+    images: [
+      'https://i.ibb.co/PsVX2Tg8/71-F8-TUSryh-L-SL1500.jpg',
+      'https://i.ibb.co/5g6v3b4k/81-Zs5-JUo05-L-SL1500.jpg',
+      'https://i.ibb.co/q34BK8kY/81-Z1p4py7f-L-SL1500.jpg',
+      'https://i.ibb.co/Ps87Ckm6/71iod-Q5-Jbi-L-SL1500.jpg',
+      'https://i.ibb.co/nqncVBm1/710f-Dv-MLVHL-SL1500.jpg',
+      'https://i.ibb.co/DgSZ3MhG/71-QED5a-T43-L-SL1500.jpg',
+      'https://i.ibb.co/tMTzfkfN/71-BYBEZQk-LL-SL1500.jpg',
+    ],
+    store: 'Amazon',
+    link: 'https://link.amazon/B01mSfL84',
+    expiresIn: '',
+    promoCode: '',
+    description: 'FireBees Modern Wooden Bedside Table with 3 Shelves | Compact Side Table for Bedroom & Living Room | Bed Side Table Organizer, End Table & Home Furniture | Dark Brown (40.6x25.4x50.8 cm) "More information is available on Amazon."',
+    features: ['Brand :	Neopticon', 'Model Name :	EBook', 'Screen Size :	11.6 Inches' , 'Hard Disk Size	: 128 GB','Colour :	Black','CPU Model	: Celeron N4020', 'RAM Memory Installed Size	: 4 GB', 'Operating System :	Windows 11 Home', 'Special Feature	: HD Audio, Memory Card Slot', 'Graphics Card Description :	Integrated' ]
+  },
  
 
   // --- ⌚ SMARTWATCHES ---

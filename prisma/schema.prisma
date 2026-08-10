@@ -37,3 +37,14 @@ model Deal {
   link          String
   createdAt     DateTime @default(now())
 }
+
+// ⭐Real User Review⭐
+model Review {
+  id        String   @id @default(cuid())
+  name      String
+  role      String   @default("ShopVibee Shopper")
+  rating    Int      @default(5)
+  comment   String
+  ipHash    String   @unique // Yeh ensure karega ki ek hi user/device se sirf ek review aaye
+  createdAt DateTime @default(now())
+}
