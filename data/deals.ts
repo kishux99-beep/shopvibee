@@ -20,6 +20,7 @@ export const categories = [
   'All',
   'Supplements',
   'Electronics',
+  'Toys&Games',
   'Wearables',
   'Furniture',
   'Laptops',
@@ -343,5 +344,58 @@ export const initialDeals: Deal[] = [
     promoCode: 'GLOW20',
     description: 'Powerful daily serum packed with pure Niacinamide and Matmarine to target blemishes and control oil.',
     features: ['Reduces acne marks & blemishes', 'Balances sebum activity', 'Fragrance-free formula']
-  }
+  },
+  
+   {
+    id: 15,
+    title: 'Digitek DWM-010 Mic Wireless with Type-C, Mic for YouTube Wireless Recording, 2.4GHz Wireless Microphone with Noise Reduction, 40m Range, 7H Battery, LED Light Indicator',
+    category: 'Electronics',
+    price: '₹699',
+    originalPrice: '₹1,495',
+    discount: '53% OFF',
+    image: 'https://i.ibb.co/JFvwdxg5/ULzvmj-YLSXkq-ZFUp-Tb-Tfj-VHx-OSMs-OHul.jpg',
+    images: [
+      'https://i.ibb.co/JFvwdxg5/ULzvmj-YLSXkq-ZFUp-Tb-Tfj-VHx-OSMs-OHul.jpg',
+      'https://i.ibb.co/RThdjnHG/OWchee-LSXUFw-Tt-Oo-QFj-Shn-Lk-Ytrm-CCHe.jpg',
+      'https://i.ibb.co/pHH3QbV/QVHPd-BOy-LSXv-Oqsym-JQBwamj-SNTJFPhh.jpg',
+      'https://i.ibb.co/QvwW1B8w/Ov-Jbey-BLSXt-Iu-EZVCLBifx-PSfh-TMNc-Aq.jpg',
+      'https://i.ibb.co/8DLkvVhN/Kkx-Emv-GLSXPCax-Zoay-WWggiwcij-Ec-MJq.jpg',
+      'https://i.ibb.co/Y4HTjVTd/h-UAe-Emr-LSXKMETmwi-Jl-LZucpstz-PLc-NU.jpg',
+      'https://i.ibb.co/mFrwbfpG/ezl-FGLSXh-Ms-Eg-CLe-Mahdl-Nde-WFGOIw-Zl.jpg',
+    ],
+    store: 'Amazon',
+    link: 'https://link.amazon/B0ilLfheW',
+    expiresIn: '',
+    promoCode: '',
+    description: 'Digitek DWM-010 Mic Wireless with Type-C, Mic for YouTube Wireless Recording, 2.4GHz Wireless Microphone with Noise Reduction, 40m Range, 7H Battery, LED Light Indicator "More information is available on Amazon."',
+    features: ['Recommended Uses For Product :	Reels, Streaming, Video Conference, Vlogging', ' Brand : Digitek ', 'Model Name  :	DWM 010' , 'Connectivity Technology  :	Wireless','Connector Type	: USB Type-C' ]
+  },
+  
+  // --- Toys & Games ---
+   {
+    id: 16,
+    title: 'GRAPHENE 1:32 Scale DieCast Metal Toy Car Pull Back Action Openable Doors 4x4 Thar/Jeep Premium Car Toy Light Music for Kids Realistic Miniature Model Best Gift 2+yrs Girls Boys Random Colors',
+    category: 'Toys&Games',
+    price: '₹309',
+    originalPrice: '₹999',
+    discount: '69% OFF',
+    image: 'https://i.ibb.co/Fqyv3jBr/51p-Git1u-TFL-SL1280.jpg',
+    images: [
+      'https://i.ibb.co/Fqyv3jBr/51p-Git1u-TFL-SL1280.jpg',
+      'https://i.ibb.co/fbfRrdt/71f-PAa-If77-L-SL1500.jpg',
+      'https://i.ibb.co/JR4X9sgn/81n9-KSRat-UL-SL1500.jpg',
+      'https://i.ibb.co/HpBbjZrv/711-Zriyn-NBL-SL1500.jpg',
+      'https://i.ibb.co/Vcsm3j66/71-Ih5-LQe-WL-SL1500.jpg',
+      'https://i.ibb.co/7xHcJJWj/61g-Ehh-U2dt-L-SL1280.jpg',
+      'https://i.ibb.co/MDFbWj0L/612kj-G6h-QRL-SL1080.jpg',
+      'https://i.ibb.co/zhvfVQTy/815vn37-Y4-TL-SL1500.jpg',
+      'https://i.ibb.co/Z62zmsqF/81-NZC97-Al2-L-SL1500.jpg',
+    ],
+    store: 'Amazon',
+    link: 'https://link.amazon/B03Cg6I2d',
+    expiresIn: '',
+    promoCode: '',
+    description: 'GRAPHENE 1:32 Scale DieCast Metal Toy Car Pull Back Action Openable Doors 4x4 Thar/Jeep Premium Car Toy Light Music for Kids Realistic Miniature Model Best Gift 2+yrs Girls Boys Random Colors "More information is available on Amazon." ',
+    features: [' Brand : GRAPHENE', 'Age Range Description :	2+ Kid and toddlers' , 'Country of Origin	: India','Unit Count :	1 Count' ]
+  },
 ];
