@@ -16,7 +16,7 @@ export interface TopDeal {
 
 export const topDealsData: TopDeal[] = [
    {
-    id: 5,
+    id: 4,
     title: 'Noise Pulse 2 Max 1.85" Display, Bluetooth Calling Smart Watch, 10 Days Battery, 550 NITS Brightness, Smart DND, 100 Sports Modes, Smartwatch for Men and Women (Deep Wine)',
     category: 'Smartwatches',
     price: '₹1,099',
@@ -31,7 +31,7 @@ export const topDealsData: TopDeal[] = [
     features: ['Operating System	: android, ios', 'Display Size :	1.85 Inches', 'Battery Life :	10 Days', 'Bluetooth Calling :	Yes', 'Sports Modes  :	100', 'Brightness	: 550 NITS']
   },
  {
-    id: 8,
+    id: 5,
     title: 'Gun Pistol Lighter Heavy Weight Metal Body Real and Original Like Gun Pistol for Decorative, Smoking Filled with Gas',
     category: 'Home',
     price: '₹1,399',

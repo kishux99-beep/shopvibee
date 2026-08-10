@@ -21,9 +21,9 @@ export const flashDurationMinutes = 0; // और 0 मिनट (कुल 24 �
 export const flashDealsData: FlashDeal[] = [
 
   {
-    id: 16,
+    id: 6,
     title: 'GRAPHENE 1:32 Scale DieCast Metal Toy Car Pull Back Action Openable Doors 4x4 Thar/Jeep Premium Car Toy Light Music for Kids Realistic Miniature Model Best Gift 2+yrs Girls Boys Random Colors',
-    category: 'Toys&Games',
+    category: 'TOYS & GAMES',
     price: '₹309',
     originalPrice: '₹999',
     discount: '69% OFF',
@@ -35,7 +35,7 @@ export const flashDealsData: FlashDeal[] = [
     features: [' Brand : GRAPHENE', 'Age Range Description :	2+ Kid and toddlers' , 'Country of Origin	: India','Unit Count :	1 Count','"More information is available on Amazon."' ]
   },
     {
-    id: 15,
+    id: 2,
     title: 'Digitek DWM-010 Mic Wireless with Type-C, Mic for YouTube Wireless Recording, 2.4GHz Wireless Microphone with Noise Reduction, 40m Range, 7H Battery, LED Light Indicator',
     category: 'Electronics',
     price: '₹699',
