@@ -19,37 +19,36 @@ export const flashDurationMinutes = 0; // और 0 मिनट (कुल 24 �
 
 
 export const flashDealsData: FlashDeal[] = [
+
   {
-    id: 9,
-    title: 'Levi\'s Men Slim Fit Casual Cotton Shirt',
-    category: 'Fashion',
-    price: '₹1,599',
-    originalPrice: '₹2,999',
-    discount: '46% OFF',
-    image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=800',
+    id: 16,
+    title: 'GRAPHENE 1:32 Scale DieCast Metal Toy Car Pull Back Action Openable Doors 4x4 Thar/Jeep Premium Car Toy Light Music for Kids Realistic Miniature Model Best Gift 2+yrs Girls Boys Random Colors',
+    category: 'Toys&Games',
+    price: '₹309',
+    originalPrice: '₹999',
+    discount: '69% OFF',
+    image: 'https://i.ibb.co/Fqyv3jBr/51p-Git1u-TFL-SL1280.jpg',
     
-    store: 'Myntra',
-    link: 'https://myntra.com',
-    
-    promoCode: 'LEVIS46',
-    description: 'Premium breathable cotton fabric tailored for an effortless smart-casual look.',
-    features: ['100% Breathable Cotton', 'Slim Fit Design', 'Machine Washable']
+    store: 'Amazon',
+    link: 'https://link.amazon/B03Cg6I2d',
+    description: 'GRAPHENE 1:32 Scale DieCast Metal Toy Car Pull Back Action Openable Doors 4x4 Thar/Jeep Premium Car Toy Light Music for Kids Realistic Miniature Model Best Gift 2+yrs Girls Boys Random Colors "More information is available on Amazon." ',
+    features: [' Brand : GRAPHENE', 'Age Range Description :	2+ Kid and toddlers' , 'Country of Origin	: India','Unit Count :	1 Count','"More information is available on Amazon."' ]
   },
-  {
-    id: 10,
-    title: 'Nike Air Zoom Pegasus 40 Running Shoes',
-    category: 'Shoes',
-    price: '₹8,395',
-    originalPrice: '₹11,995',
-    discount: '30% OFF',
-    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800',
-   
-    store: 'Nike India',
-    link: 'https://nike.com',
+    {
+    id: 15,
+    title: 'Digitek DWM-010 Mic Wireless with Type-C, Mic for YouTube Wireless Recording, 2.4GHz Wireless Microphone with Noise Reduction, 40m Range, 7H Battery, LED Light Indicator',
+    category: 'Electronics',
+    price: '₹699',
+    originalPrice: '₹1,495',
+    discount: '53% OFF',
+    image: 'https://i.ibb.co/JFvwdxg5/ULzvmj-YLSXkq-ZFUp-Tb-Tfj-VHx-OSMs-OHul.jpg',
     
-    promoCode: 'NIKE30',
-    description: 'Springy cushioning for road running, providing a supportive and balanced ride for daily trainers.',
-    features: ['Zoom Air units for responsiveness', 'Waffle-inspired rubber outsole', 'Enhanced upper mesh breathability']
+    store: 'Amazon',
+    link: 'https://link.amazon/B0ilLfheW',
+
+    promoCode: '',
+    description: 'Digitek DWM-010 Mic Wireless with Type-C, Mic for YouTube Wireless Recording, 2.4GHz Wireless Microphone with Noise Reduction, 40m Range, 7H Battery, LED Light Indicator "More information is available on Amazon."',
+    features: ['Recommended Uses For Product :	Reels, Streaming, Video Conference, Vlogging', ' Brand : Digitek ', 'Model Name  :	DWM 010' , 'Connectivity Technology  :	Wireless','Connector Type	: USB Type-C' ]
   },
   
 ];

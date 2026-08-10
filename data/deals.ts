@@ -345,7 +345,7 @@ export const initialDeals: Deal[] = [
     description: 'Powerful daily serum packed with pure Niacinamide and Matmarine to target blemishes and control oil.',
     features: ['Reduces acne marks & blemishes', 'Balances sebum activity', 'Fragrance-free formula']
   },
-  
+
    {
     id: 15,
     title: 'Digitek DWM-010 Mic Wireless with Type-C, Mic for YouTube Wireless Recording, 2.4GHz Wireless Microphone with Noise Reduction, 40m Range, 7H Battery, LED Light Indicator',
@@ -396,6 +396,6 @@ export const initialDeals: Deal[] = [
     expiresIn: '',
     promoCode: '',
     description: 'GRAPHENE 1:32 Scale DieCast Metal Toy Car Pull Back Action Openable Doors 4x4 Thar/Jeep Premium Car Toy Light Music for Kids Realistic Miniature Model Best Gift 2+yrs Girls Boys Random Colors "More information is available on Amazon." ',
-    features: [' Brand : GRAPHENE', 'Age Range Description :	2+ Kid and toddlers' , 'Country of Origin	: India','Unit Count :	1 Count' ]
+    features: [' Brand : GRAPHENE', 'Age Range Description :	2+ Kid and toddlers' , 'Country of Origin	: India','Unit Count :	1 Count','"More information is available on Amazon."' ]
   },
 ];
