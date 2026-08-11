@@ -1151,41 +1151,6 @@ useEffect(() => {
 </div>
       </section>
     </div>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-  {reviews.map((r) => (
-    <div key={r.id} className="relative bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
-      
-      {/* Yeh Delete Button ab loop ke ANDAR hai, isliye 'r.id' sahi se milega */}
-      <button 
-  onClick={async () => {
-    // Prompt hata kar simple confirm use kar rahe hain (No typing needed!)
-    if (!window.confirm("Are you sure you want to delete this review?")) return;
-
-    const res = await fetch('/api/reviews/delete', {
-      method: 'POST',
-      body: JSON.stringify({ id: r.id, adminPassword: "Krish@8865" }),
-      headers: {'Content-Type': 'application/json'}
-    });
-
-    if (res.ok) {
-      window.location.reload();
-    } else {
-      alert("Failed to delete!");
-    }
-  }}
-  className="absolute top-3 right-3 text-red-400 hover:text-red-600 text-xs font-bold"
->
-  Delete ✕
-</button>
-
-      <div>
-        <div className="flex text-amber-400 mb-4 text-sm">{'★'.repeat(r.rating)}</div>
-        <p className="text-sm text-gray-600 leading-relaxed">"{r.comment}"</p>
-      </div>
-      <div className="mt-8 pt-6 border-t border-gray-50 font-bold text-sm text-gray-900">— {r.name}</div>
-    </div>
-  ))}
-</div>
       {/* Get Alerts & Preferences Modal */}
       {isAlertsModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
