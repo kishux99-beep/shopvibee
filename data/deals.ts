@@ -214,7 +214,37 @@ export const initialDeals: Deal[] = [
   },
 
   // --- 🎧 AUDIO ---
- 
+ {
+    id: 10,
+    title: 'Dubstep Pop 1400 Portable Bluetooth Speaker | 14W Loud Sound, Deep Bass with XBASS, 16 Hrs Playtime, TWS Stereo Pairing, 52mm Driver, Splash-Resistant, Carry Strap (Black) "More information is available on Amazon."',
+    category: 'Audio',
+    price: '₹699',
+    originalPrice: '₹6,999',
+    discount: '90% OFF',
+    image: 'https://i.ibb.co/7xJXDPNj/71-Agwyf-Ss-L-SL1500.jpg',
+    images: [
+      'https://i.ibb.co/7xJXDPNj/71-Agwyf-Ss-L-SL1500.jpg',
+      'https://i.ibb.co/VYTjH2Z8/81-Fsq-C26-EEL-SL1500.jpg',
+      'https://i.ibb.co/gMZg4v0B/81kyb-Pb-YBML-SL1500.jpg',
+      'https://i.ibb.co/LsJcf5g/91-Nkv-K9-YVk-L-SL1500.jpg',
+      'https://i.ibb.co/B2mqd1Gx/71t-RJ-EX8-XL-SL1500.jpg',
+      'https://i.ibb.co/tM5Nkx27/81t-Xfz-YOBUL-SL1500.jpg',
+      'https://i.ibb.co/nqp0pX62/81-Z7-Oz2p7-WL-SL1500.jpg',
+      'https://i.ibb.co/PZvL6P3b/71-UMAAVSi-UL-SL1500.jpg',
+      'https://i.ibb.co/SbV76d9/81-T3ld9-EOL-SL1500.jpg',
+      'https://i.ibb.co/r2wS3xRD/81j-FCi-Dnnf-L-SL1500.jpg',
+      'https://i.ibb.co/WvkKGkTc/816-Yj1-S0-Xf-L-SL1500.jpg',
+      'https://i.ibb.co/fz9y2H91/81-Hh-NTRf-Zw-L-SL1500.jpg',
+      'https://i.ibb.co/Y4d8W1yv/71w4b-Vr-Kbn-L-SL1500.jpg',
+      'https://i.ibb.co/twmdy3qQ/7156jk6-SHZL-SL1500.jpg',
+      'https://i.ibb.co/SDvwwSxy/81iby-K7c8b-L-SL1500.jpg',
+    ],
+    store: 'Amazon',
+    link: 'https://link.amazon/B0h69MWhS',
+    expiresIn: '',
+    description: 'Dubstep Pop 1400 Portable Bluetooth Speaker | 14W Loud Sound, Deep Bass with XBASS, 16 Hrs Playtime, TWS Stereo Pairing, 52mm Driver, Splash-Resistant, Carry Strap (Black) "More information is available on Amazon."',
+    features: ['Brand :	Dubstep', 'Speaker Maximum Output Power	 :	14 Watts', 'Frequency Response 	:	20 Hz', 'Connectivity Technology  :	Bluetooth', 'Audio Output Mode :	Stereo',  ]
+  },
 
   // --- 🏠 HOME ---
  
@@ -242,12 +272,79 @@ export const initialDeals: Deal[] = [
   },
 
   // --- 👕 FASHION ---
+   {
+    id: 11,
+    title: 'NETCLICK® Men’s Sleeveless Round Neck Polycotton Tank Top Vest for Gym, Workout, Running & Casual Wear "More information is available on Amazon."',
+    category: 'Fashion',
+    price: '₹282',
+    originalPrice: '₹999',
+    discount: '72% OFF',
+    image: 'https://i.ibb.co/2Y7JCHX0/41-Zt-Um-Ks9-L-SY550.jpg',
+    images: [
+      'https://i.ibb.co/2Y7JCHX0/41-Zt-Um-Ks9-L-SY550.jpg',
+      'https://i.ibb.co/pBwv2Ppp/71t-E5ek-I8-LL-SY741.jpg',
+      'https://i.ibb.co/tT7K8Hrf/61kr-Eri2o-L-SY741.jpg',
+      'https://i.ibb.co/SWJpYtN/41v0cw-Gi67-L.jpg',
+    ],
+    store: 'Amazon',
+    link: 'https://link.amazon/B0dXMnGyq',
+    expiresIn: '',
+    description: 'NETCLICK® Men’s Sleeveless Round Neck Polycotton Tank Top Vest for Gym, Workout, Running & Casual Wear "More information is available on Amazon."',
+    features: ['Manufacturer : NETCLICK, NETCLICK', 'Packer : NETCLICK', 'Item Weight : 200 g', 'Item Dimensions  : 24 x 20 x 20', 'LxWxH : Centimeters', 'Net Quantity : 1.0 Count', 'Generic Name : Vest', 'Colour :	Black', '"More information is available on Amazon."', ]
+  },
   
 
   // --- 👟 SHOES ---
-  
+   {
+    id: 12,
+    title: 'Kraasa Men’s Running Shoes | Breathable Mesh Upper | Lightweight Phylon Sole | Cushioned EVA Insole | Comfortable Sports & Casual Sneakers for Gym, Walking & Daily Use "More information is available on Amazon."',
+    category: 'Shoes',
+    price: '₹947',
+    originalPrice: '₹2,999',
+    discount: '68% OFF',
+    image: 'https://i.ibb.co/xtBDhGY3/71-GDiyx-QF-L-SX625.jpg',
+    images: [
+      'https://i.ibb.co/xtBDhGY3/71-GDiyx-QF-L-SX625.jpg',
+      'https://i.ibb.co/fdkwDhtW/71-GTg-Crm2-PL-SX625.jpg',
+      'https://i.ibb.co/PGLz6Prn/71-Vh-K23ra-L-SX625.jpg',
+      'https://i.ibb.co/NdL0n1Bh/71ocz-Qo-Wt-KL-SX625.jpg',
+      'https://i.ibb.co/sd4fbjbv/610a-NXla-Zh-L-SX625.jpg',
+      'https://i.ibb.co/b58bwGHs/71vdh-WAFp2-L-SX625.jpg',
+      'https://i.ibb.co/3mdn4YdC/715-J-s9-ZCPL-SX625.jpg',
+    ],
+    store: 'Amazon',
+    link: 'https://link.amazon/B089gkTtH',
+    expiresIn: '',
+    description: 'Kraasa Men’s Running Shoes | Breathable Mesh Upper | Lightweight Phylon Sole | Cushioned EVA Insole | Comfortable Sports & Casual Sneakers for Gym, Walking & Daily Use "More information is available on Amazon."',
+    features: ['Country of Origin  :  India', 'Style : Running Shoes', 'Material type : Knit Fabric', 'Closure type : Lace-Up', 'Heel type : Flat', 'Water resistance level : Not Water Resistant', 'Sole material : Phylon','"More information is available on Amazon."', ]
+  },
 
   // --- 🎮 GAMING ---
+  {
+    id: 13,
+    title: 'EvoFox One S V2 Universal 3-Mode Wireless Gaming Controller, HallSense™ Precision Joysticks, Bluetooth 5.0, 2.4GHz, Fast Type-C Charging for PC, Mobile, Android TV - Black "More information is available on Amazon."',
+    category: 'Gaming',
+    price: '₹1,549',
+    originalPrice: '₹2,299',
+    discount: '33% OFF',
+    image: 'https://i.ibb.co/krNLRZq/617-Izh-Xu87-L-SL1500.jpg',
+    images: [
+      'https://i.ibb.co/krNLRZq/617-Izh-Xu87-L-SL1500.jpg',
+      'https://i.ibb.co/jk84xj4X/71s8la-Q1-YLL-SL1500.jpg',
+      'https://i.ibb.co/hRv8jypJ/61-mw-Jmj1w-L-SL1500.jpg',
+      'https://i.ibb.co/tPMnxKrG/71czp-Lo8-Gh-L-SL1500.jpg',
+      'https://i.ibb.co/V0MPMtC3/71erl-LPs6-QL-SL1500.jpg',
+      'https://i.ibb.co/7thNHFgw/71-Dy-JL-OXDL-SL1500.jpg',
+      'https://i.ibb.co/HfkfvHZR/71v-Xec-QD-h-L-SL1500.jpg',
+      'https://i.ibb.co/ymSy8ZYL/71un-Qm-i2b-L-SL1500.jpg',
+      'https://i.ibb.co/5WmNKw22/71v-AHXQq5l-L-SL1500.jpg',
+    ],
+    store: 'Amazon',
+    link: 'https://link.amazon/B0bmokIHl',
+    expiresIn: '',
+    description: 'EvoFox One S V2 Universal 3-Mode Wireless Gaming Controller, HallSense™ Precision Joysticks, Bluetooth 5.0, 2.4GHz, Fast Type-C Charging for PC, Mobile, Android TV - Black "More information is available on Amazon."',
+     features: ['Batteries ‏ : ‎ 1 Lithium Ion batteries required. (included)', 'Release date ‏ : ‎ 3 March 2025', 'ASIN ‏ : ‎ B0DZ6LLZTT', 'Item model number ‏ : ‎ One S - Black', 'Country of Origin ‏ : ‎ China', 'Manufacturer ‏ : ‎ Allied Electronics & Magnetics Private Limited C-64/4, Okhla Phase - 2, New Delhi - 110020, Allied Electronics & Magnetics Pvt. Ltd.', 'Item Weight ‏ : ‎ 220 g','Item Dimensions LxWxH ‏ : ‎ 15.5 x 11 x 7 Centimeters', 'Net Quantity ‏ : ‎ 1 Count', 'Generic Name ‏ : ‎ Gamepad', 'Importer ‏ : ‎ Allied Electronics & Magnetics Private Limited C-64/4, Okhla Phase - 2, New Delhi - 110020', 'Packer ‏ : ‎ Allied Electronics & Magnetics Private Limited C-64/4, Okhla Phase - 2, New Delhi - 110020', 'Best Sellers Rank: #40 in Computers & Accessories ','"More information is available on Amazon."', ]
+  },
  
 
   // --- 🍽️ KITCHEN ---
