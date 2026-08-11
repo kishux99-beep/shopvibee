@@ -118,7 +118,11 @@ useEffect(() => {
     minutes: flashDurationMinutes, 
     seconds: 0 
   });
-
+const [messageModal, setMessageModal] = useState<{ show: boolean; text: string; type: 'success' | 'error' }>({
+  show: false,
+  text: '',
+  type: 'success',
+});
   useEffect(() => {
     setIsMounted(true);
     const totalDurationSeconds = (flashDurationHours * 3600) + (flashDurationMinutes * 60);
@@ -1129,7 +1133,7 @@ useEffect(() => {
   <button 
     onClick={async () => {
       if (!newReview.name || !newReview.comment) {
-        alert("Please fill in all fields!");
+        setMessageModal({ show: true, text: "Please fill in all fields!", type: 'error' });
         return;
       }
       const res = await fetch('/api/reviews', {
@@ -1138,10 +1142,9 @@ useEffect(() => {
         headers: {'Content-Type': 'application/json'}
       });
       if (res.ok) { 
-        alert('Review Submitted Successfully! 🚀'); 
-        window.location.reload(); 
+        setMessageModal({ show: true, text: 'Review Submitted Successfully! 🚀', type: 'success' });
       } else { 
-        alert('Error: You may have already reviewed.'); 
+        setMessageModal({ show: true, text: 'You may have already reviewed.', type: 'error' });
       }
     }}
     className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition active:scale-95 shadow-lg shadow-indigo-200"
@@ -1257,6 +1260,40 @@ useEffect(() => {
           </div>
         </div>
       )}
+      {/* 🌟 Custom Modern Message Popup */}
+{messageModal.show && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+    <div className="bg-white rounded-3xl max-w-sm w-full p-8 text-center shadow-2xl border border-gray-100 transform transition-all scale-100">
+      
+      {/* Icon based on Success or Error */}
+      <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-2xl ${
+        messageModal.type === 'success' ? 'bg-emerald-50 text-emerald-500' : 'bg-red-50 text-red-500'
+      }`}>
+        {messageModal.type === 'success' ? '🎉' : '⚠️'}
+      </div>
+
+      <h3 className="font-bold text-lg text-gray-900 mb-2">
+        {messageModal.type === 'success' ? 'Success!' : 'Notice'}
+      </h3>
+      
+      <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+        {messageModal.text}
+      </p>
+
+      <button
+        onClick={() => {
+          setMessageModal({ ...messageModal, show: false });
+          if (messageModal.type === 'success') {
+            window.location.reload();
+          }
+        }}
+        className="w-full bg-indigo-600 text-white py-3 rounded-2xl font-bold text-sm hover:bg-indigo-700 transition shadow-lg shadow-indigo-200 active:scale-95"
+      >
+        OK
+      </button>
+    </div>
+  </div>
+)}
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-100 pt-10 pb-6 mt-12">
