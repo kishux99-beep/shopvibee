@@ -8,7 +8,7 @@ import { initialDeals, Deal } from '@/data/deals';
 import { flashDealsData, FlashDeal } from '@/data/flashDeals';
 import { topDealsData, TopDeal } from '@/data/topDeals';
 import logo from '@/public/logo-dark.png';
-import { FaArrowLeft, FaShieldAlt, FaBolt, FaHeart, FaShareAlt } from 'react-icons/fa';
+import { FaArrowLeft, FaShieldAlt, FaBolt, FaHeart, FaShareAlt, FaLightbulb, FaCheckCircle, FaUserCheck } from 'react-icons/fa';
 
 export default function DealDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -151,6 +151,8 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
       d.id !== deal.id &&
       d.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const guidance = (deal as any)?.vibeeGuidance;
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans flex flex-col justify-between pb-20 sm:pb-0">
@@ -359,6 +361,40 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
                     </ul>
                   </div>
                 )}
+
+                {/* 💡 🚀 NEW: ShopVibee Smart Guidance Box */}
+                {guidance && (
+                  <div className="mt-5 p-4 rounded-2xl bg-gradient-to-br from-amber-50/80 via-amber-50/30 to-indigo-50/50 border border-amber-200/80 shadow-sm relative overflow-hidden">
+                    <div className="flex items-center justify-between mb-2.5">
+                      <div className="flex items-center gap-2 text-amber-900 font-black text-xs sm:text-sm uppercase tracking-wider">
+                        <FaLightbulb className="text-amber-500 text-base animate-pulse" />
+                        <span>ShopVibee Guidance</span>
+                      </div>
+                      {guidance.bestFor && (
+                        <span className="text-[10px] font-bold text-indigo-700 bg-indigo-100/80 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                          <FaUserCheck className="text-[9px]" /> {guidance.bestFor}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="space-y-2 text-xs text-gray-700 leading-relaxed">
+                      <div className="bg-white/80 backdrop-blur-sm p-2.5 rounded-xl border border-amber-100">
+                        <p className="font-medium text-gray-800">
+                          <strong className="text-amber-800 font-bold">Why Buy This Deal? </strong>
+                          {guidance.whyBuy}
+                        </p>
+                      </div>
+
+                      <div className="flex items-start gap-2 pt-0.5 text-emerald-800 font-medium">
+                        <FaCheckCircle className="text-emerald-600 text-sm flex-shrink-0 mt-0.5" />
+                        <p className="text-[11px] sm:text-xs">
+                          <strong className="font-bold">Verdict: </strong>
+                          {guidance.verdict}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Affiliate Redirect CTA Button with Ref for Observer */}
@@ -460,10 +496,10 @@ export default function DealDetailPage({ params }: { params: Promise<{ id: strin
                     <span className="text-[10px] font-extrabold bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded border border-emerald-200">
                       {deal.discount}🔥
                     </span>
-                 )}
-               </div>
+                  )}
+                </div>
               </div>
-           </div>
+            </div>
             <a
               href={deal.link}
               target="_blank"

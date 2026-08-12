@@ -13,6 +13,13 @@ export interface Deal {
   promoCode?: string;
   description: string;
   features: string[];
+
+  // 💡 🚀 NEW FEATURE: ShopVibee Smart Guidance & Buying Advice
+  vibeeGuidance?: {
+    whyBuy: string;    // Is deal mein value kyun hai
+    verdict: string;   // Quick 1-liner decision guide
+    bestFor?: string;  // Target users
+  };
 }
 
 // 🚀 Expanded Categories List
@@ -58,7 +65,12 @@ export const initialDeals: Deal[] = [
     expiresIn: '',
     promoCode: 'KRISH',
     description: 'HELPS BUILD MUSCLE & STRENGTH: Every scoop of Wellcore Creatine Monohydrate delivers the fuel for your physical performance. It helps you train harder, lift heavier, and recover faster.',
-    features: ['Weight : 122g', 'Servings : 33 ', 'Lab Tested', 'Supports Athletic Performance and Power', 'Fruit Fusion Flavor']
+    features: ['Weight : 122g', 'Servings : 33 ', 'Lab Tested', 'Supports Athletic Performance and Power', 'Fruit Fusion Flavor'],
+    vibeeGuidance: {
+      whyBuy: 'Unflavored creatine ke comparison mein Fruit Fusion flavor lena difficult nahi hota. Lab-tested formula aur pure micronised form strength building ke liye solid choice hai.',
+      verdict: 'Agar aap beginners level workout kar rahe hain aur flavored creatine chahte hain, toh ye budget-friendly option hai.',
+      bestFor: 'Gym-goers & Strength Athletes'
+    }
   },
 
   // --- ELECTRONICS & WEARABLES ---
@@ -73,22 +85,26 @@ export const initialDeals: Deal[] = [
     images: [
       'https://i.ibb.co/Y7SXD7WG/RECIa-Dy-LSXEd-ETVPa-SXCyb-Us-Qxa-Zj-Byo.jpg',
       'https://i.ibb.co/TBBdxM9y/q-JHs-Oj-LSXJIOng-Pj-ZOJjd-IOGa-TKt-Sgn-L.jpg',
-      'https://i.ibb.co/fVzxBpT0/Tlx-VSLSXc-Zdk-Et-Gis-Mx-Sge-Rq-Pq-AIwx-IG.jpg"',
+      'https://i.ibb.co/fVzxBpT0/Tlx-VSLSXc-Zdk-Et-Gis-Mx-Sge-Rq-Pq-AIwx-IG.jpg',
       'https://i.ibb.co/4nGC3RG7/rabekv-PLSXUPnc-Jf-SIil-FRAXj-Ldrpx-Mb.jpg',
       'https://i.ibb.co/LXBL6M0p/cf-Fi-ERLSXWUIbia-UQtu-Cm-UWLMLNKpau-K.jpg',
       'https://i.ibb.co/wF5VcWsP/h-XUoe-Nl-KLSXFm-Iw-Xbdftuxtt-Ya-NCn-WYf.jpg',
-
     ],
     store: 'Amazon',
     link: 'https://link.amazon/B0ayX6mS3',
     expiresIn: '',
     promoCode: '',
-    description: 'With up to 57-hour battery life and quick charging of 5min gives 3Hrs playback, you’ ll have enough power for multi-day road trips and long festival weekends JBL Tune 520BT feature the renowned JBL Pure Bass sound, the same that powers the most famous venues all around the world Customize your listening experience with JBL Headphones App to tailor the sound to your taste with the EQ. "More information is available on Amazon.",',
-    features: ['Brand	: JBL', 'Connectivity : Technology	Wireless', 'Communication Technology :	Bluetooth', 'Included Components	: 1 x JBL Tune 520BT headphones 1 x USB-C Charging Cable 1 x Warranty', 'Colour	Black',]
+    description: 'With up to 57-hour battery life and quick charging of 5min gives 3Hrs playback, you’ ll have enough power for multi-day road trips and long festival weekends JBL Tune 520BT feature the renowned JBL Pure Bass sound, the same that powers the most famous venues all around the world Customize your listening experience with JBL Headphones App to tailor the sound to your taste with the EQ.',
+    features: ['Brand : JBL', 'Connectivity : Technology Wireless', 'Communication Technology : Bluetooth', 'Included Components : 1 x JBL Tune 520BT headphones 1 x USB-C Charging Cable 1 x Warranty', 'Colour Black'],
+    vibeeGuidance: {
+      whyBuy: '₹3,000 ke andar 57 Hours ka massive battery backup aur Fast Speed Charging milna mushkil hai. JBL App support se EQ customize bhi kar sakte hain.',
+      verdict: 'Long battery, reliable brand aur deep bass ke liye ₹2,799 par bilkul paisa vasool deal hai.',
+      bestFor: 'Daily Commuters, Music Lovers & Online Classes'
+    }
   },
-   {
+  {
     id: 7,
-    title: 'Bluetooth Calling Smart Watch for Men & Women | HD Touch Display | Heart Rate Monitor | Fitness Tracker | Sports Modes "More information is available on Amazon."',
+    title: 'Bluetooth Calling Smart Watch for Men & Women | HD Touch Display | Heart Rate Monitor | Fitness Tracker | Sports Modes',
     category: 'Wearables',
     price: '₹425',
     originalPrice: '₹799',
@@ -100,16 +116,19 @@ export const initialDeals: Deal[] = [
       'https://i.ibb.co/vx9pyHR4/61twp-Nyk-Zg-L-SL1500.jpg',
       'https://i.ibb.co/GvzD5zDy/61-J22i5-COJL-SL1500.jpg',
       'https://i.ibb.co/HTg1LLJd/61-Vvr2-Uxo8-L-SL1500.jpg',
-
     ],
     store: 'Amazon',
     link: 'https://link.amazon/B00rOKtoE',
     expiresIn: '',
     promoCode: '',
-    description: 'Bluetooth Calling Smart Watch for Men & Women | HD Touch Display | Heart Rate Monitor | Fitness Tracker | Sports Modes "More information is available on Amazon.",',
-    features: ['Operating System	: Android Wear 2.8', 'Special Feature :	Lightweight', 'Communication Technology :	Bluetooth', 'Battery Capacity	 : 180 Milliamp Hours', 'Wireless Communication Standard	: Bluetooth',]
+    description: 'Bluetooth Calling Smart Watch for Men & Women | HD Touch Display | Heart Rate Monitor | Fitness Tracker | Sports Modes',
+    features: ['Operating System : Android Wear 2.8', 'Special Feature : Lightweight', 'Communication Technology : Bluetooth', 'Battery Capacity : 180 Milliamp Hours', 'Wireless Communication Standard : Bluetooth'],
+    vibeeGuidance: {
+      whyBuy: '₹500 se kam price mein Bluetooth calling feature aur HD display milna bohot rare hai.',
+      verdict: 'Super budget category mein entry-level smartwatch lene ke liye best option.',
+      bestFor: 'First-time Smartwatch Users & Gifting'
+    }
   },
-
   {
     id: 3,
     title: 'Digitek DWM-010 Mic Wireless with Type-C, Mic for YouTube Wireless Recording, 2.4GHz Wireless Microphone with Noise Reduction, 40m Range, 7H Battery, LED Light Indicator',
@@ -131,13 +150,19 @@ export const initialDeals: Deal[] = [
     link: 'https://link.amazon/B0ilLfheW',
     expiresIn: '',
     promoCode: '',
-    description: 'Digitek DWM-010 Mic Wireless with Type-C, Mic for YouTube Wireless Recording, 2.4GHz Wireless Microphone with Noise Reduction, 40m Range, 7H Battery, LED Light Indicator "More information is available on Amazon."',
-    features: ['Recommended Uses For Product :	Reels, Streaming, Video Conference, Vlogging', ' Brand : Digitek ', 'Model Name  :	DWM 010' , 'Connectivity Technology  :	Wireless','Connector Type	: USB Type-C' ]
+    description: 'Digitek DWM-010 Mic Wireless with Type-C, Mic for YouTube Wireless Recording, 2.4GHz Wireless Microphone with Noise Reduction, 40m Range, 7H Battery, LED Light Indicator',
+    features: ['Recommended Uses For Product : Reels, Streaming, Video Conference, Vlogging', 'Brand : Digitek', 'Model Name : DWM 010', 'Connectivity Technology : Wireless', 'Connector Type : USB Type-C'],
+    vibeeGuidance: {
+      whyBuy: 'Content creators ke liye high audio clarity noise reduction ke sath mil rahi hai, aur 40 meter range is price range mein impressive hai.',
+      verdict: 'Reels aur YouTube videos start karne ke liye plug-and-play Type-C wireless mic ideal hai.',
+      bestFor: 'YouTubers, Vloggers & Instagram Creators'
+    }
   },
+
   // --- FURNITURE ---
   {
     id: 8,
-    title: 'FireBees Modern Wooden Bedside Table with 3 Shelves | Compact Side Table for Bedroom & Living Room | Bed Side Table Organizer, End Table & Home Furniture | Dark Brown (40.6x25.4x50.8 cm) "More information is available on Amazon."',
+    title: 'FireBees Modern Wooden Bedside Table with 3 Shelves | Compact Side Table for Bedroom & Living Room | Bed Side Table Organizer, End Table & Home Furniture | Dark Brown (40.6x25.4x50.8 cm)',
     category: 'Furniture',
     price: '₹799',
     originalPrice: '₹1,500',
@@ -155,15 +180,19 @@ export const initialDeals: Deal[] = [
     link: 'https://link.amazon/B019apDpf',
     expiresIn: '',
     promoCode: '',
-    description: 'FireBees Modern Wooden Bedside Table with 3 Shelves | Compact Side Table for Bedroom & Living Room | Bed Side Table Organizer, End Table & Home Furniture | Dark Brown (40.6x25.4x50.8 cm) "More information is available on Amazon."',
-    features: ['Brand :	FireBees', 'Product Dimensions	: 26D x 41W x 51H Centimeters', 'Indoor/Outdoor Usage	: Indoor ' , 'Style	: Modern','Colour	: Dark Brown', ]
+    description: 'FireBees Modern Wooden Bedside Table with 3 Shelves | Compact Side Table for Bedroom & Living Room | Bed Side Table Organizer, End Table & Home Furniture | Dark Brown (40.6x25.4x50.8 cm)',
+    features: ['Brand : FireBees', 'Product Dimensions : 26D x 41W x 51H Centimeters', 'Indoor/Outdoor Usage : Indoor', 'Style : Modern', 'Colour : Dark Brown'],
+    vibeeGuidance: {
+      whyBuy: '3 tiers space-saving design ke sath aesthetic dark brown finish bedroom ya living room ke look ko instantly elevate karta hai.',
+      verdict: 'Compact spaces mein storage aur decor dono ke liye value-for-money furniture pick.',
+      bestFor: 'Bedrooms, Hostels & Compact Living Rooms'
+    }
   },
- 
 
   // --- 💻 LAPTOPS ---
-    {
+  {
     id: 9,
-    title: 'EBook 11.6" HD Laptop | Best Student & Office Work Laptop | Celeron N4020 | 4GB DDR4 | 128GB eMMC + M.2 SSD Expandable Slot | Win 11 Home |31Wh Battery | UHD Graphics 600 | Black "More information is available on Amazon."',
+    title: 'EBook 11.6" HD Laptop | Best Student & Office Work Laptop | Celeron N4020 | 4GB DDR4 | 128GB eMMC + M.2 SSD Expandable Slot | Win 11 Home |31Wh Battery | UHD Graphics 600 | Black',
     category: 'Laptops',
     price: '₹9,990',
     originalPrice: '₹25,000',
@@ -182,10 +211,14 @@ export const initialDeals: Deal[] = [
     link: 'https://link.amazon/B01mSfL84',
     expiresIn: '',
     promoCode: '',
-    description: 'FireBees Modern Wooden Bedside Table with 3 Shelves | Compact Side Table for Bedroom & Living Room | Bed Side Table Organizer, End Table & Home Furniture | Dark Brown (40.6x25.4x50.8 cm) "More information is available on Amazon."',
-    features: ['Brand :	Neopticon', 'Model Name :	EBook', 'Screen Size :	11.6 Inches' , 'Hard Disk Size	: 128 GB','Colour :	Black','CPU Model	: Celeron N4020', 'RAM Memory Installed Size	: 4 GB', 'Operating System :	Windows 11 Home', 'Special Feature	: HD Audio, Memory Card Slot', 'Graphics Card Description :	Integrated' ]
+    description: 'EBook 11.6" HD Laptop powered by Celeron N4020, Windows 11 Home, 4GB RAM, and expandable M.2 SSD slot. Perfect for basic web browsing, online classes, and daily office documentation.',
+    features: ['Brand : Neopticon', 'Model Name : EBook', 'Screen Size : 11.6 Inches', 'Hard Disk Size : 128 GB', 'Colour : Black', 'CPU Model : Celeron N4020', 'RAM Memory Installed Size : 4 GB', 'Operating System : Windows 11 Home', 'Special Feature : HD Audio, Memory Card Slot', 'Graphics Card Description : Integrated'],
+    vibeeGuidance: {
+      whyBuy: 'Under ₹10,000 mein Genuine Windows 11 aur SSD Expansion slot waala laptop milna highly economical hai.',
+      verdict: 'Basic Ms-Office work, browsing aur online classes ke liye ultimate budget laptop.',
+      bestFor: 'Students & Light Office Work'
+    }
   },
- 
 
   // --- ⌚ SMARTWATCHES ---
   {
@@ -208,14 +241,19 @@ export const initialDeals: Deal[] = [
     link: 'https://link.amazon/B0fT0zGiD',
     expiresIn: '',
     promoCode: '',
-    description: 'Noise Pulse 2 Max is a feature-packed smartwatch that combines style and functionality. With a large 1.85" display, Bluetooth calling, and a long-lasting battery, it keeps you connected and on top of your fitness goals."More information is available on Amazon."',
-    features: ['Operating System	: android, ios', 'Display Size :	1.85 Inches', 'Battery Life :	10 Days', 'Bluetooth Calling :	Yes', 'Sports Modes  :	100', 'Brightness	: 550 NITS']
+    description: 'Noise Pulse 2 Max is a feature-packed smartwatch that combines style and functionality. With a large 1.85" display, Bluetooth calling, and a long-lasting battery, it keeps you connected and on top of your fitness goals.',
+    features: ['Operating System : android, ios', 'Display Size : 1.85 Inches', 'Battery Life : 10 Days', 'Bluetooth Calling : Yes', 'Sports Modes : 100', 'Brightness : 550 NITS'],
+    vibeeGuidance: {
+      whyBuy: '550 NITS outdoor display brightness aur Noise ki proprietary calling clarity is budget mein stand-out feature hain.',
+      verdict: 'Brand value + Massive display 82% discount par ek killer deal hai.',
+      bestFor: 'Fitness Enthusiasts & Daily Outdoor Use'
+    }
   },
 
   // --- 🎧 AUDIO ---
- {
+  {
     id: 10,
-    title: 'Dubstep Pop 1400 Portable Bluetooth Speaker | 14W Loud Sound, Deep Bass with XBASS, 16 Hrs Playtime, TWS Stereo Pairing, 52mm Driver, Splash-Resistant, Carry Strap (Black) "More information is available on Amazon."',
+    title: 'Dubstep Pop 1400 Portable Bluetooth Speaker | 14W Loud Sound, Deep Bass with XBASS, 16 Hrs Playtime, TWS Stereo Pairing, 52mm Driver, Splash-Resistant, Carry Strap (Black)',
     category: 'Audio',
     price: '₹699',
     originalPrice: '₹6,999',
@@ -241,12 +279,16 @@ export const initialDeals: Deal[] = [
     store: 'Amazon',
     link: 'https://link.amazon/B0h69MWhS',
     expiresIn: '',
-    description: 'Dubstep Pop 1400 Portable Bluetooth Speaker | 14W Loud Sound, Deep Bass with XBASS, 16 Hrs Playtime, TWS Stereo Pairing, 52mm Driver, Splash-Resistant, Carry Strap (Black) "More information is available on Amazon."',
-    features: ['Brand :	Dubstep', 'Speaker Maximum Output Power	 :	14 Watts', 'Frequency Response 	:	20 Hz', 'Connectivity Technology  :	Bluetooth', 'Audio Output Mode :	Stereo',  ]
+    description: 'Dubstep Pop 1400 Portable Bluetooth Speaker | 14W Loud Sound, Deep Bass with XBASS, 16 Hrs Playtime, TWS Stereo Pairing, 52mm Driver, Splash-Resistant, Carry Strap (Black)',
+    features: ['Brand : Dubstep', 'Speaker Maximum Output Power : 14 Watts', 'Frequency Response : 20 Hz', 'Connectivity Technology : Bluetooth', 'Audio Output Mode : Stereo'],
+    vibeeGuidance: {
+      whyBuy: '14W output aur 16 Hrs battery backup sound level ke hisaab se ₹699 par steep discount mark karti hai.',
+      verdict: 'Room sound aur small outdoor trips ke liye loud bass speaker.',
+      bestFor: 'Outdoor Trips & Room Music Sessions'
+    }
   },
 
   // --- 🏠 HOME ---
- 
   {
     id: 5,
     title: 'Gun Pistol Lighter Heavy Weight Metal Body Real and Original Like Gun Pistol for Decorative, Smoking Filled with Gas',
@@ -266,14 +308,19 @@ export const initialDeals: Deal[] = [
     store: 'Amazon',
     link: 'https://link.amazon/B0b50YOCH',
     expiresIn: '2 days left',
-    description: 'Made from high quality Allow Metal Having a high-grade and high-quality lighter is the first smokers should take into consideration. Designed for convenience, this classic shaped refillable gas lighter is long lasting and sharp flamed. Antique design revolver pistol gun lighter THIS IS NOT A USB LIGHTER. It is best suited for those who like to have a surprise element in their accessories. The lighter is very durable and easy to use, a perfect gift for your best friend. Can be refilled at any local cigarette vendor / betel shop. Superb Quality Refillable Cigarette Lighter material to ensure its durability. Runs on Butane Gas, easily available. Perfect gift for your love ones. Keep outing of children, it is not a toy. NOTE: DUE TO SHIPPING RESTRICTIONS, THERE MAY BE NO FUEL IN THE LIGHTER. PLEASE GET IT FILLED FROM A LOCAL SHOP. Superb Quality Refillable Cigarette Lighter Material To Ensure Its Durability. Strong Body It Is More Decoration Or Collection Than A Lighter Help Shows Your Noble Quality And Notable Social Position. "More information is available on Amazon."',
-    features: ['Colour  :  Z83 BLACK', 'Material :	Metal', 'Style :	Pistol', 'Item Weight   :	450 Grams', 'Fuel Type :	Butane', 'Product 	: 10L x 15W x 5Th ', 'Dimensions : Centimeters', 'Number of Items	: 1', 'Net Quantity	 : 1.0 Count', 'Number of Packs	 : 1', ]
+    description: 'Made from high quality Allow Metal Having a high-grade and high-quality lighter is the first smokers should take into consideration. Designed for convenience, this classic shaped refillable gas lighter is long lasting and sharp flamed. Antique design revolver pistol gun lighter.',
+    features: ['Colour : Z83 BLACK', 'Material : Metal', 'Style : Pistol', 'Item Weight : 450 Grams', 'Fuel Type : Butane', 'Product Dimensions : 10L x 15W x 5Th Centimeters', 'Number of Items : 1', 'Net Quantity : 1.0 Count'],
+    vibeeGuidance: {
+      whyBuy: 'Real metal alloy build body collectible decor ke liye kaafi aesthetic look deti hai.',
+      verdict: 'Unique collectible item ya showpiece gift option.',
+      bestFor: 'Gifting & Home Decor Collectors'
+    }
   },
 
   // --- 👕 FASHION ---
-   {
+  {
     id: 11,
-    title: 'NETCLICK® Men’s Sleeveless Round Neck Polycotton Tank Top Vest for Gym, Workout, Running & Casual Wear "More information is available on Amazon."',
+    title: 'NETCLICK® Men’s Sleeveless Round Neck Polycotton Tank Top Vest for Gym, Workout, Running & Casual Wear',
     category: 'Fashion',
     price: '₹282',
     originalPrice: '₹999',
@@ -288,15 +335,19 @@ export const initialDeals: Deal[] = [
     store: 'Amazon',
     link: 'https://link.amazon/B0dXMnGyq',
     expiresIn: '',
-    description: 'NETCLICK® Men’s Sleeveless Round Neck Polycotton Tank Top Vest for Gym, Workout, Running & Casual Wear "More information is available on Amazon."',
-    features: ['Manufacturer : NETCLICK, NETCLICK', 'Packer : NETCLICK', 'Item Weight : 200 g', 'Item Dimensions  : 24 x 20 x 20', 'LxWxH : Centimeters', 'Net Quantity : 1.0 Count', 'Generic Name : Vest', 'Colour :	Black', '"More information is available on Amazon."', ]
+    description: 'NETCLICK® Men’s Sleeveless Round Neck Polycotton Tank Top Vest for Gym, Workout, Running & Casual Wear',
+    features: ['Manufacturer : NETCLICK', 'Packer : NETCLICK', 'Item Weight : 200 g', 'Item Dimensions : 24 x 20 x 20 Cm', 'Net Quantity : 1.0 Count', 'Generic Name : Vest', 'Colour : Black'],
+    vibeeGuidance: {
+      whyBuy: 'Breathable polycotton blend workouts ke time sweat control ke liye light weight rehne mein help karta hai.',
+      verdict: 'Everyday gym wear ke liye sabse affordable tank top option.',
+      bestFor: 'Gym, Running & Daily Active Wear'
+    }
   },
-  
 
   // --- 👟 SHOES ---
-   {
+  {
     id: 12,
-    title: 'Kraasa Men’s Running Shoes | Breathable Mesh Upper | Lightweight Phylon Sole | Cushioned EVA Insole | Comfortable Sports & Casual Sneakers for Gym, Walking & Daily Use "More information is available on Amazon."',
+    title: 'Kraasa Men’s Running Shoes | Breathable Mesh Upper | Lightweight Phylon Sole | Cushioned EVA Insole | Comfortable Sports & Casual Sneakers for Gym, Walking & Daily Use',
     category: 'Shoes',
     price: '₹947',
     originalPrice: '₹2,999',
@@ -314,14 +365,19 @@ export const initialDeals: Deal[] = [
     store: 'Amazon',
     link: 'https://link.amazon/B089gkTtH',
     expiresIn: '',
-    description: 'Kraasa Men’s Running Shoes | Breathable Mesh Upper | Lightweight Phylon Sole | Cushioned EVA Insole | Comfortable Sports & Casual Sneakers for Gym, Walking & Daily Use "More information is available on Amazon."',
-    features: ['Country of Origin  :  India', 'Style : Running Shoes', 'Material type : Knit Fabric', 'Closure type : Lace-Up', 'Heel type : Flat', 'Water resistance level : Not Water Resistant', 'Sole material : Phylon','"More information is available on Amazon."', ]
+    description: 'Kraasa Men’s Running Shoes | Breathable Mesh Upper | Lightweight Phylon Sole | Cushioned EVA Insole | Comfortable Sports & Casual Sneakers for Gym, Walking & Daily Use',
+    features: ['Country of Origin : India', 'Style : Running Shoes', 'Material type : Knit Fabric', 'Closure type : Lace-Up', 'Heel type : Flat', 'Water resistance level : Not Water Resistant', 'Sole material : Phylon'],
+    vibeeGuidance: {
+      whyBuy: 'Phylon Sole + EVA Insole combo steps ko soft cushioning deta hai lightweight design ke saath.',
+      verdict: 'Under ₹1,000 mein solid daily-wear running sneakers.',
+      bestFor: 'Morning Walks, Gym & Daily Casual Use'
+    }
   },
 
   // --- 🎮 GAMING ---
   {
     id: 13,
-    title: 'EvoFox One S V2 Universal 3-Mode Wireless Gaming Controller, HallSense™ Precision Joysticks, Bluetooth 5.0, 2.4GHz, Fast Type-C Charging for PC, Mobile, Android TV - Black "More information is available on Amazon."',
+    title: 'EvoFox One S V2 Universal 3-Mode Wireless Gaming Controller, HallSense™ Precision Joysticks, Bluetooth 5.0, 2.4GHz, Fast Type-C Charging for PC, Mobile, Android TV - Black',
     category: 'Gaming',
     price: '₹1,549',
     originalPrice: '₹2,299',
@@ -341,15 +397,19 @@ export const initialDeals: Deal[] = [
     store: 'Amazon',
     link: 'https://link.amazon/B0bmokIHl',
     expiresIn: '',
-    description: 'EvoFox One S V2 Universal 3-Mode Wireless Gaming Controller, HallSense™ Precision Joysticks, Bluetooth 5.0, 2.4GHz, Fast Type-C Charging for PC, Mobile, Android TV - Black "More information is available on Amazon."',
-     features: ['Batteries ‏ : ‎ 1 Lithium Ion batteries required. (included)', 'Release date ‏ : ‎ 3 March 2025', 'ASIN ‏ : ‎ B0DZ6LLZTT', 'Item model number ‏ : ‎ One S - Black', 'Country of Origin ‏ : ‎ China', 'Manufacturer ‏ : ‎ Allied Electronics & Magnetics Private Limited C-64/4, Okhla Phase - 2, New Delhi - 110020, Allied Electronics & Magnetics Pvt. Ltd.', 'Item Weight ‏ : ‎ 220 g','Item Dimensions LxWxH ‏ : ‎ 15.5 x 11 x 7 Centimeters', 'Net Quantity ‏ : ‎ 1 Count', 'Generic Name ‏ : ‎ Gamepad', 'Importer ‏ : ‎ Allied Electronics & Magnetics Private Limited C-64/4, Okhla Phase - 2, New Delhi - 110020', 'Packer ‏ : ‎ Allied Electronics & Magnetics Private Limited C-64/4, Okhla Phase - 2, New Delhi - 110020', 'Best Sellers Rank: #40 in Computers & Accessories ','"More information is available on Amazon."', ]
+    description: 'EvoFox One S V2 Universal 3-Mode Wireless Gaming Controller with HallSense™ Joysticks, Bluetooth 5.0, 2.4GHz, and Type-C Fast Charging.',
+    features: ['Batteries : 1 Lithium Ion required', 'Item model number : One S - Black', 'Item Weight : 220 g', 'Dimensions : 15.5 x 11 x 7 Cm', 'Net Quantity : 1 Count', 'Generic Name : Gamepad'],
+    vibeeGuidance: {
+      whyBuy: 'Is price segment mein HallSense™ Magnetic Joysticks zero stick drift issue guarantee karte hain.',
+      verdict: 'PC, Mobile aur Android TV gaming ke liye multi-device wireless controller.',
+      bestFor: 'PC & Mobile Gamers'
+    }
   },
- 
 
   // --- 🍽️ KITCHEN ---
   {
     id: 14,
-    title: 'DDN_R_ Portable Blender Mixer Juicer for Home | Mini Blender for Smoothies & Juices | 2-Jar Capacity (400ml*2) | 40 Watts Fruit Mixers 1500 Mah USB Rechargeable Battery | Auto Stop 40 Seconds | "More information is available on Amazon."',
+    title: 'DDN_R_ Portable Blender Mixer Juicer for Home | Mini Blender for Smoothies & Juices | 2-Jar Capacity (400ml*2) | 40 Watts Fruit Mixers 1500 Mah USB Rechargeable Battery | Auto Stop 40 Seconds',
     category: 'Kitchen',
     price: '₹760',
     originalPrice: '₹1,499',
@@ -366,17 +426,22 @@ export const initialDeals: Deal[] = [
     store: 'Amazon',
     link: 'https://link.amazon/B07NVxBvY',
     expiresIn: '',
-    description: 'DDN_R_ Portable Blender Mixer Juicer for Home | Mini Blender for Smoothies & Juices | 2-Jar Capacity (400ml*2) | 40 Watts Fruit Mixers 1500 Mah USB Rechargeable Battery | Auto Stop 40 Seconds | "More information is available on Amazon."',
-    features: ['Brand :	DDN_R_', 'Colour :	Multicolour', 'Special Feature  :	Auto Shut Off', 'Capacity  :	400 Milliliters', 'Product :7D x 7W x 18H', ' Dimensions :	 Centimeters', 'Material :	Acrylonitrile Butadiene Styrene', 'Included : Base, Charging Cable,', 'Components : Instruction Manual, Juice Container, Lid', 'Style : Mini Blenders', 'Recommended : Beats, Blending, Coffee,', 'Uses For Product : Crushing, Juices, Protein', 'Power Source : Battery Powered', '"More information is available on Amazon."', ]
+    description: 'DDN_R_ Portable Blender Mixer Juicer for Home | Mini Blender for Smoothies & Juices | 2-Jar Capacity (400ml*2) | 40 Watts Fruit Mixers 1500 Mah USB Rechargeable Battery',
+    features: ['Brand : DDN_R_', 'Colour : Multicolour', 'Special Feature : Auto Shut Off', 'Capacity : 400 Milliliters', 'Dimensions : 7D x 7W x 18H Centimeters', 'Material : ABS Plastic', 'Power Source : Battery Powered'],
+    vibeeGuidance: {
+      whyBuy: '2 dual jars ke sath USB rechargeable design gym protein shakes aur travel smoothies ke liye best portablity deta hai.',
+      verdict: 'On-the-go fresh juice aur protein shakes ke liye travel-friendly blender.',
+      bestFor: 'Fitness Enthusiasts, Office Travelers & Daily Juicing'
+    }
   },
 
   // --- 🧴 BEAUTY ---
   {
     id: 15,
-    title: 'Minimalist Marula Oil 5% Face Moisturizer For Dry Skin With Hyaluronic Acid For Deep Nourishment & Hydration, For Men & Women | 30 gm "More information is available on Amazon."',
+    title: 'Minimalist Marula Oil 5% Face Moisturizer For Dry Skin With Hyaluronic Acid For Deep Nourishment & Hydration, For Men & Women | 30 gm',
     category: 'Beauty',
     price: '₹189',
-    originalPrice: '₹199 ',
+    originalPrice: '₹199',
     discount: '5% OFF',
     image: 'https://i.ibb.co/KjGsdRjG/61-R-7-CQz-XKL-SL1500.jpg',
     images: [
@@ -385,12 +450,17 @@ export const initialDeals: Deal[] = [
     store: 'Amazon',
     link: 'https://link.amazon/B0cneyzdK',
     expiresIn: '',
-    description: 'Minimalist Marula Oil 5% Face Moisturizer For Dry Skin With Hyaluronic Acid For Deep Nourishment & Hydration, For Men & Women | 30 gm "More information is available on Amazon."',
-    features: ['Brand :	Minimalist', 'Item Volume :	0.03 Kilograms', 'Item dimensions L x W x H	 : 26 x 26 x 122 Millimeters', 'Age Range (Description) :	Adult', 'Special Feature :	Unscented', 'Skin Type :	All', 'Number of Items :	1', 'Scent	: Unscented', 'Item Form :	Cream','Net Quantity :	30.0 Grams', '"More information is available on Amazon."', ]
-  }, 
- 
+    description: 'Minimalist Marula Oil 5% Face Moisturizer For Dry Skin With Hyaluronic Acid For Deep Nourishment & Hydration, For Men & Women | 30 gm',
+    features: ['Brand : Minimalist', 'Item Volume : 0.03 Kilograms', 'Age Range : Adult', 'Special Feature : Unscented', 'Skin Type : All / Dry', 'Net Quantity : 30.0 Grams'],
+    vibeeGuidance: {
+      whyBuy: 'Marula Oil + Hyaluronic Acid combination dry skin barrier ko repair karne mein effectively work karta hai.',
+      verdict: 'Fragrance-free safe ingredient formulation for intense hydration.',
+      bestFor: 'Dry Skin Care & Daily Hydration'
+    }
+  },
+
   // --- 🧸 TOYS & GAMES ---
-   {
+  {
     id: 6,
     title: 'GRAPHENE 1:32 Scale DieCast Metal Toy Car Pull Back Action Openable Doors 4x4 Thar/Jeep Premium Car Toy Light Music for Kids Realistic Miniature Model Best Gift 2+yrs Girls Boys Random Colors',
     category: 'TOYS & GAMES',
@@ -413,7 +483,12 @@ export const initialDeals: Deal[] = [
     link: 'https://link.amazon/B03Cg6I2d',
     expiresIn: '',
     promoCode: '',
-    description: 'GRAPHENE 1:32 Scale DieCast Metal Toy Car Pull Back Action Openable Doors 4x4 Thar/Jeep Premium Car Toy Light Music for Kids Realistic Miniature Model Best Gift 2+yrs Girls Boys Random Colors "More information is available on Amazon." ',
-    features: [' Brand : GRAPHENE', 'Age Range Description :	2+ Kid and toddlers' , 'Country of Origin	: India','Unit Count :	1 Count','"More information is available on Amazon."' ]
-  },
+    description: 'GRAPHENE 1:32 Scale DieCast Metal Toy Car Pull Back Action Openable Doors 4x4 Thar/Jeep Premium Car Toy Light Music for Kids Realistic Miniature Model Best Gift 2+yrs Girls Boys Random Colors',
+    features: ['Brand : GRAPHENE', 'Age Range Description : 2+ Kid and toddlers', 'Country of Origin : India', 'Unit Count : 1 Count'],
+    vibeeGuidance: {
+      whyBuy: 'DieCast metal body build + lights aur sound effects 69% discount price par super sturdy feel dete hain.',
+      verdict: 'Kids ke birthday gift ya desk die-cast collectible ke liye ideal.',
+      bestFor: 'Kids Gifting & Die-cast Model Collectors'
+    }
+  }
 ];
