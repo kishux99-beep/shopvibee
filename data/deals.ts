@@ -302,14 +302,14 @@ export const initialDeals: Deal[] = [
     price: '₹947',
     originalPrice: '₹2,999',
     discount: '68% OFF',
-    image: 'https://i.ibb.co/xtBDhGY3/71-GDiyx-QF-L-SX625.jpg',
+    image: 'https://i.ibb.co/4ZY2c4ds/71-GDiyx-QF-L-SX500.jpg',
     images: [
-      'https://i.ibb.co/xtBDhGY3/71-GDiyx-QF-L-SX625.jpg',
-      'https://i.ibb.co/fdkwDhtW/71-GTg-Crm2-PL-SX625.jpg',
+      'https://i.ibb.co/4ZY2c4ds/71-GDiyx-QF-L-SX500.jpg',
+      'https://i.ibb.co/DDVNmp6Z/71-GTg-Crm2-PL-SX500.jpg',
       'https://i.ibb.co/PGLz6Prn/71-Vh-K23ra-L-SX625.jpg',
       'https://i.ibb.co/NdL0n1Bh/71ocz-Qo-Wt-KL-SX625.jpg',
-      'https://i.ibb.co/sd4fbjbv/610a-NXla-Zh-L-SX625.jpg',
-      'https://i.ibb.co/b58bwGHs/71vdh-WAFp2-L-SX625.jpg',
+      'https://i.ibb.co/Y4GWgFJG/610a-NXla-Zh-L-SX500.jpg',
+      'https://i.ibb.co/cKRG0CpF/71vdh-WAFp2-L-SX500.jpg',
       'https://i.ibb.co/3mdn4YdC/715-J-s9-ZCPL-SX625.jpg',
     ],
     store: 'Amazon',
@@ -348,6 +348,28 @@ export const initialDeals: Deal[] = [
  
 
   // --- 🍽️ KITCHEN ---
+  {
+    id: 14,
+    title: 'DDN_R_ Portable Blender Mixer Juicer for Home | Mini Blender for Smoothies & Juices | 2-Jar Capacity (400ml*2) | 40 Watts Fruit Mixers 1500 Mah USB Rechargeable Battery | Auto Stop 40 Seconds | "More information is available on Amazon."',
+    category: 'Kitchen',
+    price: '₹760',
+    originalPrice: '₹1,499',
+    discount: '49% OFF',
+    image: 'https://i.ibb.co/sJk1mgzP/61n-p-R879d-L-SL1024.jpg',
+    images: [
+      'https://i.ibb.co/sJk1mgzP/61n-p-R879d-L-SL1024.jpg',
+      'https://i.ibb.co/9Hy6dPSs/61skp-Pk3c0-L-SL1500.jpg',
+      'https://i.ibb.co/NdJZJr2x/71e-POa-R5z-AL-SL1500.jpg',
+      'https://i.ibb.co/CKrdXGj1/61m-Zp-UFyr-FL-SL1024.jpg',
+      'https://i.ibb.co/236cnRGr/61r-U321-JIBL-SL1024.jpg',
+      'https://i.ibb.co/Z1NZq4wJ/416-Qtv4fer-L.jpg',
+    ],
+    store: 'Amazon',
+    link: 'https://link.amazon/B089gkTtH',
+    expiresIn: '',
+    description: 'DDN_R_ Portable Blender Mixer Juicer for Home | Mini Blender for Smoothies & Juices | 2-Jar Capacity (400ml*2) | 40 Watts Fruit Mixers 1500 Mah USB Rechargeable Battery | Auto Stop 40 Seconds | "More information is available on Amazon."',
+    features: ['Brand :	DDN_R_', 'Colour :	Multicolour', 'Special Feature  :	Auto Shut Off', 'Capacity  :	400 Milliliters', 'Product :7D x 7W x 18H', ' Dimensions :	 Centimeters', 'Material :	Acrylonitrile Butadiene Styrene', 'Included : Base, Charging Cable,', 'Components : Instruction Manual, Juice Container, Lid', 'Style : Mini Blenders', 'Recommended : Beats, Blending, Coffee,', 'Uses For Product : Crushing, Juices, Protein', 'Power Source : Battery Powered', '"More information is available on Amazon."', ]
+  },
  
 
   // --- 🚗 AUTOMOTIVE ---
