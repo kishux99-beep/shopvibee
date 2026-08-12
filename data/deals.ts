@@ -343,7 +343,6 @@ export const initialDeals: Deal[] = [
       bestFor: 'Gym, Running & Daily Active Wear'
     }
   },
-
   // --- 👟 SHOES ---
   {
     id: 12,
