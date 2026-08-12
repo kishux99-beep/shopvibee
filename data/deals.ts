@@ -365,7 +365,7 @@ export const initialDeals: Deal[] = [
       'https://i.ibb.co/Z1NZq4wJ/416-Qtv4fer-L.jpg',
     ],
     store: 'Amazon',
-    link: 'https://link.amazon/B089gkTtH',
+    link: 'https://link.amazon/B07NVxBvY',
     expiresIn: '',
     description: 'DDN_R_ Portable Blender Mixer Juicer for Home | Mini Blender for Smoothies & Juices | 2-Jar Capacity (400ml*2) | 40 Watts Fruit Mixers 1500 Mah USB Rechargeable Battery | Auto Stop 40 Seconds | "More information is available on Amazon."',
     features: ['Brand :	DDN_R_', 'Colour :	Multicolour', 'Special Feature  :	Auto Shut Off', 'Capacity  :	400 Milliliters', 'Product :7D x 7W x 18H', ' Dimensions :	 Centimeters', 'Material :	Acrylonitrile Butadiene Styrene', 'Included : Base, Charging Cable,', 'Components : Instruction Manual, Juice Container, Lid', 'Style : Mini Blenders', 'Recommended : Beats, Blending, Coffee,', 'Uses For Product : Crushing, Juices, Protein', 'Power Source : Battery Powered', '"More information is available on Amazon."', ]
