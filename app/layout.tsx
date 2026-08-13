@@ -31,9 +31,16 @@ export default function RootLayout({
               await OneSignal.init({
                 appId: "bda0e2bd-981a-4e05-b280-9eee9f8f1005",
                 notifyButton: {
-                  enable: true,
+                  enable: false, // ❌ Floating bell widget fully disabled
                 },
               });
+
+              // Naye user ke liye direct browser Native Permission Prompt dikhayein
+              setTimeout(() => {
+                if (!OneSignal.User.PushSubscription.optedIn) {
+                  OneSignal.Notifications.requestPermission();
+                }
+              }, 1000);
             });
           `}
         </Script>
