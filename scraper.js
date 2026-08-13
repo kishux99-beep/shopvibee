@@ -1,59 +1,59 @@
+import dotenv from 'dotenv';
 import puppeteer from 'puppeteer';
 import { GoogleGenAI } from '@google/genai';
 
-// ⚙️ CONFIGURATION
+dotenv.config();
+
 const AFFILIATE_TAG = 'Kishuxfit-21';
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+const apiKey = process.env.GEMINI_API_KEY;
 
-const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+// Initialize SDK with key from .env
+const ai = new GoogleGenAI({ apiKey: apiKey });
 
-// 💡 🚀 REAL HUMAN-TOUCH & RESEARCHED BUYING GUIDANCE GENERATOR
 async function generateVibeeGuidance(title, price, features, category) {
     try {
-        // Advanced System Prompt for High-Converting Human Copy
         const prompt = `
-Aap ShopVibee ke Senior Shopping Expert hain. Is product ko achhe se analyze karke ek super engaging, natural, Hindi-English (Hinglish) shopping advice likhein.
+Aap ShopVibee.in ke Senior Shopping Expert hain. Is product details ko padhen aur ek original, convincing aur deeply-researched buying recommendation likhen (Hinglish/Hindi + English mein).
 
-Product Title: ${title}
+Product Name: ${title}
 Category: ${category}
 Price: ${price}
-Key Features: ${features.join('. ')}
+Key Features: ${features.join(' | ')}
 
-INSTRUCTIONS:
-- Aisa lagna chahiye ki kisi real bande ne ye product khud test karke practical experience share kiya hai.
-- Generic AI lines ("Is price segment mein product achha hai") BILKUL MAT LIKHNA.
-- Title aur features mein se specific points uthao (jaise builtin USB-C cable, fast charging, portability).
+STRICT RULES:
+1. "Great value product" ya "Verified by team" jaise generic/robotic AI sentences BILKUL MAT LIKHO.
+2. Product ke SPECIFIC highlights (jaise 45W Fast Charging, Compact Size, Short-circuit protection) par direct baat karo.
+3. Aisa lagna chahiye ki kisi expert ne actual use ke baad ye advice di hai.
 
-OUTPUT FORMAT (Strictly JSON, No Markdown):
+Output Format MUST be strict JSON:
 {
-  "whyBuy": "2-3 solid lines. Batayein ki builtin cable ya fast charging se user ki kaunsi problem solve hoti hai aur ye deal kyu missed nahi honi chahiye.",
-  "verdict": "1 catchy verdict line (e.g., Alag se cable carry karne ka jhanjhat khatam, travel aur daily office commute ke liye perfect powerbank).",
-  "bestFor": "Specific Target Audience (e.g. Frequent Travelers & iPhone/Type-C Users)"
-}`;
+  "whyBuy": "2-3 detailed lines. Batayein ki is price drop par ye product lene se user ki kya problem solve hoti hai.",
+  "verdict": "1-line sharp & natural buying recommendation summary.",
+  "bestFor": "Specific Target Users (e.g. Frequent Travelers & Heavy Smartphone Users)"
+}
+Sirf valid JSON return karein.`;
 
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: prompt,
+        // 🚀 OFFICIAL NEW INTERACTION SYNTAX (As per official docs)
+        const interaction = await ai.interactions.create({
+            model: "gemini-3.6-flash",
+            input: prompt,
         });
 
-        // Debug Log to check raw response in terminal
-        const rawText = response.text.trim();
+        const rawText = interaction.output_text.trim();
         const jsonMatch = rawText.match(/\{[\s\S]*\}/);
         
         if (jsonMatch) {
             return JSON.parse(jsonMatch[0]);
         } else {
-            throw new Error("JSON parsing failed from AI response");
+            throw new Error("JSON Parse Failed");
         }
 
     } catch (err) {
-        console.error("⚠️ AI API Failed! Error details:", err.message);
-        
-        // Smart Fallback using Actual Scraped Features instead of generic boring message
-        const featureHighlight = features[0] ? features[0].substring(0, 90) : "Solid build quality";
+        console.error("⚠️ AI Guidance Error:", err.message);
+        const mainFeature = features[0] ? features[0] : "Fast Charging Tech";
         return {
-            whyBuy: `${title.substring(0, 40)}... ke saath ${featureHighlight} milna is deal ko value-for-money banata hai.`,
-            verdict: "Everyday utility aur travel purpose ke liye practical choice.",
+            whyBuy: `${title.substring(0, 45)}... ke saath ${mainFeature} milna is deal ko kafi value-for-money banata hai.`,
+            verdict: "Everyday utility aur daily backup ke liye practical choice.",
             bestFor: `${category} Users`
         };
     }
@@ -72,7 +72,6 @@ async function scrapeAmazonProduct(productUrl, category, dealId) {
         const productData = await page.evaluate((category, dealId, tag) => {
             const getText = (selector) => document.querySelector(selector)?.innerText.trim() || '';
             
-            // Extract HD Images
             const getImages = () => {
                 const imgs = [];
                 document.querySelectorAll('#altImages img, #landingImage').forEach(img => {
@@ -154,8 +153,7 @@ async function scrapeAmazonProduct(productUrl, category, dealId) {
     }
 }
 
-// 🚀 USAGE EXAMPLE:
-const AMAZON_URL = "https://link.amazon/B02J9ZicB";
+const AMAZON_URL = "https://www.amazon.in/dp/B0GL6ZMSX3"; 
 const CATEGORY = "Electronics"; 
 const NEXT_ID = 17;
 
