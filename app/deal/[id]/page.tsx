@@ -83,7 +83,7 @@ export default async function DealDetailPage({ params }: Props) {
     );
   }
 
-  // 🚀 Google SEO Product Schema JSON-LD Structured Data
+  // Google SEO Product Schema JSON-LD Structured Data
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -111,13 +111,10 @@ export default async function DealDetailPage({ params }: Props) {
 
   return (
     <>
-      {/* Script Tag Injected Server-side for Google SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
-      
-      {/* Client UI Render */}
       <DealDetailClient deal={deal} allDeals={allDeals} />
     </>
   );
