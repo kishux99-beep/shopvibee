@@ -36,9 +36,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const guidance = (deal as any)?.vibeeGuidance;
-  const title = `${deal.discount ? deal.discount + ' OFF - ' : ''}${deal.title} at ${deal.price}`;
+
+  // 🛠️ FIX 1: Clean Title (Aapki discount value me 'OFF' pehle se ho sakta hai)
+  const cleanDiscount = deal.discount ? deal.discount.replace(/off/gi, '').trim() : '';
+  const title = `${cleanDiscount ? cleanDiscount + ' OFF - ' : ''}${deal.title} at ${deal.price}`;
   const description = `${guidance?.verdict || deal.description} Buy now on ${deal.store}.`;
   const url = `https://shopvibee.in/deal/${deal.id}`;
+
+  // 🛠️ FIX 2: Absolute Image URL format for WhatsApp/Facebook
+  let imageUrl = deal.image || '';
+  if (imageUrl && !imageUrl.startsWith('http')) {
+    imageUrl = `https://shopvibee.in${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+  }
 
   return {
     title: title,
@@ -50,7 +59,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'ShopVibee',
       images: [
         {
-          url: deal.image,
+          url: imageUrl,
           width: 1200,
           height: 630,
           alt: deal.title,
@@ -62,7 +71,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: title,
       description: description,
-      images: [deal.image],
+      images: [imageUrl],
     },
   };
 }
