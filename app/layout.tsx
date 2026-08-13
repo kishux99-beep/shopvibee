@@ -30,6 +30,7 @@ export default function RootLayout({
             OneSignalDeferred.push(async function(OneSignal) {
               await OneSignal.init({
                 appId: "bda0e2bd-981a-4e05-b280-9eee9f8f1005",
+                serviceWorkerPath: "OneSignalSDKWorker.js",
                 notifyButton: {
                   enable: true,
                 },
