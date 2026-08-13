@@ -31,8 +31,21 @@ export default function RootLayout({
               await OneSignal.init({
                 appId: "bda0e2bd-981a-4e05-b280-9eee9f8f1005",
                 notifyButton: {
-                  enable: true,
+                  enable: false, // 👈 Floating Bell Icon ko permanent HIDE kar diya
                 },
+                slidedown: {
+                  prompts: [
+                    {
+                      type: "push",
+                      autoPrompt: true, // 👈 Site kholte hi Pop-up AAPE AAP aayega
+                      text: {
+                        actionMessage: "Get instant alerts for Loot Deals & Price Drops!",
+                        acceptButton: "Allow Notifications 🔔",
+                        cancelButton: "Later",
+                      },
+                    }
+                  ]
+                }
               });
             });
           `}
