@@ -26,22 +26,25 @@ export default function RootLayout({
         />
         <Script id="onesignal-init" strategy="afterInteractive">
           {`
-            window.OneSignalDeferred = window.OneSignalDeferred || [];
-            OneSignalDeferred.push(async function(OneSignal) {
-              await OneSignal.init({
-                appId: "bda0e2bd-981a-4e05-b280-9eee9f8f1005",
-                notifyButton: {
+            // Localhost par error rokne ke liye condition
+            if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+              window.OneSignalDeferred = window.OneSignalDeferred || [];
+              OneSignalDeferred.push(async function(OneSignal) {
+                await OneSignal.init({
+                  appId: "bda0e2bd-981a-4e05-b280-9eee9f8f1005",
+                  notifyButton: {
                   enable: false, // ❌ Floating bell widget fully disabled
-                },
-              });
+                  },
+                });
 
               // Naye user ke liye direct browser Native Permission Prompt dikhayein
-              setTimeout(() => {
-                if (!OneSignal.User.PushSubscription.optedIn) {
-                  OneSignal.Notifications.requestPermission();
-                }
-              }, 1000);
-            });
+                setTimeout(() => {
+                  if (!OneSignal.User.PushSubscription.optedIn) {
+                    OneSignal.Notifications.requestPermission();
+                  }
+                }, 1000);
+              });
+            }
           `}
         </Script>
       </head>

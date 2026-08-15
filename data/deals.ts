@@ -158,7 +158,41 @@ export const initialDeals: Deal[] = [
       bestFor: 'YouTubers, Vloggers & Instagram Creators'
     }
   },
-
+{
+  "id": 17,
+  "title": "GRENARO Mic for YouTube Wireless, 3-Level Adjustable Noise Reduction Mic Wireless,S12 Wireless Microphone for Youtubers with LED Indicator Light (Single Channel Type-C Port Version)",
+  "category": "Electronics",
+  "price": "₹738.00",
+  "originalPrice": "₹1,999",
+  "discount": "63% OFF",
+  "image": "https://m.media-amazon.com/images/I/41MhjOOnxLL._AC_SL1500_.jpg",
+  "images": [
+    "https://m.media-amazon.com/images/I/71dhDqkgHPL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/51Be35DQQrL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/512r9owy1hL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/51TZTyUngYL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/510W+4ZUKKL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/41thEoXmHOL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/71dhDqkgHPL._AC_SL1500_.jpg"
+  ],
+  "store": "Amazon",
+  "link": "https://www.amazon.in/dp/B0DQD8HWWG?tag=Kishuxfit-21",
+  "expiresIn": "",
+  "description": "[ Experience the Upgrade with 3 Exciting Enhancements ] - ① Brighter, clearer LED indicators for easier mode selection.② Customizable 3-level noise reduction to suit every environment.③ Effortlessly switch between the sponge filter head and windproof plush filter head for optimal sound in any settin...",
+  "features": [
+    "[ Experience the Upgrade with 3 Exciting Enhancements ] - ① Brighter, clearer LED indicators for easier mode selection.② Customizable 3-level noise reduction to suit every environment.③ Effortlessly switch between the sponge filter head and windproof plush filter head for optimal sound in any setting—perfect for mic for YouTube wireless and wireless mic for YouTubers.",
+    "[ Clear LED Indicators ] - This wireless mic for YouTubers offers 4 mode settings—Original Sound, Noise Reduction, Reverb, and Mute. The clear LED indicators make it easy to switch to the perfect mode, ensuring a hassle-free setup every time, whether you're using your mic for YouTube wireless for vlogging or recording content.",
+    "[ Adjustable 3-Level Noise Reduction ] - The perfect solution for every scenario. Use Level 1 for quiet home settings, Level 2 on the streets, and Level 3 in noisy environments. Tailor the noise reduction to your surroundings for the best sound quality every time, making this wireless mic for YouTubers ideal for diverse recording environments.",
+    "[ Two Types of Filter Heads ] - Equipped with a sponge filter head and a windproof plush filter head, this mic for YouTube wireless effectively reduces noise in any environment. The sponge filter head clears indoor noise, while the windproof plush head filters out outdoor wind noise, ensuring crystal-clear audio for both indoor and outdoor recordings, perfect for wireless mic for YouTubers.",
+    "[ Long Working Time ] - With a built-in 65mAh rechargeable battery, the microphone can operate for up to 6 hours. It comes with a charging cable so you can charge both the microphone and connected devices simultaneously, extending battery life and usability for extended recording sessions, making it a reliable mic for YouTube wireless.",
+    "[ 98FT Ultra-Long Receiving Distance ] - Enjoy unparalleled freedom with a 30-meter reception range, allowing you to move around while capturing high-quality audio seamlessly. Perfect for YouTubers and vloggers who need a reliable wireless mic for YouTubers for both indoor and outdoor use."
+  ],
+  "vibeeGuidance": {
+    "whyBuy": "Agar aap outdoor vlogging ya reels banate waqt background noise aur hawa ki aawaz (wind noise) se pareshan hain, toh ₹738 par ye mic aapki audio quality instantly upgrade kar dega. Isme milne wala 3-Level adjustable noise reduction aur saath mein dedicated plush windproof filter (deadcat) har environment mein clear voice capture karta hai. Saath hi, Type-C passthrough charging support karta hai jisse long shoot ke waqt phone ki battery khatam hone ka darr nahi rehta.",
+    "verdict": "Sub-₹800 budget mein dedicated 3-level noise cancellation aur windproof plush cover ke saath aane wala ye sabse practical Type-C wireless mic hai.",
+    "bestFor": "Budget YouTubers, Outdoor Reel Creators & Mobile Vloggers (Type-C Users)"
+  }
+},
   // --- FURNITURE ---
   {
     id: 8,
