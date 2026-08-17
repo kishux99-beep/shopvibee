@@ -159,7 +159,7 @@ export const initialDeals: Deal[] = [
     }
   },
 {
-  "id": 17,
+  "id": 16,
   "title": "GRENARO Mic for YouTube Wireless, 3-Level Adjustable Noise Reduction Mic Wireless,S12 Wireless Microphone for Youtubers with LED Indicator Light (Single Channel Type-C Port Version)",
   "category": "Electronics",
   "price": "₹738.00",
@@ -203,7 +203,6 @@ export const initialDeals: Deal[] = [
   "image": "https://m.media-amazon.com/images/I/41+hPuACLJL._AC_SL1500_.jpg",
   "images": [
     "https://m.media-amazon.com/images/I/41+hPuACLJL._AC_SL1500_.jpg",
-    "https://m.media-amazon.com/images/I/51e6SdbgqxL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
     "https://m.media-amazon.com/images/I/412SmC7JcRL._AC_SL1500_.jpg",
     "https://m.media-amazon.com/images/I/51SSefbIA1L._AC_SL1500_.jpg",
     "https://m.media-amazon.com/images/I/51vXHYzsalL._AC_SL1500_.jpg",
