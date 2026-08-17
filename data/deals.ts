@@ -176,7 +176,7 @@ export const initialDeals: Deal[] = [
     "https://m.media-amazon.com/images/I/71dhDqkgHPL._AC_SL1500_.jpg"
   ],
   "store": "Amazon",
-  "link": "https://www.amazon.in/dp/B0DQD8HWWG?tag=Kishuxfit-21",
+  "link": "https://link.amazon/B02tSUbih",
   "expiresIn": "",
   "description": "[ Experience the Upgrade with 3 Exciting Enhancements ] - ① Brighter, clearer LED indicators for easier mode selection.② Customizable 3-level noise reduction to suit every environment.③ Effortlessly switch between the sponge filter head and windproof plush filter head for optimal sound in any settin...",
   "features": [
@@ -193,6 +193,43 @@ export const initialDeals: Deal[] = [
     "bestFor": "Budget YouTubers, Outdoor Reel Creators & Mobile Vloggers (Type-C Users)"
   }
 },
+{
+  "id": 17,
+  "title": "Zebronics Thunder Pro (2026 Upgrade) Wireless Headphones, BT v6.0, Up to 60h Playback, Dual Pairing, 40mm Drivers, ENC, Gaming Mode, Deep Bass, AUX & microSD, Rapid Charging (Beige)",
+  "category": "Electronics",
+  "price": "₹749.00",
+  "originalPrice": "₹1,899",
+  "discount": "61% OFF",
+  "image": "https://m.media-amazon.com/images/I/41+hPuACLJL._AC_SL1500_.jpg",
+  "images": [
+    "https://m.media-amazon.com/images/I/41+hPuACLJL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/51e6SdbgqxL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+    "https://m.media-amazon.com/images/I/412SmC7JcRL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/51SSefbIA1L._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/51vXHYzsalL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/41JyAybM3QL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/41Hl-B+W0qL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/61cNnP0I1xL._AC_SL1500_.jpg"
+  ],
+  "store": "Amazon",
+  "link": "https://link.amazon/B06zxX2zx",
+  "expiresIn": "",
+  "description": "LONG PLAYBACK: Enjoy up to 60hrs* of wireless entertainment on a single charge, making it ideal for travel, work, and extended listening sessions.. RAPID CHARGING: Get up to 6hrs* of usage with just a 10-minute charge, ensuring quick power whenever you need it.. POWERFUL SOUND: Equipped with 40mm dr...",
+  "features": [
+    "LONG PLAYBACK: Enjoy up to 60hrs* of wireless entertainment on a single charge, making it ideal for travel, work, and extended listening sessions.",
+    "RAPID CHARGING: Get up to 6hrs* of usage with just a 10-minute charge, ensuring quick power whenever you need it.",
+    "POWERFUL SOUND: Equipped with 40mm drivers that deliver deep bass, clear vocals, and an immersive audio experience for music and movies.",
+    "ENC CALLING: Environmental Noise Cancellation helps reduce surrounding noise for clearer voice calls and better communication quality.",
+    "LOW LATENCY GAMING: Gaming mode minimizes audio delay for a more synchronized and responsive gaming experience.",
+    "MULTIPLE CONNECTIVITY: Supports BT v6.0, AUX, and microSD playback, offering flexible listening options across different devices."
+  ],
+  "vibeeGuidance": {
+    "whyBuy": "₹749 ke budget mein 60 ghante ka continuous playback aur BT v6.0 ki stable connectivity milna ek real upgrade hai, jo daily charging ke jhanjhat ko poori tarah khatam kar deta hai. 10-minute ki rapid charge par 6 ghante ka backup, punchy 40mm deep bass aur SD card/AUX support ise travel aur daily use ke liye ek complete all-rounder banata hai.",
+    "verdict": "Under ₹800 price bracket mein insane battery life aur triple-connectivity (BT/AUX/MicroSD) ke saath aane wala ye sabse reliable over-ear option hai.",
+    "bestFor": "Daily Commuters, Music Lovers on a Budget & Casual Gamers"
+  }
+},
+
   // --- FURNITURE ---
   {
     id: 8,
