@@ -58,19 +58,19 @@ export default function OutfitCard({ look, isSaved = false, onToggleSave }: Outf
         </div>
       </div>
 
-      {/* Main Responsive Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4">
+      {/* Main Grid: Natural Heights */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 items-start">
         
-        {/* LEFT: Full Editorial Portrait with 3:4 Aspect Ratio */}
+        {/* LEFT: Auto-Adaptive Image Container */}
         <div className="md:col-span-5 lg:col-span-5 flex flex-col gap-2.5">
-          <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] md:h-full md:aspect-auto md:min-h-[460px] bg-neutral-950 rounded-[20px] sm:rounded-[24px] overflow-hidden border border-white/[0.08] shadow-lg group">
+          <div className="relative w-full rounded-[20px] sm:rounded-[24px] overflow-hidden border border-white/[0.08] bg-neutral-950 shadow-lg group">
             <img
               src={look.modelImage}
               alt={look.title}
-              className="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.05] group-hover:scale-105 transition-transform duration-700"
+              className="w-full h-auto block object-cover filter brightness-[0.95] contrast-[1.05] group-hover:scale-105 transition-transform duration-700"
             />
 
-            {/* Discount Badge on Image */}
+            {/* Discount Tag */}
             <div className="absolute top-3 left-3 z-10">
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 backdrop-blur-md">
                 {look.totalSavings}
@@ -78,12 +78,12 @@ export default function OutfitCard({ look, isSaved = false, onToggleSave }: Outf
             </div>
           </div>
 
-          {/* Clean Title & Description Below Image for Clear View */}
+          {/* Title & Description under photo */}
           <div className="px-1">
             <h3 className="text-base sm:text-lg font-black text-white tracking-tight font-serif">
               {look.title}
             </h3>
-            <p className="text-[11px] sm:text-xs text-neutral-400 mt-0.5 leading-relaxed line-clamp-2 font-light">
+            <p className="text-[11px] sm:text-xs text-neutral-400 mt-0.5 leading-relaxed font-light">
               {look.description}
             </p>
           </div>
