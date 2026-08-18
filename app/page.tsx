@@ -26,6 +26,7 @@ import {
   FaTelegramPlane,
   FaBell
 } from 'react-icons/fa';
+import { Sparkles, ArrowRight } from 'lucide-react';
 
 // 🚀 Logo Image Import
 import logo from '@/public/logo-dark.png';
@@ -83,14 +84,14 @@ export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   const [reviews, setReviews] = useState<any[]>([]);
-const [newReview, setNewReview] = useState({ name: '', comment: '', rating: 5 });
+  const [newReview, setNewReview] = useState({ name: '', comment: '', rating: 5 });
 
-useEffect(() => {
-  fetch('/api/reviews')
-    .then(res => res.json())
-    .then(data => { if (data.success) setReviews(data.reviews); })
-    .catch(err => console.error(err));
-}, []);
+  useEffect(() => {
+    fetch('/api/reviews')
+      .then(res => res.json())
+      .then(data => { if (data.success) setReviews(data.reviews); })
+      .catch(err => console.error(err));
+  }, []);
 
   // Wishlist State
   const [wishlist, setWishlist] = useState<number[]>([]);
@@ -118,11 +119,12 @@ useEffect(() => {
     minutes: flashDurationMinutes, 
     seconds: 0 
   });
-const [messageModal, setMessageModal] = useState<{ show: boolean; text: string; type: 'success' | 'error' }>({
-  show: false,
-  text: '',
-  type: 'success',
-});
+  const [messageModal, setMessageModal] = useState<{ show: boolean; text: string; type: 'success' | 'error' }>({
+    show: false,
+    text: '',
+    type: 'success',
+  });
+
   useEffect(() => {
     setIsMounted(true);
     const totalDurationSeconds = (flashDurationHours * 3600) + (flashDurationMinutes * 60);
@@ -496,6 +498,14 @@ const [messageModal, setMessageModal] = useState<{ show: boolean; text: string; 
               </div>
               
               <div className="flex items-center gap-2 sm:hidden">
+                <Link
+                  href="/looks"
+                  className="p-2 rounded-full bg-violet-100 text-violet-700 transition active:scale-95 border border-violet-200 flex items-center justify-center"
+                  title="Fashion Combos"
+                >
+                  <Sparkles className="w-4 h-4 text-violet-600" />
+                </Link>
+
                 <button
                   onClick={() => setIsAlertsModalOpen(true)}
                   className={`p-2 rounded-full transition active:scale-95 ${
@@ -593,6 +603,18 @@ const [messageModal, setMessageModal] = useState<{ show: boolean; text: string; 
             </div>
 
             <div className="hidden sm:flex items-center gap-3">
+              {/* Style Combos Direct Link */}
+              <Link
+                href="/looks"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-bold bg-violet-50 text-violet-700 hover:bg-violet-100 border border-violet-200/80 transition active:scale-95 shadow-sm"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-violet-600" />
+                <span>Style Combos</span>
+                <span className="text-[9px] bg-gradient-to-r from-violet-600 to-pink-500 text-white px-1.5 py-0.2 rounded-full font-black uppercase">
+                  New
+                </span>
+              </Link>
+
               <button
                 onClick={() => {
                   setShowWishlistOnly(!showWishlistOnly);
@@ -658,7 +680,7 @@ const [messageModal, setMessageModal] = useState<{ show: boolean; text: string; 
                 <span>Explore Live Deals</span>
                 <FaArrowRight className="text-xs ml-1" />
               </a>
-              <Link
+               <Link
                 href="/contact"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gray-800/80 hover:bg-gray-800 text-gray-200 hover:text-white font-medium px-6 py-3 rounded-xl text-xs sm:text-sm border border-gray-700/60 transition-all duration-300 backdrop-blur-md"
               >
@@ -683,6 +705,38 @@ const [messageModal, setMessageModal] = useState<{ show: boolean; text: string; 
 
           </div>
         </section>
+
+        {/* 🌟 New Feature: Curated Fashion Combos & Anime Looks Banner */}
+        {!showWishlistOnly && !searchQuery && selectedCategory === 'All' && (
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-violet-950 via-indigo-950 to-neutral-900 border border-violet-700/40 p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+              
+              <div className="absolute -right-16 -top-16 w-64 h-64 bg-violet-600/30 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="relative z-10 text-center md:text-left max-w-xl">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-500/20 border border-violet-400/30 text-violet-300 text-[11px] font-bold uppercase tracking-wider mb-3">
+                  <Sparkles className="w-3.5 h-3.5 text-violet-400" /> Curated Anime Looks & Combos
+                </div>
+                <h3 className="text-xl sm:text-3xl font-black tracking-tight text-white">
+                  Shop The Complete <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-pink-300 to-amber-300">Outfit Vibe</span>
+                </h3>
+                <p className="text-xs sm:text-sm text-neutral-300 mt-2 leading-relaxed">
+                  Kapde match karne ki jhanjhat khatam. T-shirt, jeans, joote aur bags ka matching aesthetic set dekho aur direct discount deals grab karo.
+                </p>
+              </div>
+
+              <div className="relative z-10 shrink-0 w-full md:w-auto">
+                <Link
+                  href="/looks"
+                  className="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-neutral-100 text-neutral-950 font-extrabold px-6 py-3.5 rounded-2xl text-xs sm:text-sm shadow-xl hover:scale-105 active:scale-95 transition-all group"
+                >
+                  <span>Explore Style Combos</span>
+                  <ArrowRight className="w-4 h-4 text-violet-600 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Main Content */}
         <main id="deals" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
@@ -1031,15 +1085,15 @@ const [messageModal, setMessageModal] = useState<{ show: boolean; text: string; 
                         <h3 className="font-semibold text-gray-900 text-xs sm:text-base mt-0.5 line-clamp-1 group-hover:text-indigo-600 transition">
                           {deal.title}
                         </h3>
-                  <div className="flex flex-col mt-1.5 sm:mt-3">
-                    <div className="flex items-baseline gap-1.5 sm:gap-2">
-                      <span className="text-xs sm:text-lg font-bold text-gray-900">{deal.price}</span>
-                       <span className="text-[10px] sm:text-sm text-gray-400 line-through">{deal.originalPrice}</span>
-                     </div>
-                     <span className="text-[10px] sm:text-xs font-extrabold text-emerald-600 mt-0.5">
-                      🔥 {deal.discount} Discount
-                     </span>
-                   </div>
+                        <div className="flex flex-col mt-1.5 sm:mt-3">
+                          <div className="flex items-baseline gap-1.5 sm:gap-2">
+                            <span className="text-xs sm:text-lg font-bold text-gray-900">{deal.price}</span>
+                            <span className="text-[10px] sm:text-sm text-gray-400 line-through">{deal.originalPrice}</span>
+                          </div>
+                          <span className="text-[10px] sm:text-xs font-extrabold text-emerald-600 mt-0.5">
+                            🔥 {deal.discount} Discount
+                          </span>
+                        </div>
                       </div>
                       <button
                         onClick={(e) => {
@@ -1093,67 +1147,68 @@ const [messageModal, setMessageModal] = useState<{ show: boolean; text: string; 
                 </div>
                 <div className="mt-8 pt-6 border-t border-gray-50 font-bold text-sm text-gray-900">— {r.name}</div>
               </div>
-           ))}
-         </div>
+            ))}
+          </div>
 
-        {/* Review Submission Form with Interactive Stars */}
-<div className="mt-16 bg-white p-8 rounded-3xl max-w-xl mx-auto border border-gray-200 shadow-xl">
-  <h3 className="font-bold text-xl mb-6 text-center">Share Your Experience!</h3>
-  
+          {/* Review Submission Form with Interactive Stars */}
+          <div className="mt-16 bg-white p-8 rounded-3xl max-w-xl mx-auto border border-gray-200 shadow-xl">
+            <h3 className="font-bold text-xl mb-6 text-center">Share Your Experience!</h3>
+            
   {/* ⭐ Interactive Star Rating Selector */}
-  <div className="flex items-center justify-center gap-2 mb-4">
-    <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mr-2">Your Rating:</span>
-    {[1, 2, 3, 4, 5].map((star) => (
-      <button
-        type="button"
-        key={star}
-        onClick={() => setNewReview({ ...newReview, rating: star })}
-        className={`text-2xl transition-transform active:scale-90 focus:outline-none ${
-          star <= newReview.rating ? 'text-amber-400 scale-110' : 'text-gray-300 hover:text-amber-200'
-        }`}
-      >
-        ★
-      </button>
-    ))}
-  </div>
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mr-2">Your Rating:</span>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  type="button"
+                  key={star}
+                  onClick={() => setNewReview({ ...newReview, rating: star })}
+                  className={`text-2xl transition-transform active:scale-90 focus:outline-none ${
+                    star <= newReview.rating ? 'text-amber-400 scale-110' : 'text-gray-300 hover:text-amber-200'
+                  }`}
+                >
+                  ★
+                </button>
+              ))}
+            </div>
 
-  <input 
-    className="w-full p-4 mb-4 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm" 
-    placeholder="Your Name" 
-    value={newReview.name}
-    onChange={(e) => setNewReview({...newReview, name: e.target.value})} 
-  />
-  <textarea 
-    className="w-full p-4 mb-4 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm" 
-    placeholder="How was your experience?" 
-    rows={3}
-    value={newReview.comment}
-    onChange={(e) => setNewReview({...newReview, comment: e.target.value})} 
-  />
-  <button 
-    onClick={async () => {
-      if (!newReview.name || !newReview.comment) {
-        setMessageModal({ show: true, text: "Please fill in all fields!", type: 'error' });
-        return;
-      }
-      const res = await fetch('/api/reviews', {
-        method: 'POST',
-        body: JSON.stringify(newReview),
-        headers: {'Content-Type': 'application/json'}
-      });
-      if (res.ok) { 
-        setMessageModal({ show: true, text: 'Review Submitted Successfully! 🚀', type: 'success' });
-      } else { 
-        setMessageModal({ show: true, text: 'You may have already reviewed.', type: 'error' });
-      }
-    }}
-    className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition active:scale-95 shadow-lg shadow-indigo-200"
-  >
-    Post My Review ✍️
-  </button>
-</div>
-      </section>
-    </div>
+            <input 
+              className="w-full p-4 mb-4 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm" 
+              placeholder="Your Name" 
+              value={newReview.name}
+              onChange={(e) => setNewReview({...newReview, name: e.target.value})} 
+            />
+            <textarea 
+              className="w-full p-4 mb-4 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm" 
+              placeholder="How was your experience?" 
+              rows={3}
+              value={newReview.comment}
+              onChange={(e) => setNewReview({...newReview, comment: e.target.value})} 
+            />
+            <button 
+              onClick={async () => {
+                if (!newReview.name || !newReview.comment) {
+                  setMessageModal({ show: true, text: "Please fill in all fields!", type: 'error' });
+                  return;
+                }
+                const res = await fetch('/api/reviews', {
+                  method: 'POST',
+                  body: JSON.stringify(newReview),
+                  headers: {'Content-Type': 'application/json'}
+                });
+                if (res.ok) { 
+                  setMessageModal({ show: true, text: 'Review Submitted Successfully! 🚀', type: 'success' });
+                } else { 
+                  setMessageModal({ show: true, text: 'You may have already reviewed.', type: 'error' });
+                }
+              }}
+              className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition active:scale-95 shadow-lg shadow-indigo-200"
+            >
+              Post My Review ✍️
+            </button>
+          </div>
+        </section>
+      </div>
+
       {/* Get Alerts & Preferences Modal */}
       {isAlertsModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
@@ -1260,40 +1315,41 @@ const [messageModal, setMessageModal] = useState<{ show: boolean; text: string; 
           </div>
         </div>
       )}
+
       {/* 🌟 Custom Modern Message Popup */}
-{messageModal.show && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-    <div className="bg-white rounded-3xl max-w-sm w-full p-8 text-center shadow-2xl border border-gray-100 transform transition-all scale-100">
-      
+      {messageModal.show && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-sm w-full p-8 text-center shadow-2xl border border-gray-100 transform transition-all scale-100">
+            
       {/* Icon based on Success or Error */}
-      <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-2xl ${
-        messageModal.type === 'success' ? 'bg-emerald-50 text-emerald-500' : 'bg-red-50 text-red-500'
-      }`}>
-        {messageModal.type === 'success' ? '🎉' : '⚠️'}
-      </div>
+            <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-2xl ${
+              messageModal.type === 'success' ? 'bg-emerald-50 text-emerald-500' : 'bg-red-50 text-red-500'
+            }`}>
+              {messageModal.type === 'success' ? '🎉' : '⚠️'}
+            </div>
 
-      <h3 className="font-bold text-lg text-gray-900 mb-2">
-        {messageModal.type === 'success' ? 'Success!' : 'Notice'}
-      </h3>
-      
-      <p className="text-sm text-gray-600 mb-6 leading-relaxed">
-        {messageModal.text}
-      </p>
+            <h3 className="font-bold text-lg text-gray-900 mb-2">
+              {messageModal.type === 'success' ? 'Success!' : 'Notice'}
+            </h3>
+            
+            <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+              {messageModal.text}
+            </p>
 
-      <button
-        onClick={() => {
-          setMessageModal({ ...messageModal, show: false });
-          if (messageModal.type === 'success') {
-            window.location.reload();
-          }
-        }}
-        className="w-full bg-indigo-600 text-white py-3 rounded-2xl font-bold text-sm hover:bg-indigo-700 transition shadow-lg shadow-indigo-200 active:scale-95"
-      >
-        OK
-      </button>
-    </div>
-  </div>
-)}
+            <button
+              onClick={() => {
+                setMessageModal({ ...messageModal, show: false });
+                if (messageModal.type === 'success') {
+                  window.location.reload();
+                }
+              }}
+              className="w-full bg-indigo-600 text-white py-3 rounded-2xl font-bold text-sm hover:bg-indigo-700 transition shadow-lg shadow-indigo-200 active:scale-95"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-100 pt-10 pb-6 mt-12">
@@ -1317,6 +1373,7 @@ const [messageModal, setMessageModal] = useState<{ show: boolean; text: string; 
               <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-3">Quick Navigation</h4>
               <ul className="space-y-2 text-xs text-gray-600 font-medium">
                 <li><button onClick={() => { setShowWishlistOnly(false); setSelectedCategory('All'); }} className="hover:text-indigo-600 transition">All Trending Deals</button></li>
+                <li><Link href="/looks" className="text-violet-600 font-bold hover:underline transition">✨ Shop The Look (Fashion Combos)</Link></li>
                 <li><button onClick={() => { setShowWishlistOnly(false); setSelectedCategory('Supplements'); }} className="hover:text-indigo-600 transition">Supplements & Whey Deals</button></li>
                 <li><button onClick={() => setShowWishlistOnly(true)} className="hover:text-indigo-600 transition">Saved Wishlist (💖)</button></li>
               </ul>
