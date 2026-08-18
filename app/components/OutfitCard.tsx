@@ -1,7 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import { FashionLook, LookPiece } from '@/data/looks';
-import { ArrowUpRight, Sparkles, Heart, Share2, ShoppingBag } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Heart, Share2, ShoppingBag, Check } from 'lucide-react';
 
 interface OutfitCardProps {
   look: FashionLook;
@@ -10,10 +11,32 @@ interface OutfitCardProps {
 }
 
 export default function OutfitCard({ look, isSaved = false, onToggleSave }: OutfitCardProps) {
-  const handleShare = () => {
-    const text = `Check out this curated outfit: *${look.title}* on ShopVibee!\nTotal Combo: ${look.totalPrice} (${look.totalSavings})\n🔗 ${window.location.href}`;
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
+  const [copied, setCopied] = useState(false);
+
+  // 🚀 Universal Native Share Handler (WhatsApp, Telegram, Instagram, etc.)
+  const handleUniversalShare = async () => {
+    const shareData = {
+      title: `Shop The Look: ${look.title}`,
+      text: `Check out this curated outfit: "${look.title}" (${look.totalPrice} • ${look.totalSavings}) on ShopVibee!`,
+      url: window.location.href,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        // User closed share sheet or cancelled
+      }
+    } else {
+      // Desktop / Fallback: Copy link to clipboard
+      try {
+        await navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch {
+        // Safe fallback
+      }
+    }
   };
 
   return (
@@ -43,13 +66,29 @@ export default function OutfitCard({ look, isSaved = false, onToggleSave }: Outf
             <Heart className={`w-3.5 h-3.5 ${isSaved ? 'fill-rose-400' : ''}`} />
           </button>
 
+          {/* Universal Share Button */}
           <button
             type="button"
-            onClick={handleShare}
-            title="Share on WhatsApp"
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/[0.04] border border-white/[0.08] text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/30 flex items-center justify-center transition-all"
+            onClick={handleUniversalShare}
+            title={copied ? "Link Copied!" : "Share Outfit"}
+            className={`relative w-7 h-7 sm:w-8 sm:h-8 rounded-full border flex items-center justify-center transition-all ${
+              copied
+                ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300'
+                : 'bg-white/[0.04] border-white/[0.08] text-neutral-400 hover:text-amber-300 hover:bg-amber-500/10 hover:border-amber-500/30'
+            }`}
           >
-            <Share2 className="w-3.5 h-3.5" />
+            {copied ? (
+              <Check className="w-3.5 h-3.5 text-emerald-400" />
+            ) : (
+              <Share2 className="w-3.5 h-3.5" />
+            )}
+
+            {/* Desktop Copied Tooltip */}
+            {copied && (
+              <span className="absolute -top-7 right-0 text-[10px] font-bold bg-emerald-500 text-black px-2 py-0.5 rounded shadow-lg whitespace-nowrap">
+                Copied!
+              </span>
+            )}
           </button>
 
           <span className="text-[11px] sm:text-xs font-black text-amber-200 bg-amber-400/10 px-2.5 py-0.5 sm:py-1 rounded-full border border-amber-400/20 shadow-inner">
@@ -58,7 +97,7 @@ export default function OutfitCard({ look, isSaved = false, onToggleSave }: Outf
         </div>
       </div>
 
-      {/* Main Grid: Natural Heights */}
+      {/* Main Grid */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 items-start">
         
         {/* LEFT: Auto-Adaptive Image Container */}
@@ -78,7 +117,7 @@ export default function OutfitCard({ look, isSaved = false, onToggleSave }: Outf
             </div>
           </div>
 
-          {/* Title & Description under photo */}
+          {/* Title & Description */}
           <div className="px-1">
             <h3 className="text-base sm:text-lg font-black text-white tracking-tight font-serif">
               {look.title}
@@ -89,7 +128,7 @@ export default function OutfitCard({ look, isSaved = false, onToggleSave }: Outf
           </div>
         </div>
 
-        {/* RIGHT: Spacious Product List */}
+        {/* RIGHT: Product List */}
         <div className="md:col-span-7 lg:col-span-7 p-2 sm:p-3.5 flex flex-col justify-between bg-white/[0.02] rounded-[20px] sm:rounded-[24px] border border-white/[0.06] backdrop-blur-xl">
           
           <div className="flex flex-col gap-2 sm:gap-2.5">
@@ -101,7 +140,7 @@ export default function OutfitCard({ look, isSaved = false, onToggleSave }: Outf
                 rel="noopener noreferrer"
                 className="group flex items-center justify-between p-2 sm:p-2.5 bg-white/[0.02] hover:bg-white/[0.06] border border-white/[0.04] hover:border-amber-400/20 rounded-2xl transition-all duration-200"
               >
-                {/* 1. Thumbnail */}
+                {/* Thumbnail */}
                 <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-neutral-900 border border-white/[0.08] p-1 shrink-0 overflow-hidden flex items-center justify-center">
                   <img
                     src={piece.image}
@@ -110,7 +149,7 @@ export default function OutfitCard({ look, isSaved = false, onToggleSave }: Outf
                   />
                 </div>
 
-                {/* 2. Info Stack */}
+                {/* Info Stack */}
                 <div className="flex-1 min-w-0 px-3">
                   <span className="text-[9px] sm:text-[10px] font-bold text-neutral-400 uppercase tracking-wider block truncate">
                     {piece.category} • <span className="text-amber-400/90">{piece.brand}</span>
@@ -128,7 +167,7 @@ export default function OutfitCard({ look, isSaved = false, onToggleSave }: Outf
                   </div>
                 </div>
 
-                {/* 3. Price & Arrow */}
+                {/* Price & Arrow */}
                 <div className="flex items-center gap-2 shrink-0 pl-1">
                   <span className="text-xs sm:text-sm font-black text-white group-hover:text-amber-300 transition-colors">
                     {piece.price}
