@@ -2,9 +2,9 @@ name: 🔄 Live Amazon Price Sync
 
 on:
   schedule:
-    # Har 12 ghante mein automatically run hoga (Midnight aur Midday UTC)
+    # Runs every 12 hours (Midnight & Midday UTC)
     - cron: '0 0,12 * * *'
-  workflow_dispatch: # Is button se aap GitHub par manually bhi 1-click run kar sakte hain
+  workflow_dispatch: # Manual 1-click trigger
 
 permissions:
   contents: write
@@ -20,11 +20,19 @@ jobs:
       - name: ⚙️ Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
-      - name: 📦 Install Dependencies
+      - name: 📦 Install Chrome & System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2
+
+      - name: 📦 Install Project Dependencies
         run: npm ci
+
+      - name: ⚡ Generate Prisma Client
+        run: npx prisma generate
 
       - name: 🚀 Run Price Sync Engine
         run: node syncPrices.js
@@ -33,5 +41,5 @@ jobs:
         run: |
           git config --global user.name "ShopVibee Bot"
           git config --global user.email "bot@shopvibee.in"
-          git add data/deals.ts data/flashDeals.ts data/topDeals.ts
+          git add data/deals.ts
           git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-sync: Updated live Amazon prices [skip ci]" && git push)
