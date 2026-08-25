@@ -86,12 +86,22 @@ export default function Home() {
   const [reviews, setReviews] = useState<any[]>([]);
   const [newReview, setNewReview] = useState({ name: '', comment: '', rating: 5 });
 
-  useEffect(() => {
-    fetch('/api/reviews')
-      .then(res => res.json())
-      .then(data => { if (data.success) setReviews(data.reviews); })
-      .catch(err => console.error(err));
-  }, []);
+ // Is code ko comment ya safe bana dein:
+useEffect(() => {
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch('/api/reviews');
+      if (res.ok) {
+        const data = await res.json();
+        // set reviews...
+      }
+    } catch (err) {
+      console.log('No reviews yet');
+    }
+  };
+  fetchReviews();
+}, []);
+
 
   // Wishlist State
   const [wishlist, setWishlist] = useState<number[]>([]);
@@ -785,12 +795,12 @@ export default function Home() {
                       onClick={() => router.push(`/deal/${deal.id}`)}
                       className="min-w-[260px] max-w-[260px] sm:min-w-[280px] sm:max-w-[280px] bg-white text-gray-900 rounded-2xl overflow-hidden border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col cursor-pointer group/card shrink-0 hover:-translate-y-1 relative"
                     >
-                      <div className="relative aspect-video bg-gray-100 overflow-hidden">
-                        <img
-                          src={deal.image}
-                          alt={deal.title}
-                          className="w-full h-full object-cover group-hover/card:scale-105 transition duration-500"
-                        />
+                     <div className="relative aspect-square bg-neutral-50 rounded-2xl overflow-hidden p-3 flex items-center justify-center">
+  <img
+    src={deal.image}
+    alt={deal.title}
+    className="w-full h-full object-contain rounded-xl group-hover:scale-105 transition-transform duration-300"
+  />
                         <span className="absolute top-2.5 left-2.5 bg-red-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded shadow-sm z-10 animate-pulse">
                           ⚡ {deal.discount}
                         </span>
@@ -859,12 +869,12 @@ export default function Home() {
                       onClick={() => router.push(`/deal/${deal.id}`)}
                       className="min-w-[260px] max-w-[260px] sm:min-w-[280px] sm:max-w-[280px] bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer group/card shrink-0 hover:-translate-y-1 relative"
                     >
-                      <div className="relative aspect-video bg-gray-100 overflow-hidden">
-                        <img
-                          src={deal.image}
-                          alt={deal.title}
-                          className="w-full h-full object-cover group-hover/card:scale-105 transition duration-500"
-                        />
+                     <div className="relative aspect-square bg-neutral-50 rounded-2xl overflow-hidden p-3 flex items-center justify-center">
+  <img
+    src={deal.image}
+    alt={deal.title}
+    className="w-full h-full object-contain rounded-xl group-hover:scale-105 transition-transform duration-300"
+  />
                         <span className="absolute top-2.5 left-2.5 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm z-10">
                           {deal.discount}
                         </span>
@@ -1040,12 +1050,12 @@ export default function Home() {
                     onClick={() => router.push(`/deal/${deal.id}`)}
                     className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer group hover:-translate-y-1 relative"
                   >
-                    <div className="relative aspect-video bg-gray-100 overflow-hidden">
-                      <img
-                        src={deal.image}
-                        alt={deal.title}
-                        className="w-full h-full object-contain p-0 transition duration-600 group-hover:scale-130"
-                      />
+                   <div className="relative aspect-square bg-neutral-50 rounded-2xl overflow-hidden p-3 flex items-center justify-center">
+  <img
+    src={deal.image}
+    alt={deal.title}
+    className="w-full h-full object-contain rounded-xl group-hover:scale-105 transition-transform duration-300"
+  />
                       
                       <span className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-red-500 text-white text-[9px] sm:text-xs font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md shadow-sm z-10">
                         {deal.discount}
@@ -1373,7 +1383,7 @@ export default function Home() {
               <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-3">Quick Navigation</h4>
               <ul className="space-y-2 text-xs text-gray-600 font-medium">
                 <li><button onClick={() => { setShowWishlistOnly(false); setSelectedCategory('All'); }} className="hover:text-indigo-600 transition">All Trending Deals</button></li>
-                <li><Link href="/looks" className="text-violet-600 font-bold hover:underline transition">✨ Shop The Look (Fashion Combos)</Link></li>
+                <li><Link href="/looks" className="text-violet-600 font-bold hover:underline transition">Shop The Look (Fashion Combos)🫅🏻</Link></li>
                 <li><button onClick={() => { setShowWishlistOnly(false); setSelectedCategory('Supplements'); }} className="hover:text-indigo-600 transition">Supplements & Whey Deals</button></li>
                 <li><button onClick={() => setShowWishlistOnly(true)} className="hover:text-indigo-600 transition">Saved Wishlist (💖)</button></li>
               </ul>

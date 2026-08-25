@@ -24,17 +24,28 @@ model DealInteraction {
   createdAt DateTime @default(now())
 }
 
-// 🚀 Naya Deal Model Admin Panel ke liye
+// 🚀 Updated Deal Model for Rich Content & Amazon Compliance
 model Deal {
   id            Int      @id @default(autoincrement())
   title         String
   category      String
   price         String
   originalPrice String?
-  discount      String?   // ? lagane se yeh optional ho jayega
-  store         String?   // ? lagane se yeh optional ho jayega
-  image         String?   // ? lagane se yeh optional ho jayega
+  discount      String?  
+  store         String?  
+  image         String?  
+  images        String[] // Array of image URLs for slider
+  description   String?  // Product description or summary
+  features      String[] // Array of bullet points/highlights
   link          String
+  
+  // 💡 AI Rich Content Fields (To prevent "Thin Content" rejection)
+  whyBuy        String?
+  deepReview    String?
+  expertTips    String?
+  verdict       String?
+  bestFor       String?
+
   createdAt     DateTime @default(now())
 }
 

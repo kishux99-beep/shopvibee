@@ -24,5 +24,5 @@ export interface FashionLook {
 }
 
 export const initialLooks: FashionLook[] = [
-  
+
 ];

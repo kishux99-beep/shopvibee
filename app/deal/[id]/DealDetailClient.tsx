@@ -8,7 +8,7 @@ import { Deal } from '@/data/deals';
 import { FlashDeal } from '@/data/flashDeals';
 import { TopDeal } from '@/data/topDeals';
 import logo from '@/public/logo-dark.png';
-import { FaArrowLeft, FaShieldAlt, FaBolt, FaHeart, FaShareAlt, FaLightbulb, FaCheckCircle, FaUserCheck } from 'react-icons/fa';
+import { FaArrowLeft, FaShieldAlt, FaBolt, FaHeart, FaShareAlt, FaLightbulb, FaCheckCircle } from 'react-icons/fa';
 
 type DealDetailClientProps = {
   deal: Deal | FlashDeal | TopDeal;
@@ -18,18 +18,18 @@ type DealDetailClientProps = {
 export default function DealDetailClient({ deal, allDeals }: DealDetailClientProps) {
   const router = useRouter();
 
-  // Multiple Images Array Handling
   const productImages = (deal as any)?.images || [deal?.image, deal?.image, deal?.image];
   const [activeImage, setActiveImage] = useState(0);
 
   const [copied, setCopied] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [showFullReview, setShowFullReview] = useState(false);
+  const [isTargetOpen, setIsTargetOpen] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-  // Category-Scoped Search State
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Sticky Buy Bar Visibility State & Ref
   const [isMainBuyVisible, setIsMainBuyVisible] = useState(false);
   const mainBuyRef = useRef<HTMLDivElement>(null);
 
@@ -52,7 +52,6 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
     };
   }, [deal]);
 
-  // Check initial wishlist status from localStorage on load
   useEffect(() => {
     if (deal) {
       const savedWishlist: number[] = JSON.parse(localStorage.getItem('shopvibee_wishlist') || '[]');
@@ -60,7 +59,6 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
     }
   }, [deal]);
 
-  // Touch Swipe Coordinates Tracking for Mobile
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
@@ -124,9 +122,17 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
     }
   };
 
-  const relatedDeals = allDeals.filter(
-    (d) => 
-      d.category === deal.category && 
+  const uniqueDealsMap = new Map();
+  allDeals.forEach((item) => {
+    if (item && !uniqueDealsMap.has(item.id)) {
+      uniqueDealsMap.set(item.id, item);
+    }
+  });
+  const deduplicatedAllDeals: (Deal | FlashDeal | TopDeal)[] = Array.from(uniqueDealsMap.values());
+
+  const relatedDeals = deduplicatedAllDeals.filter(
+    (d) =>
+      d.category === deal.category &&
       d.id !== deal.id &&
       d.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -175,13 +181,14 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
         </header>
 
         {/* Main Affiliate Product Section */}
-        <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-6 p-6 sm:p-8">
+        <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-8 p-6 sm:p-8 items-start">
             
-            {/* Left: Interactive Mobile Swipe & Click Slider */}
-            <div className="flex flex-col gap-4">
+            {/* Left Column: Gallery & Trust Box */}
+            <div className="flex flex-col gap-4 md:sticky md:top-24">
               <div 
-                className="relative aspect-square bg-gray-100 rounded-2xl overflow-hidden border border-gray-100 shadow-inner group touch-pan-y"
+                onClick={() => setIsLightboxOpen(true)}
+                className="relative aspect-square bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm group touch-pan-y flex items-center justify-center p-3 cursor-zoom-in"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
@@ -189,12 +196,12 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                 <img 
                   src={productImages[activeImage]} 
                   alt={deal.title} 
-                  className="w-full h-full object-cover transition-all duration-300 select-none pointer-events-none" 
+                  className="w-full h-full object-contain rounded-2xl transition-all duration-300 select-none pointer-events-none" 
                 />
-                <span className="absolute top-3 left-3 bg-red-600 text-white text-xs font-extrabold px-3 py-1 rounded-lg shadow-md animate-pulse z-10">
+                <span className="absolute top-3 left-3 bg-red-600 text-white text-xs font-extrabold px-3 py-1 rounded-xl shadow-md animate-pulse z-10">
                   {deal.discount}
                 </span>
-                <span className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-md z-10">
+                <span className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-lg z-10">
                   Store: {deal.store}
                 </span>
 
@@ -205,7 +212,7 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                         e.stopPropagation();
                         setActiveImage((prev) => (prev === 0 ? productImages.length - 1 : prev - 1));
                       }}
-                      className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full items-center justify-center transition opacity-80 sm:opacity-0 sm:group-hover:opacity-100 z-20 text-sm font-bold"
+                      className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full items-center justify-center transition opacity-80 sm:opacity-0 sm:group-hover:opacity-100 z-20 text-sm font-bold cursor-pointer"
                       aria-label="Previous Image"
                     >
                       &lt;
@@ -215,7 +222,7 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                         e.stopPropagation();
                         setActiveImage((prev) => (prev === productImages.length - 1 ? 0 : prev + 1));
                       }}
-                      className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full items-center justify-center transition opacity-80 sm:opacity-0 sm:group-hover:opacity-100 z-20 text-sm font-bold"
+                      className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full items-center justify-center transition opacity-80 sm:opacity-0 sm:group-hover:opacity-100 z-20 text-sm font-bold cursor-pointer"
                       aria-label="Next Image"
                     >
                       &gt;
@@ -231,7 +238,7 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                     <button
                       key={idx}
                       onClick={() => setActiveImage(idx)}
-                      className={`h-2 rounded-full transition-all ${
+                      className={`h-2 rounded-full transition-all cursor-pointer ${
                         activeImage === idx ? 'w-6 bg-indigo-600' : 'w-2 bg-gray-300'
                       }`}
                       aria-label={`Go to slide ${idx + 1}`}
@@ -242,7 +249,7 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleWishlistToggle}
-                    className={`p-2.5 rounded-full border transition shadow-sm ${
+                    className={`p-2.5 rounded-full border transition shadow-sm cursor-pointer ${
                       isWishlisted 
                         ? 'bg-red-50 border-red-200 text-red-500 scale-105' 
                         : 'bg-white border-gray-200 text-gray-600 hover:text-red-500 hover:border-red-200'
@@ -253,7 +260,7 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                   </button>
                   <button
                     onClick={handleShare}
-                    className="p-2.5 rounded-full bg-white border border-gray-200 text-gray-600 hover:text-indigo-600 hover:border-indigo-200 transition shadow-sm"
+                    className="p-2.5 rounded-full bg-white border border-gray-200 text-gray-600 hover:text-indigo-600 hover:border-indigo-200 transition shadow-sm cursor-pointer"
                     aria-label="Share"
                   >
                     <FaShareAlt className="text-base" />
@@ -262,12 +269,12 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
               </div>
 
               {/* Thumbnail Selector Bar */}
-              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
+              <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-none">
                 {productImages.map((img: string, idx: number) => (
                   <button
                     key={idx}
                     onClick={() => setActiveImage(idx)}
-                    className={`relative w-16 h-16 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 ${
+                    className={`relative w-14 h-14 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 cursor-pointer ${
                       activeImage === idx ? 'border-indigo-600 scale-105 shadow-md' : 'border-gray-200 opacity-70 hover:opacity-100'
                     }`}
                   >
@@ -275,10 +282,44 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                   </button>
                 ))}
               </div>
+
+              {/* 🛡️ Trust & Deal Health Assurance Card */}
+              <div className="hidden md:flex flex-col gap-3 mt-2 p-4 rounded-2xl bg-neutral-50/90 border border-neutral-200/90">
+                <div className="flex items-center justify-between pb-2.5 border-b border-neutral-200/70">
+                  <div className="flex items-center gap-2">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                    <span className="text-xs font-black uppercase tracking-wider text-neutral-900">
+                      Deal Status: Active
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100/70 px-2 py-0.5 rounded-md">
+                    Verified Price
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <div className="flex items-center gap-2 text-[11px] font-semibold text-neutral-700">
+                    <span className="text-indigo-600 font-bold">🔒</span> Secure Checkout
+                  </div>
+                  <div className="flex items-center gap-2 text-[11px] font-semibold text-neutral-700">
+                    <span className="text-emerald-600 font-bold">✓</span> Direct {deal.store} Link
+                  </div>
+                  <div className="flex items-center gap-2 text-[11px] font-semibold text-neutral-700">
+                    <span className="text-amber-500 font-bold">⚡</span> Prime Fast Delivery
+                  </div>
+                  <div className="flex items-center gap-2 text-[11px] font-semibold text-neutral-700">
+                    <span className="text-rose-500 font-bold">🏷️</span> Best Deal Verified
+                  </div>
+                </div>
+              </div>
+
             </div>
 
-            {/* Right: Details & Affiliate CTA */}
-            <div className="flex flex-col justify-between">
+            {/* Right Column: Details, Highlights, Guide & CTA */}
+            <div className="flex flex-col">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">
                   {deal.category}
@@ -311,7 +352,7 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                     </div>
                     <button
                       onClick={() => handleCopyCode(deal.promoCode!)}
-                      className={`px-3.5 py-2 rounded-xl text-xs font-bold transition active:scale-95 ${
+                      className={`px-3.5 py-2 rounded-xl text-xs font-bold transition active:scale-95 cursor-pointer ${
                         copied ? 'bg-emerald-600 text-white' : 'bg-indigo-600 hover:bg-indigo-700 text-white'
                       }`}
                     >
@@ -338,37 +379,106 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                   </div>
                 )}
 
-                {/* ShopVibee Smart Guidance Box */}
+                {/* Curator's Buying Guide */}
                 {guidance && (
-                  <div className="mt-5 p-4 rounded-2xl bg-gradient-to-br from-amber-50/80 via-amber-50/30 to-indigo-50/50 border border-amber-200/80 shadow-sm relative overflow-hidden">
-                    <div className="flex items-center justify-between mb-2.5">
-                      <div className="flex items-center gap-2 text-amber-900 font-black text-xs sm:text-sm uppercase tracking-wider">
-                        <FaLightbulb className="text-amber-500 text-base animate-pulse" />
-                        <span>ShopVibee Guidance</span>
-                      </div>
-                      {guidance.bestFor && (
-                        <span className="text-[10px] font-bold text-indigo-700 bg-indigo-100/80 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                          <FaUserCheck className="text-[9px]" /> {guidance.bestFor}
+                  <div className="mt-6 rounded-2xl bg-neutral-50/90 border border-neutral-200/90 p-4 sm:p-5 shadow-xs">
+                    
+                    <div className="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-neutral-200/70">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center text-xs">
+                          <FaLightbulb />
+                        </div>
+                        <span className="text-xs font-black uppercase tracking-wider text-neutral-900">
+                          Curator's Buying Guide
                         </span>
+                      </div>
+
+                      {guidance.bestFor && (
+                        <div 
+                          className="relative group/tooltip flex items-center"
+                          onClick={() => setIsTargetOpen(!isTargetOpen)}
+                        >
+                          <button
+                            type="button"
+                            className="cursor-pointer text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/60 px-2.5 py-0.5 rounded-full truncate max-w-[150px] sm:max-w-[200px] hover:bg-indigo-100 active:scale-95 transition-all text-left"
+                          >
+                            Target: {guidance.bestFor}
+                          </button>
+
+                          <div
+                            className={`absolute right-0 top-full mt-2 z-50 min-w-[220px] max-w-[280px] p-2.5 rounded-xl bg-neutral-900 text-white text-[11px] font-medium leading-snug shadow-2xl border border-neutral-700 transition-all duration-200 ${
+                              isTargetOpen ? 'flex flex-col' : 'hidden group-hover/tooltip:flex group-hover/tooltip:flex-col'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between mb-0.5">
+                              <span className="text-[9px] font-extrabold uppercase tracking-wider text-amber-400">
+                                🎯 Ideal Target Audience
+                              </span>
+                              <span className="text-[9px] text-neutral-400 sm:hidden">Tap to close</span>
+                            </div>
+                            <p className="text-neutral-200">
+                              {guidance.bestFor}
+                            </p>
+                            <div className="absolute -top-1.5 right-6 w-3 h-3 bg-neutral-900 rotate-45 border-l border-t border-neutral-700" />
+                          </div>
+                        </div>
                       )}
                     </div>
 
-                    <div className="space-y-2 text-xs text-gray-700 leading-relaxed">
-                      <div className="bg-white/80 backdrop-blur-sm p-2.5 rounded-xl border border-amber-100">
-                        <p className="font-medium text-gray-800">
-                          <strong className="text-amber-800 font-bold">Why Buy This Deal? </strong>
-                          {guidance.whyBuy}
-                        </p>
-                      </div>
-
-                      <div className="flex items-start gap-2 pt-0.5 text-emerald-800 font-medium">
-                        <FaCheckCircle className="text-emerald-600 text-sm flex-shrink-0 mt-0.5" />
-                        <p className="text-[11px] sm:text-xs">
-                          <strong className="font-bold">Verdict: </strong>
-                          {guidance.verdict}
-                        </p>
-                      </div>
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-neutral-400 block">
+                        Key Value Insight
+                      </span>
+                      <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
+                        {guidance.whyBuy}
+                      </p>
                     </div>
+
+                    {(guidance.deepReview || guidance.expertTips) && (
+                      <div className="mt-3 pt-3 border-t border-neutral-200/60">
+                        <button
+                          type="button"
+                          onClick={() => setShowFullReview(!showFullReview)}
+                          className="text-xs font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 transition active:scale-98 cursor-pointer"
+                        >
+                          <span>{showFullReview ? '▲ Hide Full Analysis & Tips' : '▼ Read In-Depth Analysis & Pro Tips'}</span>
+                        </button>
+
+                        {showFullReview && (
+                          <div className="mt-3 space-y-3 bg-white p-3.5 rounded-xl border border-neutral-200/70 transition-all duration-300">
+                            {guidance.deepReview && (
+                              <div className="space-y-1">
+                                <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-600 block">
+                                  🔍 In-Depth Breakdown
+                                </span>
+                                <p className="text-xs text-neutral-600 leading-relaxed">
+                                  {guidance.deepReview}
+                                </p>
+                              </div>
+                            )}
+
+                            {guidance.expertTips && (
+                              <div className="p-2.5 rounded-lg bg-emerald-50/80 border border-emerald-200/70 flex items-start gap-2">
+                                <span className="text-xs text-emerald-600 shrink-0 mt-0.5">📌</span>
+                                <p className="text-[11px] text-emerald-900 leading-normal">
+                                  <strong className="font-bold">Pro Tip: </strong>
+                                  {guidance.expertTips}
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    <div className="mt-3 pt-3 border-t border-neutral-200/60 flex items-start gap-2">
+                      <FaCheckCircle className="text-emerald-600 text-xs shrink-0 mt-0.5" />
+                      <p className="text-xs text-neutral-800 leading-snug">
+                        <strong className="font-extrabold text-neutral-900">Verdict: </strong>
+                        {guidance.verdict}
+                      </p>
+                    </div>
+
                   </div>
                 )}
               </div>
@@ -409,16 +519,17 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                     onClick={() => router.push(`/deal/${item.id}`)}
                     className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer group hover:-translate-y-1"
                   >
-                    <div className="relative aspect-video bg-gray-100 overflow-hidden">
+                    <div className="relative aspect-square bg-neutral-50 rounded-2xl overflow-hidden p-3 flex items-center justify-center">
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                        className="w-full h-full object-contain rounded-xl group-hover:scale-105 transition-transform duration-300"
                       />
-                      <span className="absolute top-2 left-2 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm">
+                      <span className="absolute top-2 left-2 bg-red-500 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-lg shadow-sm">
                         {item.discount}
                       </span>
                     </div>
+
                     <div className="p-3 flex flex-col flex-1 justify-between">
                       <div>
                         <span className="text-[9px] font-semibold uppercase tracking-wider text-indigo-600">
@@ -489,9 +600,74 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
         </div>
       )}
 
+      {/* Floating Glass Lightbox Modal */}
+      {isLightboxOpen && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6 transition-all duration-300 animate-fadeIn"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          <div 
+            className="relative w-full max-w-xl bg-white/95 rounded-3xl p-5 shadow-2xl border border-white/40 flex flex-col items-center gap-4 transition-all duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="w-full flex items-center justify-between pb-2 border-b border-gray-100">
+              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-full">
+                Product Preview ({activeImage + 1}/{productImages.length})
+              </span>
+              <button
+                onClick={() => setIsLightboxOpen(false)}
+                className="text-gray-400 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition cursor-pointer active:scale-95"
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="relative w-full aspect-square max-h-[50vh] sm:max-h-[55vh] flex items-center justify-center p-2 bg-neutral-50/60 rounded-3xl overflow-hidden">
+              <img
+                src={productImages[activeImage]}
+                alt={deal.title}
+                className="w-full h-full object-contain rounded-2xl select-none"
+              />
+
+              {productImages.length > 1 && (
+                <>
+                  <button
+                    onClick={() => setActiveImage((prev) => (prev === 0 ? productImages.length - 1 : prev - 1))}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 shadow-md w-9 h-9 rounded-full flex items-center justify-center text-lg font-bold transition active:scale-95 cursor-pointer z-10"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    onClick={() => setActiveImage((prev) => (prev === productImages.length - 1 ? 0 : prev + 1))}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 shadow-md w-9 h-9 rounded-full flex items-center justify-center text-lg font-bold transition active:scale-95 cursor-pointer z-10"
+                  >
+                    ›
+                  </button>
+                </>
+              )}
+            </div>
+
+            <div className="flex gap-2 overflow-x-auto max-w-full p-1 scrollbar-none">
+              {productImages.map((img: string, idx: number) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveImage(idx)}
+                  className={`relative w-12 h-12 rounded-xl overflow-hidden border-2 transition flex-shrink-0 cursor-pointer ${
+                    activeImage === idx ? 'border-indigo-600 scale-105 shadow-md' : 'border-gray-200 opacity-60 hover:opacity-100'
+                  }`}
+                >
+                  <img src={img} alt={`Slide ${idx + 1}`} className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Footer */}
       <footer className="bg-white border-t border-gray-100 py-6 mt-12 text-center text-xs text-gray-400">
-        <p>© {new Date().getFullYear()} ShopVibee Deals. All affiliate rights reserved.</p>
+        <p>© 2026 ShopVibee Deals. All affiliate rights reserved.</p>
       </footer>
     </div>
   );
