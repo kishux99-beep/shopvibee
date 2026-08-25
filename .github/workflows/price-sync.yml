@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs every 12 hours (Midnight & Midday UTC)
     - cron: '0 0,12 * * *'
-  workflow_dispatch: # Manual 1-click trigger
+  workflow_dispatch: # Manual trigger button
 
 permissions:
   contents: write
@@ -23,13 +23,11 @@ jobs:
           node-version: 22
           cache: 'npm'
 
-      - name: 📦 Install Chrome & System Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2
-
       - name: 📦 Install Project Dependencies
         run: npm ci
+
+      - name: 🌐 Install Chrome for Puppeteer
+        run: npx puppeteer browsers install chrome
 
       - name: ⚡ Generate Prisma Client
         run: npx prisma generate
