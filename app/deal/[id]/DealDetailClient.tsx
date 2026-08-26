@@ -345,67 +345,67 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                   )}
                 </div>
 
-                {/* 🎟️ Lowest Price & Coupon Voucher Ticket Card */}
-                {couponCode && (
-                  <div className="my-5 p-4 rounded-2xl bg-amber-50/70 border border-amber-200/80 shadow-sm">
-                    {/* 🏷️ Top Price & Extra Savings Highlight */}
-                    <div className="flex items-center gap-1.5 text-neutral-800 font-bold text-xs uppercase tracking-wide mb-1">
-                      <span className="text-amber-600 text-sm">🏷️</span>
-                      <span>Lowest Price Available</span>
-                    </div>
+                {/* 🎟️ Lowest Price & Coupon Voucher Ticket Card (Emerald Green Savings Theme) */}
+{couponCode && (
+  <div className="my-5 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/90 shadow-sm">
+    {/* 🏷️ Top Price & Extra Savings Highlight */}
+    <div className="flex items-center gap-1.5 text-emerald-900 font-bold text-xs uppercase tracking-wide mb-1">
+      <span className="text-emerald-600 text-sm">🏷️</span>
+      <span>Lowest Price Available</span>
+    </div>
 
-                    {(() => {
-                      const numericPrice = parseFloat(deal.price.replace(/[^0-9.]/g, '')) || 0;
-                      const discountPercent = (deal as any).couponDiscount 
-                        ? parseFloat((deal as any).couponDiscount.replace(/[^0-9.]/g, '')) 
-                        : 10;
-                      const extraSavings = Math.round((numericPrice * discountPercent) / 100);
-                      const finalEffectivePrice = numericPrice - extraSavings;
+    {(() => {
+      const numericPrice = parseFloat(deal.price.replace(/[^0-9.]/g, '')) || 0;
+      const discountPercent = (deal as any).couponDiscount 
+        ? parseFloat((deal as any).couponDiscount.replace(/[^0-9.]/g, '')) 
+        : 10;
+      const extraSavings = Math.round((numericPrice * discountPercent) / 100);
+      const finalEffectivePrice = numericPrice - extraSavings;
 
-                      return (
-                        <div className="flex items-baseline gap-2 mb-3">
-                          <span className="text-2xl font-black text-amber-900">
-                            ₹{finalEffectivePrice.toLocaleString('en-IN')}
-                          </span>
-                          <span className="text-xs font-semibold text-amber-700">
-                            (Save ₹{extraSavings.toLocaleString('en-IN')} extra)
-                          </span>
-                        </div>
-                      );
-                    })()}
+      return (
+        <div className="flex items-baseline gap-2 mb-3">
+          <span className="text-2xl font-black text-emerald-950">
+            ₹{finalEffectivePrice.toLocaleString('en-IN')}
+          </span>
+          <span className="text-xs font-bold text-emerald-700">
+            (Save ₹{extraSavings.toLocaleString('en-IN')} extra)
+          </span>
+        </div>
+      );
+    })()}
 
-                    {/* 🎟️ Dashed Coupon Ticket Box */}
-                    <div className="bg-white rounded-xl border border-dashed border-amber-300 p-3 flex items-center justify-between gap-3 shadow-inner">
-                      <div className="flex items-center gap-3">
-                        <span className="bg-amber-100 text-amber-900 font-black text-xs sm:text-sm px-3 py-1.5 rounded-lg tracking-wider border border-amber-200">
-                          {couponCode}
-                        </span>
-                        
-                        <div className="flex flex-col">
-                          <span className="text-[11px] font-bold text-neutral-800 leading-tight">
-                            Use at checkout
-                          </span>
-                          <span className="text-[10px] text-neutral-500 font-medium">
-                            Additional {(deal as any).couponDiscount || '10%'} off
-                          </span>
-                        </div>
-                      </div>
+    {/* 🎟️ Dashed Coupon Ticket Box */}
+    <div className="bg-white rounded-xl border border-dashed border-emerald-300 p-3 flex items-center justify-between gap-3 shadow-inner">
+      <div className="flex items-center gap-3">
+        <span className="bg-emerald-100/80 text-emerald-900 font-black text-xs sm:text-sm px-3 py-1.5 rounded-lg tracking-wider border border-emerald-200">
+          {couponCode}
+        </span>
+        
+        <div className="flex flex-col">
+          <span className="text-[11px] font-bold text-neutral-800 leading-tight">
+            Use at checkout
+          </span>
+          <span className="text-[10px] text-emerald-700 font-semibold">
+            Additional {(deal as any).couponDiscount || '10%'} off
+          </span>
+        </div>
+      </div>
 
-                      <button
-                        type="button"
-                        onClick={() => handleCopyCode(couponCode)}
-                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 border shadow-sm cursor-pointer ${
-                          copied
-                            ? 'bg-emerald-600 text-white border-emerald-600'
-                            : 'bg-neutral-50 hover:bg-neutral-100 text-neutral-700 border-neutral-200'
-                        }`}
-                      >
-                        <span>{copied ? '✓' : '📋'}</span>
-                        <span>{copied ? 'Copied!' : 'Copy Code'}</span>
-                      </button>
-                    </div>
-                  </div>
-                )}
+      <button
+        type="button"
+        onClick={() => handleCopyCode(couponCode)}
+        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 border shadow-sm cursor-pointer ${
+          copied
+            ? 'bg-emerald-600 text-white border-emerald-600'
+            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-200'
+        }`}
+      >
+        <span>{copied ? '✓' : '📋'}</span>
+        <span>{copied ? 'Copied!' : 'Copy Code'}</span>
+      </button>
+    </div>
+  </div>
+)}
 
                 <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mt-2">
                   {deal.description}
