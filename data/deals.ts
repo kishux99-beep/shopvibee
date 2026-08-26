@@ -329,9 +329,9 @@ export const initialDeals: Deal[] = [
     "id": 4,
     "title": "Noise Pulse 2 Max 1.85\" Display, Bluetooth Calling Smart Watch, 10 Days Battery, 550 NITS Brightness, Smart DND, 100 Sports Modes, Smartwatch for Men and Women (Deep Wine)",
     "category": "Smartwatches",
-    "price": "₹1,499.00",
+    "price": "₹1,199.00",
     "originalPrice": "₹5,999",
-    "discount": "75% OFF",
+    "discount": "80% OFF",
     "image": "https://i.ibb.co/7dZqtCJ2/BFKQBZ-1.jpg",
     "images": [
       "https://i.ibb.co/7dZqtCJ2/BFKQBZ-1.jpg",
@@ -583,8 +583,8 @@ export const initialDeals: Deal[] = [
     "id": 15,
     "title": "Minimalist Marula Oil 5% Face Moisturizer For Dry Skin With Hyaluronic Acid For Deep Nourishment & Hydration, For Men & Women | 30 gm",
     "category": "Beauty",
-    "price": "₹189.00",
-    "originalPrice": "₹630.00",
+    "price": "₹199.00",
+    "originalPrice": "₹663.33",
     "discount": "70% OFF",
     "image": "https://i.ibb.co/KjGsdRjG/61-R-7-CQz-XKL-SL1500.jpg",
     "images": [
