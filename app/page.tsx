@@ -88,19 +88,24 @@ export default function Home() {
 
  // Is code ko comment ya safe bana dein:
 useEffect(() => {
-  const fetchReviews = async () => {
-    try {
-      const res = await fetch('/api/reviews');
-      if (res.ok) {
-        const data = await res.json();
-        // set reviews...
+    const fetchReviews = async () => {
+      try {
+        const res = await fetch('/api/reviews');
+        if (res.ok) {
+          const data = await res.json();
+          // Array format handle karein (direct array ya { reviews: [...] })
+          if (Array.isArray(data)) {
+            setReviews(data);
+          } else if (data && Array.isArray(data.reviews)) {
+            setReviews(data.reviews);
+          }
+        }
+      } catch (err) {
+        console.log('No reviews yet:', err);
       }
-    } catch (err) {
-      console.log('No reviews yet');
-    }
-  };
-  fetchReviews();
-}, []);
+    };
+    fetchReviews();
+  }, []);
 
 
   // Wishlist State
