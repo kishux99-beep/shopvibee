@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Providers } from './providers';
 import Script from 'next/script';
+import CookieConsent from '@/app/components/CookieConsent';
 
 export const metadata: Metadata = {
   title: 'ShopVibee - Top Curated Deals',
@@ -33,11 +34,11 @@ export default function RootLayout({
                 await OneSignal.init({
                   appId: "bda0e2bd-981a-4e05-b280-9eee9f8f1005",
                   notifyButton: {
-                  enable: false, // ❌ Floating bell widget fully disabled
+                    enable: false, // ❌ Floating bell widget fully disabled
                   },
                 });
 
-              // Naye user ke liye direct browser Native Permission Prompt dikhayein
+                // Naye user ke liye direct browser Native Permission Prompt dikhayein
                 setTimeout(() => {
                   if (!OneSignal.User.PushSubscription.optedIn) {
                     OneSignal.Notifications.requestPermission();
@@ -50,6 +51,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <Providers>{children}</Providers>
+        <CookieConsent />
       </body>
     </html>
   );
