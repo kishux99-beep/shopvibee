@@ -120,9 +120,9 @@ export const initialDeals: Deal[] = [
     "id": 7,
     "title": "Bluetooth Calling Smart Watch for Men & Women | HD Touch Display | Heart Rate Monitor | Fitness Tracker | Sports Modes",
     "category": "Wearables",
-    "price": "₹425.00",
-    "originalPrice": "₹799",
-    "discount": "47% OFF",
+    "price": "₹489.00",
+    "originalPrice": "₹489.00",
+    "discount": "",
     "image": "https://i.ibb.co/S7vc4d9H/61y-Rx-Moh-ZVL-SL1500.jpg",
     "images": [
       "https://i.ibb.co/S7vc4d9H/61y-Rx-Moh-ZVL-SL1500.jpg",
@@ -586,8 +586,8 @@ export const initialDeals: Deal[] = [
     "id": 15,
     "title": "Minimalist Marula Oil 5% Face Moisturizer For Dry Skin With Hyaluronic Acid For Deep Nourishment & Hydration, For Men & Women | 30 gm",
     "category": "Beauty",
-    "price": "₹199.00",
-    "originalPrice": "₹663.33",
+    "price": "₹189.00",
+    "originalPrice": "₹630.00",
     "discount": "70% OFF",
     "image": "https://i.ibb.co/KjGsdRjG/61-R-7-CQz-XKL-SL1500.jpg",
     "images": [
