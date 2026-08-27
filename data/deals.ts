@@ -13,6 +13,7 @@ export interface Deal {
   price: string;
   originalPrice?: string;
   discount: string;
+  couponDiscount?: string;   // 👈 Yeh add karein
   image: string;
   images?: string[];      // Multiple images array support
   store: string;
@@ -65,6 +66,7 @@ export const initialDeals: Deal[] = [
     "link": "https://store.wellversed.in/products/wellcore-pure-micronised-creatine-monohydrate-122g-33-servings-lab-tested-fruit-fusion-supports-athletic-performance-and-power",
     "expiresIn": "",
     "promoCode": "KRISH",
+    "couponDiscount":"10%",
     "description": "HELPS BUILD MUSCLE & STRENGTH: Every scoop of Wellcore Creatine Monohydrate delivers the fuel for your physical performance. It helps you train harder, lift heavier, and recover faster.",
     "features": [
       "Weight : 122g",
@@ -99,6 +101,7 @@ export const initialDeals: Deal[] = [
     "link": "https://link.amazon/B0ayX6mS3",
     "expiresIn": "",
     "promoCode": "",
+     "couponDiscount":"",
     "description": "With up to 57-hour battery life and quick charging of 5min gives 3Hrs playback, you’ ll have enough power for multi-day road trips and long festival weekends JBL Tune 520BT feature the renowned JBL Pure Bass sound, the same that powers the most famous venues all around the world Customize your listening experience with JBL Headphones App to tailor the sound to your taste with the EQ.",
     "features": [
       "Brand : JBL",

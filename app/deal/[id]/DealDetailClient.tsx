@@ -345,7 +345,7 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                   )}
                 </div>
 
-                {/* 🎟️ Lowest Price & Coupon Voucher Ticket Card (Emerald Green Savings Theme) */}
+                {/* 🎟️ Lowest Price & Dynamic Coupon Voucher Ticket Card */}
 {couponCode && (
   <div className="my-5 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/90 shadow-sm">
     {/* 🏷️ Top Price & Extra Savings Highlight */}
@@ -355,10 +355,15 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
     </div>
 
     {(() => {
-      const numericPrice = parseFloat(deal.price.replace(/[^0-9.]/g, '')) || 0;
-      const discountPercent = (deal as any).couponDiscount 
-        ? parseFloat((deal as any).couponDiscount.replace(/[^0-9.]/g, '')) 
+      // Numerical price clean extract (e.g. "₹2,999.00" -> 2999)
+      const numericPrice = parseFloat(deal.price.replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
+      
+      // Dynamic Discount Percent Extraction (deals.ts se '15%' ya 15 read karega)
+      const rawDiscount = (deal as any)?.couponDiscount;
+      const discountPercent = rawDiscount 
+        ? parseFloat(String(rawDiscount).replace(/[^0-9.]/g, '')) 
         : 10;
+
       const extraSavings = Math.round((numericPrice * discountPercent) / 100);
       const finalEffectivePrice = numericPrice - extraSavings;
 
@@ -386,7 +391,7 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
             Use at checkout
           </span>
           <span className="text-[10px] text-emerald-700 font-semibold">
-            Additional {(deal as any).couponDiscount || '10%'} off
+            Additional {(deal as any)?.couponDiscount || '10%'} off
           </span>
         </div>
       </div>
