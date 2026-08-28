@@ -38,5 +38,5 @@ jobs:
         run: |
           git config --global user.name "ShopVibee Bot"
           git config --global user.email "bot@shopvibee.in"
-          git add data/deals.ts
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-sync: Updated live Amazon prices [skip ci]" && git push)
+          git add data/deals.ts data/flashDeals.ts data/topDeals.ts
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-sync: Updated live Amazon prices across all deal sections [skip ci]" && git push)
