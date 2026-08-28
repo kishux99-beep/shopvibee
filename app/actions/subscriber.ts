@@ -31,15 +31,15 @@ export async function updatePreferences(email: string, categories: string[]) {
       },
     })
 
-    // 🚀 Send Welcome / Confirmation Email via Resend with Clean Light Wrapper Layout
+    // 🚀 Send Welcome / Confirmation Email via Resend Dashboard Template
     try {
       const emailResponse = await resend.emails.send({
-  from: 'ShopVibee <noreply@shopvibee.in>',
-  to: [formattedEmail],
-  template: {
-    id: 'welcome-to-shopvibee', // <--- Yahan apna Step 1 me copy kiya hua slug/ID daalein
-  },
-});
+        from: 'ShopVibee <noreply@shopvibee.in>',
+        to: [formattedEmail],
+        template: {
+          id: 'welcome-to-shopvibee',
+        },
+      })
 
       console.log('Resend Success Response:', emailResponse)
     } catch (emailError: any) {
@@ -72,42 +72,14 @@ export async function unsubscribeUser(email: string) {
       },
     })
 
-    // 🚀 Send Unsubscribe Confirmation Email via Resend
+    // 🚀 Send Unsubscribe Confirmation Email via Resend Dashboard Template
     try {
       const emailResponse = await resend.emails.send({
         from: 'ShopVibee <noreply@shopvibee.in>',
         to: [formattedEmail],
-        subject: '🔔 Unsubscribed from ShopVibee Deal Alerts',
-        html: `
-          <div style="background-color: #f3f4f6; padding: 30px 0; font-family: Arial, sans-serif;">
-            <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
-              
-              <!-- Logo Section -->
-              <div style="text-align: center; margin-bottom: 24px;">
-                <img src="https://shopvibee.in/logo-light.png" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
-              </div>
-
-              <!-- Content Heading -->
-              <h2 style="color: #1f2937; font-size: 20px; text-align: center; margin-bottom: 16px;">
-                Aap successfully unsubscribe ho chuke hain.
-              </h2>
-              
-              <p style="color: #4b5563; font-size: 15px; line-height: 1.5; text-align: center; margin-bottom: 20px;">
-                Humme khed hai ki aapko alvida kehna pad raha hai. Ab se aapko ShopVibee ki taraf se koi deal alerts nahi milenge.
-              </p>
-
-              <p style="color: #4b5563; font-size: 14px; line-height: 1.5; text-align: center; margin-bottom: 24px;">
-                Agar aap kabhi dobara alerts receive karna chahein, toh aap hamari website par jaakar wapas subscribe kar sakte hain.
-              </p>
-
-              <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
-
-              <!-- Footer -->
-              <p style="color: #6b7280; font-size: 14px; margin-bottom: 4px;">Regards,</p>
-              <p style="color: #1f2937; font-size: 14px; font-weight: bold; margin: 0;">Team ShopVibee</p>
-            </div>
-          </div>
-        `,
+        template: {
+          id: 'unsubscribed-from-shopvibee-2',
+        },
       })
 
       console.log('Unsubscribe Email Success:', emailResponse)
@@ -122,10 +94,10 @@ export async function unsubscribeUser(email: string) {
     return { success: false, error: 'Unsubscribe करने में समस्या आई।' }
   }
 }
+
 // 3. Category Update ya New Deal hone par Subscribed Users ko Email Alert bhejne ka Server Action
 export async function sendCategoryUpdateAlert(category: string, dealTitle: string, dealPrice: string, dealLink: string) {
   try {
-    // Database se un active subscribers ko dhoondhein jinhone yeh category select ki hai
     const subscribers = await prisma.subscriber.findMany({
       where: {
         isActive: true,
