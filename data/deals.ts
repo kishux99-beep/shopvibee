@@ -292,9 +292,9 @@ export const initialDeals: Deal[] = [
     "id": 9,
     "title": "EBook 11.6\" HD Laptop | Best Student & Office Work Laptop | Celeron N4020 | 4GB DDR4 | 128GB eMMC + M.2 SSD Expandable Slot | Win 11 Home |31Wh Battery | UHD Graphics 600 | Black",
     "category": "Laptops",
-    "price": "₹14,800.00",
-    "originalPrice": "₹29,990",
-    "discount": "51% OFF",
+    "price": "₹11,990.00",
+    "originalPrice": "₹25,000",
+    "discount": "52% OFF",
     "image": "https://i.ibb.co/PsVX2Tg8/71-F8-TUSryh-L-SL1500.jpg",
     "images": [
       "https://i.ibb.co/PsVX2Tg8/71-F8-TUSryh-L-SL1500.jpg",
