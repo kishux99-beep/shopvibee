@@ -96,7 +96,12 @@ export async function unsubscribeUser(email: string) {
 }
 
 // 3. Category Update ya New Deal hone par Subscribed Users ko Email Alert bhejne ka Server Action
-export async function sendCategoryUpdateAlert(category: string, dealTitle: string, dealPrice: string, dealLink: string) {
+export async function sendCategoryUpdateAlert(
+  category: string,
+  dealTitle: string,
+  dealPrice: string,
+  dealLink: string
+) {
   try {
     const subscribers = await prisma.subscriber.findMany({
       where: {
@@ -113,49 +118,21 @@ export async function sendCategoryUpdateAlert(category: string, dealTitle: strin
 
     let successCount = 0
 
-    // Sabhi target subscribers ko ek-ek karke email bhejna
+    // Sabhi active subscribers ko Resend Dashboard template ke dynamic data ke sath bhejein
     for (const sub of subscribers) {
       try {
-        await resend.emails.send({
+       await resend.emails.send({
           from: 'ShopVibee <noreply@shopvibee.in>',
           to: [sub.email],
-          subject: `🔥 Nayi Deal Alert: ${category} mein naya product aaya hai!`,
-          html: `
-            <div style="background-color: #f3f4f6; padding: 30px 0; font-family: Arial, sans-serif;">
-              <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
-                
-                <!-- Logo Section -->
-                <div style="text-align: center; margin-bottom: 24px;">
-                  <img src="https://shopvibee.in/logo-light.png" alt="ShopVibee Logo" style="width: 160px; height: auto; display: inline-block;" />
-                </div>
-
-                <!-- Content Heading -->
-                <h2 style="color: #1f2937; font-size: 20px; text-align: center; margin-bottom: 16px;">
-                  ⚡ ${category} Category mein Naya Loot Offer!
-                </h2>
-                
-                <p style="color: #4b5563; font-size: 15px; line-height: 1.5; text-align: center; margin-bottom: 20px;">
-                  Aapki pasandida category (${category}) mein ek naya deal live ho gaya hai:
-                </p>
-
-                <!-- Product Box -->
-                <div style="background-color: #f9fafb; border: 1px solid #e5e7eb; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 24px;">
-                  <h3 style="color: #111827; font-size: 16px; margin: 0 0 10px 0;">${dealTitle}</h3>
-                  <p style="color: #4f46e5; font-size: 18px; font-weight: bold; margin: 0 0 16px 0;">Price: ${dealPrice}</p>
-                  
-                  <a href="${dealLink}" target="_blank" style="background-color: #4f46e5; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; font-size: 14px;">
-                    Deal Dekhein &rarr;
-                  </a>
-                </div>
-
-                <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
-
-                <!-- Footer -->
-                <p style="color: #6b7280; font-size: 14px; margin-bottom: 4px;">Regards,</p>
-                <p style="color: #1f2937; font-size: 14px; font-weight: bold; margin: 0;">Team ShopVibee</p>
-              </div>
-            </div>
-          `,
+          template: {
+            id: 'category-deal-alert-2',
+            variables: {
+              category,
+              dealTitle,
+              dealPrice,
+              dealLink,
+            },
+          },
         })
         successCount++
       } catch (err) {
@@ -163,7 +140,11 @@ export async function sendCategoryUpdateAlert(category: string, dealTitle: strin
       }
     }
 
-    return { success: true, count: successCount, message: `${successCount} subscribers ko email bhej di gayi hai!` }
+    return {
+      success: true,
+      count: successCount,
+      message: `${successCount} subscribers ko email bhej di gayi hai!`,
+    }
   } catch (error) {
     console.error('Send Category Update Alert Error:', error)
     return { success: false, error: 'Alert emails bhejne mein samasya aayi.' }
