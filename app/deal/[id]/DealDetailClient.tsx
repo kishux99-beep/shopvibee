@@ -346,71 +346,66 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                 </div>
 
                 {/* 🎟️ Lowest Price & Dynamic Coupon Voucher Ticket Card */}
-{couponCode && (
-  <div className="my-5 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/90 shadow-sm">
-    {/* 🏷️ Top Price & Extra Savings Highlight */}
-    <div className="flex items-center gap-1.5 text-emerald-900 font-bold text-xs uppercase tracking-wide mb-1">
-      <span className="text-emerald-600 text-sm">🏷️</span>
-      <span>Lowest Price Available</span>
-    </div>
+                {couponCode && (
+                  <div className="my-5 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/90 shadow-sm">
+                    <div className="flex items-center gap-1.5 text-emerald-900 font-bold text-xs uppercase tracking-wide mb-1">
+                      <span className="text-emerald-600 text-sm">🏷️</span>
+                      <span>Lowest Price Available</span>
+                    </div>
 
-    {(() => {
-      // Numerical price clean extract (e.g. "₹2,999.00" -> 2999)
-      const numericPrice = parseFloat(deal.price.replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
-      
-      // Dynamic Discount Percent Extraction (deals.ts se '15%' ya 15 read karega)
-      const rawDiscount = (deal as any)?.couponDiscount;
-      const discountPercent = rawDiscount 
-        ? parseFloat(String(rawDiscount).replace(/[^0-9.]/g, '')) 
-        : 10;
+                    {(() => {
+                      const numericPrice = parseFloat(deal.price.replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
+                      const rawDiscount = (deal as any)?.couponDiscount;
+                      const discountPercent = rawDiscount 
+                        ? parseFloat(String(rawDiscount).replace(/[^0-9.]/g, '')) 
+                        : 10;
 
-      const extraSavings = Math.round((numericPrice * discountPercent) / 100);
-      const finalEffectivePrice = numericPrice - extraSavings;
+                      const extraSavings = Math.round((numericPrice * discountPercent) / 100);
+                      const finalEffectivePrice = numericPrice - extraSavings;
 
-      return (
-        <div className="flex items-baseline gap-2 mb-3">
-          <span className="text-2xl font-black text-emerald-950">
-            ₹{finalEffectivePrice.toLocaleString('en-IN')}
-          </span>
-          <span className="text-xs font-bold text-emerald-700">
-            (Save ₹{extraSavings.toLocaleString('en-IN')} extra)
-          </span>
-        </div>
-      );
-    })()}
+                      return (
+                        <div className="flex items-baseline gap-2 mb-3">
+                          <span className="text-2xl font-black text-emerald-950">
+                            ₹{finalEffectivePrice.toLocaleString('en-IN')}
+                          </span>
+                          <span className="text-xs font-bold text-emerald-700">
+                            (Save ₹{extraSavings.toLocaleString('en-IN')} extra)
+                          </span>
+                        </div>
+                      );
+                    })()}
 
-    {/* 🎟️ Dashed Coupon Ticket Box */}
-    <div className="bg-white rounded-xl border border-dashed border-emerald-300 p-3 flex items-center justify-between gap-3 shadow-inner">
-      <div className="flex items-center gap-3">
-        <span className="bg-emerald-100/80 text-emerald-900 font-black text-xs sm:text-sm px-3 py-1.5 rounded-lg tracking-wider border border-emerald-200">
-          {couponCode}
-        </span>
-        
-        <div className="flex flex-col">
-          <span className="text-[11px] font-bold text-neutral-800 leading-tight">
-            Use at checkout
-          </span>
-          <span className="text-[10px] text-emerald-700 font-semibold">
-            Additional {(deal as any)?.couponDiscount || '10%'} off
-          </span>
-        </div>
-      </div>
+                    <div className="bg-white rounded-xl border border-dashed border-emerald-300 p-3 flex items-center justify-between gap-3 shadow-inner">
+                      <div className="flex items-center gap-3">
+                        <span className="bg-emerald-100/80 text-emerald-900 font-black text-xs sm:text-sm px-3 py-1.5 rounded-lg tracking-wider border border-emerald-200">
+                          {couponCode}
+                        </span>
+                        
+                        <div className="flex flex-col">
+                          <span className="text-[11px] font-bold text-neutral-800 leading-tight">
+                            Use at checkout
+                          </span>
+                          <span className="text-[10px] text-emerald-700 font-semibold">
+                            Additional {(deal as any)?.couponDiscount || '10%'} off
+                          </span>
+                        </div>
+                      </div>
 
-      <button
-        type="button"
-        onClick={() => handleCopyCode(couponCode)}
-        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 border shadow-sm cursor-pointer ${
-          copied
-            ? 'bg-emerald-600 text-white border-emerald-600'
-            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-200'
-        }`}
-      >
-        <span>{copied ? '✓' : '📋'}</span>
-        <span>{copied ? 'Copied!' : 'Copy Code'}</span>
-      </button>
-    </div>
-  </div>
-)}
+                      <button
+                        type="button"
+                        onClick={() => handleCopyCode(couponCode)}
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 border shadow-sm cursor-pointer ${
+                          copied
+                            ? 'bg-emerald-600 text-white border-emerald-600'
+                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-200'
+                        }`}
+                      >
+                        <span>{copied ? '✓' : '📋'}</span>
+                        <span>{copied ? 'Copied!' : 'Copy Code'}</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
 
                 <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mt-2">
                   {deal.description}
@@ -433,7 +428,6 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
                 {/* Curator's Buying Guide */}
                 {guidance && (
                   <div className="mt-6 rounded-2xl bg-neutral-50/90 border border-neutral-200/90 p-4 sm:p-5 shadow-xs">
-                    
                     <div className="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-neutral-200/70">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center text-xs">
@@ -661,17 +655,30 @@ export default function DealDetailClient({ deal, allDeals }: DealDetailClientPro
             className="relative w-full max-w-xl bg-white/95 rounded-3xl p-5 shadow-2xl border border-white/40 flex flex-col items-center gap-4 transition-all duration-300"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="w-full flex items-center justify-between pb-2 border-b border-gray-100">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-full">
-                Product Preview ({activeImage + 1}/{productImages.length})
-              </span>
-              <button
-                onClick={() => setIsLightboxOpen(false)}
-                className="text-gray-400 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition cursor-pointer active:scale-95"
-                aria-label="Close"
-              >
-                ✕
-              </button>
+            {/* Modal Header: Category/Preview Badge, Close Button & Product Title */}
+            <div className="w-full pb-3 border-b border-gray-100 flex flex-col gap-1.5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-full">
+                    Product Preview ({activeImage + 1}/{productImages.length})
+                  </span>
+                  <span className="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    {deal.price}
+                  </span>
+                </div>
+                <button
+                  onClick={() => setIsLightboxOpen(false)}
+                  className="text-gray-400 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition cursor-pointer active:scale-95"
+                  aria-label="Close"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Dynamic Product Title */}
+              <h3 className="text-xs sm:text-sm font-extrabold text-gray-900 leading-snug line-clamp-2">
+                {deal.title}
+              </h3>
             </div>
 
             <div className="relative w-full aspect-square max-h-[50vh] sm:max-h-[55vh] flex items-center justify-center p-2 bg-neutral-50/60 rounded-3xl overflow-hidden">
