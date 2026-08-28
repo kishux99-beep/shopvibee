@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer';
 
-// 1. Fast Amazon Price Extractor
+// 1. Fast Amazon Price Extractor (Puppeteer Headless)
 async function fetchLiveAmazonPrice(page, url) {
   try {
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 35000 });
@@ -42,7 +42,6 @@ function extractArrayFromTs(filePath, arrayName) {
   const match = content.match(regex);
   if (match) {
     try {
-      // Evaluate array safely
       return { array: eval(match[1]), fullContent: content, matchText: match[0] };
     } catch (e) {
       console.error(`Failed to parse ${arrayName}:`, e.message);
@@ -51,46 +50,36 @@ function extractArrayFromTs(filePath, arrayName) {
   return null;
 }
 
-// 3. Master Runner
-async function syncAllPrices() {
-  console.log('🔄 Starting Live Amazon Price Synchronization...\n');
-
-  const dealsPath = path.join(process.cwd(), 'data', 'deals.ts');
-  const flashPath = path.join(process.cwd(), 'data', 'flashDeals.ts');
-
-  if (!fs.existsSync(dealsPath)) {
-    console.error('❌ Error: data/deals.ts not found!');
+// 3. Single Section Processor
+async function processSection(page, filePath, arrayName, typeAnnotation, sectionTitle) {
+  const fullPath = path.join(process.cwd(), filePath);
+  if (!fs.existsSync(fullPath)) {
+    console.log(`⚠️ Skipped: ${filePath} not found.`);
     return;
   }
 
-  const dealsData = extractArrayFromTs(dealsPath, 'initialDeals');
-  if (!dealsData) {
-    console.error('❌ Could not read initialDeals from data/deals.ts');
+  const fileData = extractArrayFromTs(fullPath, arrayName);
+  if (!fileData) {
+    console.log(`⚠️ Skipped: Could not read ${arrayName} from ${filePath}`);
     return;
   }
 
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-  });
-
-  const page = await browser.newPage();
-  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36');
-
-  console.log(`Checking ${dealsData.array.length} Main Deals from deals.ts...`);
+  console.log(`\n📂 Checking ${fileData.array.length} ${sectionTitle} from ${filePath}...`);
   let updatedCount = 0;
 
-  for (let deal of dealsData.array) {
+  for (let deal of fileData.array) {
     if (deal.link && deal.link.includes('amazon')) {
-      process.stdout.write(`Checking: ${deal.title.substring(0, 30)}... `);
-      const live = await fetchLiveAmazonPrice(page, deal.link);
+      const shortTitle = deal.title ? deal.title.substring(0, 30) : `Item ID ${deal.id}`;
+      process.stdout.write(`Checking: ${shortTitle}... `);
       
+      const live = await fetchLiveAmazonPrice(page, deal.link);
+
       if (live && live.price) {
         if (live.price !== deal.price) {
           console.log(`\n⚡ Price Changed: ${deal.price} ➜ ${live.price} (${live.discount})`);
           deal.price = live.price;
-          deal.originalPrice = live.originalPrice;
-          deal.discount = live.discount;
+          if (live.originalPrice) deal.originalPrice = live.originalPrice;
+          if (live.discount) deal.discount = live.discount;
           updatedCount++;
         } else {
           console.log(`✓ Up-to-date (${deal.price})`);
@@ -101,14 +90,37 @@ async function syncAllPrices() {
     }
   }
 
+  // Save changes back to ts file
+  const newCode = `export const ${arrayName}: ${typeAnnotation} = ${JSON.stringify(fileData.array, null, 2)};`;
+  const updatedFileContent = fileData.fullContent.replace(fileData.matchText, newCode);
+  fs.writeFileSync(fullPath, updatedFileContent, 'utf-8');
+
+  console.log(`✅ Finished ${sectionTitle}: ${updatedCount} items updated.`);
+}
+
+// 4. Master Runner
+async function syncAllPrices() {
+  console.log('🔄 Starting Live Multi-Section Amazon Price Synchronization...\n');
+
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
+
+  const page = await browser.newPage();
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36');
+
+  // 1. Main Deals Section
+  await processSection(page, 'data/deals.ts', 'initialDeals', 'Deal[]', 'Main Deals');
+
+  // 2. Flash Deals Section
+  await processSection(page, 'data/flashDeals.ts', 'flashDealsData', 'FlashDeal[]', 'Flash Deals');
+
+  // 3. Top Deals Carousel Section
+  await processSection(page, 'data/topDeals.ts', 'topDealsData', 'TopDeal[]', "Today's Top Deals");
+
   await browser.close();
-
-  // Save changes back to deals.ts
-  const newDealsCode = `export const initialDeals: Deal[] = ${JSON.stringify(dealsData.array, null, 2)};`;
-  const updatedFileContent = dealsData.fullContent.replace(dealsData.matchText, newDealsCode);
-  fs.writeFileSync(dealsPath, updatedFileContent, 'utf-8');
-
-  console.log(`\n✅ Done! Updated ${updatedCount} product prices in data/deals.ts.`);
+  console.log('\n🎉 Complete Multi-Section Price Synchronization Finished Successfully!');
 }
 
 syncAllPrices();
