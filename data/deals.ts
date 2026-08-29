@@ -332,9 +332,9 @@ export const initialDeals: Deal[] = [
     "id": 4,
     "title": "Noise Pulse 2 Max 1.85\" Display, Bluetooth Calling Smart Watch, 10 Days Battery, 550 NITS Brightness, Smart DND, 100 Sports Modes, Smartwatch for Men and Women (Deep Wine)",
     "category": "Smartwatches",
-    "price": "₹1,199.00",
+    "price": "₹1,499.00",
     "originalPrice": "₹5,999",
-    "discount": "80% OFF",
+    "discount": "75% OFF",
     "image": "https://i.ibb.co/7dZqtCJ2/BFKQBZ-1.jpg",
     "images": [
       "https://i.ibb.co/7dZqtCJ2/BFKQBZ-1.jpg",
