@@ -615,9 +615,9 @@ export const initialDeals: Deal[] = [
     "id": 6,
     "title": "GRAPHENE 1:32 Scale DieCast Metal Toy Car Pull Back Action Openable Doors 4x4 Thar/Jeep Premium Car Toy Light Music for Kids Realistic Miniature Model Best Gift 2+yrs Girls Boys Random Colors",
     "category": "TOYS & GAMES",
-    "price": "₹321.00",
+    "price": "₹329.00",
     "originalPrice": "₹999",
-    "discount": "68% OFF",
+    "discount": "67% OFF",
     "image": "https://i.ibb.co/Fqyv3jBr/51p-Git1u-TFL-SL1280.jpg",
     "images": [
       "https://i.ibb.co/Fqyv3jBr/51p-Git1u-TFL-SL1280.jpg",
