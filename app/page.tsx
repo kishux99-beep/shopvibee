@@ -1421,9 +1421,12 @@ useEffect(() => {
               <Link href="/contact" className="hover:text-indigo-600 transition underline">
                 Contact Us
               </Link>
+              <span>•</span>
+              <Link href="/experts" className="hover:text-indigo-600 transition underline">
+               Our Experts & Editorial Team
+              </Link>
             </div>
           </div>
-
         </div>
       </footer>
     </div>
