@@ -51,11 +51,15 @@ model Deal {
 
 // ⭐Real User Review⭐
 model Review {
-  id        String   @id @default(cuid())
-  name      String
-  role      String   @default("ShopVibee Shopper")
-  rating    Int      @default(5)
-  comment   String
-  ipHash    String   @unique // Yeh ensure karega ki ek hi user/device se sirf ek review aaye
-  createdAt DateTime @default(now())
+  id          String   @id @default(cuid())
+  name        String
+  role        String   @default("Verified Shopper")
+  rating      Int      @default(5)
+  comment     String
+  photoUrl    String?  // कस्टमर की रियल अनबॉक्सिंग/प्रोडक्ट फोटो
+  productName String?  // जैसे: "Wellcore Creatine Monohydrate" या "OnePlus Buds"
+  store       String?  @default("Amazon") // Amazon / Flipkart / Meesho
+  isVerified  Boolean  @default(true)
+  ipHash      String   @unique
+  createdAt   DateTime @default(now())
 }

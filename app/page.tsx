@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { initialDeals, categories, Deal } from '@/data/deals';
 import { flashDealsData, FlashDeal, flashDurationHours, flashDurationMinutes } from '@/data/flashDeals'; 
 import { topDealsData, TopDeal } from '@/data/topDeals';
+import CommunityReviews from './components/CommunityReviews';
 import { 
   FaShieldAlt, 
   FaCheckCircle, 
@@ -1131,86 +1132,7 @@ useEffect(() => {
             </div>
           )}
         </main>
-
-        {/* Trust & Testimonials Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-100">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full border border-indigo-100">
-              Real Community Experiences
-            </span>
-            <h2 className="text-3xl font-extrabold text-gray-900 mt-4">Trusted by Fitness & Tech Shoppers</h2>
-          </div>
-
-          {/* Database se aane wale real reviews yahan dikhenge */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {reviews.map((r) => (
-              <div key={r.id} className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
-                <div>
-                  <div className="flex text-amber-400 mb-4 text-sm">{'★'.repeat(r.rating)}</div>
-                  <p className="text-sm text-gray-600 leading-relaxed">"{r.comment}"</p>
-                </div>
-                <div className="mt-8 pt-6 border-t border-gray-50 font-bold text-sm text-gray-900">— {r.name}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Review Submission Form with Interactive Stars */}
-          <div className="mt-16 bg-white p-8 rounded-3xl max-w-xl mx-auto border border-gray-200 shadow-xl">
-            <h3 className="font-bold text-xl mb-6 text-center">Share Your Experience!</h3>
-            
-  {/* ⭐ Interactive Star Rating Selector */}
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mr-2">Your Rating:</span>
-              {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                  type="button"
-                  key={star}
-                  onClick={() => setNewReview({ ...newReview, rating: star })}
-                  className={`text-2xl transition-transform active:scale-90 focus:outline-none ${
-                    star <= newReview.rating ? 'text-amber-400 scale-110' : 'text-gray-300 hover:text-amber-200'
-                  }`}
-                >
-                  ★
-                </button>
-              ))}
-            </div>
-
-            <input 
-              className="w-full p-4 mb-4 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm" 
-              placeholder="Your Name" 
-              value={newReview.name}
-              onChange={(e) => setNewReview({...newReview, name: e.target.value})} 
-            />
-            <textarea 
-              className="w-full p-4 mb-4 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm" 
-              placeholder="How was your experience?" 
-              rows={3}
-              value={newReview.comment}
-              onChange={(e) => setNewReview({...newReview, comment: e.target.value})} 
-            />
-            <button 
-              onClick={async () => {
-                if (!newReview.name || !newReview.comment) {
-                  setMessageModal({ show: true, text: "Please fill in all fields!", type: 'error' });
-                  return;
-                }
-                const res = await fetch('/api/reviews', {
-                  method: 'POST',
-                  body: JSON.stringify(newReview),
-                  headers: {'Content-Type': 'application/json'}
-                });
-                if (res.ok) { 
-                  setMessageModal({ show: true, text: 'Review Submitted Successfully! 🚀', type: 'success' });
-                } else { 
-                  setMessageModal({ show: true, text: 'You may have already reviewed.', type: 'error' });
-                }
-              }}
-              className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition active:scale-95 shadow-lg shadow-indigo-200"
-            >
-              Post My Review ✍️
-            </button>
-          </div>
-        </section>
+       <CommunityReviews />
       </div>
 
       {/* Get Alerts & Preferences Modal */}
