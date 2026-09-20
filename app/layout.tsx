@@ -3,6 +3,7 @@ import './globals.css';
 import { Providers } from './providers';
 import Script from 'next/script';
 import CookieConsent from '@/app/components/CookieConsent';
+import Preloader from '@/app/components/Preloader';
 
 export const metadata: Metadata = {
   title: 'ShopVibee - Top Curated Deals',
@@ -50,6 +51,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body className="antialiased">
+        <Preloader />
         <Providers>{children}</Providers>
         <CookieConsent />
       </body>

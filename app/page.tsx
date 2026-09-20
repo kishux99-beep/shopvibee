@@ -477,17 +477,6 @@ useEffect(() => {
           </div>
         )}
 
-        {/* Back to Top Floating Button */}
-        {showScrollTop && (
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-11 left-6 z-40 bg-indigo-600 hover:bg-indigo-700 text-white w-11 h-11 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-indigo-400/30"
-            title="Back to Top"
-          >
-            <FaArrowUp className="text-sm sm:text-sm" />
-          </button>
-        )}
-
         {/* Header */}
         <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
@@ -1366,66 +1355,122 @@ useEffect(() => {
         </div>
       )}
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-100 pt-10 pb-6 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-gray-100">
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <Image
-                  src={logo}
-                  alt="ShopVibee Logo"
-                  className="h-16 w-auto object-contain"
-                />
-              </div>
-              <p className="text-xs text-gray-500 leading-relaxed">
-                Your premier destination for verified fitness, supplement, and tech discounts. Save time and money with genuine promo codes.
-              </p>
-            </div>
+     {/* 🚀 Amazon-Style Professional Multi-Tier Footer */}
+      <footer className="mt-16 text-gray-300 font-sans">
+        {/* Tier 1: Full-Width Back to Top Bar */}
+        <button
+          onClick={scrollToTop}
+          className="w-full py-4 bg-[#37475A] hover:bg-[#485769] text-white text-xs sm:text-sm font-semibold text-center transition tracking-wide active:bg-[#232F3E]"
+        >
+          Back to top
+        </button>
 
+        {/* Tier 2: 4-Column Directory Grid */}
+        <div className="bg-[#232F3E] text-white py-12 border-b border-gray-700/60">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-xs">
+            {/* Col 1 */}
             <div>
-              <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-3">Quick Navigation</h4>
-              <ul className="space-y-2 text-xs text-gray-600 font-medium">
-                <li><button onClick={() => { setShowWishlistOnly(false); setSelectedCategory('All'); }} className="hover:text-indigo-600 transition">All Trending Deals</button></li>
-                <li><Link href="/looks" className="text-violet-600 font-bold hover:underline transition">Shop The Look (Fashion Combos)🫅🏻</Link></li>
-                <li><button onClick={() => { setShowWishlistOnly(false); setSelectedCategory('Supplements'); }} className="hover:text-indigo-600 transition">Supplements & Whey Deals</button></li>
-                <li><button onClick={() => setShowWishlistOnly(true)} className="hover:text-indigo-600 transition">Saved Wishlist (💖)</button></li>
+              <h4 className="font-bold text-sm text-white mb-3 tracking-wide">Get to Know Us</h4>
+              <ul className="space-y-2.5 text-gray-300 font-normal">
+                <li><Link href="/about" className="hover:underline hover:text-white transition">About ShopVibee</Link></li>
+                <li><Link href="/about" className="hover:underline hover:text-white transition">Careers</Link></li>
+                <li><Link href="/about" className="hover:underline hover:text-white transition">Press Releases</Link></li>
+                <li><Link href="/looks" className="hover:underline hover:text-white transition">ShopVibee Science</Link></li>
               </ul>
             </div>
 
+            {/* Col 2 */}
             <div>
-              <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-3">📜 Affiliate Disclosure</h4>
-              <p className="text-[11px] text-gray-500 leading-relaxed bg-gray-50 p-3 rounded-xl border border-gray-100">
-                ShopVibee participates in affiliate marketing programs. When you purchase products through links on our site, we may earn an affiliate commission at zero additional cost to you.
-              </p>
+              <h4 className="font-bold text-sm text-white mb-3 tracking-wide">Connect with Us</h4>
+              <ul className="space-y-2.5 text-gray-300 font-normal">
+                <li>
+                  <button onClick={() => handleSocialClick('whatsapp')} className="hover:underline hover:text-white transition">
+                    WhatsApp Channel
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleSocialClick('telegram')} className="hover:underline hover:text-white transition">
+                    Telegram Channel
+                  </button>
+                </li>
+                <li>
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:underline hover:text-white transition">
+                    Instagram
+                  </a>
+                </li>
+                <li>
+                  <Link href="/contact" className="hover:underline hover:text-white transition">Partner / Sponsor</Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Col 3 */}
+            <div>
+              <h4 className="font-bold text-sm text-white mb-3 tracking-wide">Make Money with Us</h4>
+              <ul className="space-y-2.5 text-gray-300 font-normal">
+                <li><Link href="/contact" className="hover:underline hover:text-white transition">Sell on ShopVibee</Link></li>
+                <li><Link href="/contact" className="hover:underline hover:text-white transition">Brand Accelerator</Link></li>
+                <li><Link href="/contact" className="hover:underline hover:text-white transition">Protect and Build Your Brand</Link></li>
+                <li><Link href="/contact" className="hover:underline hover:text-white transition">Advertise Your Products</Link></li>
+                <li><Link href="/contact" className="hover:underline hover:text-white transition">Become an Affiliate Partner</Link></li>
+              </ul>
+            </div>
+
+            {/* Col 4 */}
+            <div>
+              <h4 className="font-bold text-sm text-white mb-3 tracking-wide">Let Us Help You</h4>
+              <ul className="space-y-2.5 text-gray-300 font-normal">
+                <li><button onClick={() => setShowWishlistOnly(true)} className="hover:underline hover:text-white transition">Your Saved Deals</button></li>
+                <li><button onClick={() => setIsAlertsModalOpen(true)} className="hover:underline hover:text-white transition">Deal Alerts & Recalls</button></li>
+                <li><Link href="/privacy" className="hover:underline hover:text-white transition">100% Purchase Protection</Link></li>
+                <li><Link href="/contact" className="hover:underline hover:text-white transition">Help & Customer Service</Link></li>
+              </ul>
             </div>
           </div>
 
-          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
-            <p>© {new Date().getFullYear()} ShopVibee Deals. All rights reserved.</p>
-            
-            <div className="flex items-center gap-4">
-              <Link href="/about" className="hover:text-indigo-600 transition underline">
-                About Us
-              </Link>
-              <span>•</span>
-              <Link href="/privacy" className="hover:text-indigo-600 transition underline">
-                Privacy Policy
-              </Link>
-              <span>•</span>
-              <Link href="/terms" className="hover:text-indigo-600 transition underline">
-                Terms of Service
-              </Link>
-              <span>•</span>
-              <Link href="/contact" className="hover:text-indigo-600 transition underline">
-                Contact Us
-              </Link>
-              <span>•</span>
+          {/* Tier 3: Mid Center Logo & Settings */}
+          <div className="mt-10 pt-8 border-t border-gray-700/50 flex flex-wrap items-center justify-center gap-4 sm:gap-8">
+            <Link href="/" onClick={scrollToTop} className="flex items-center">
+              <Image
+                src={logo}
+                alt="ShopVibee Logo"
+                className="h-9 w-auto brightness-0 invert object-contain"
+              />
+            </Link>
+
+            <div className="flex items-center gap-3">
+              <div className="border border-gray-600 rounded px-3 py-1.5 text-xs text-gray-300 flex items-center gap-2 hover:border-gray-400 cursor-pointer">
+                <span>🌐</span>
+                <span>English</span>
+              </div>
+              <div className="border border-gray-600 rounded px-3 py-1.5 text-xs text-gray-300 flex items-center gap-2 hover:border-gray-400 cursor-pointer">
+                <span>🇮🇳</span>
+                <span>India</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tier 4: Bottom Compact Disclaimer & Legal Strip */}
+        <div className="bg-[#131A22] py-8 text-[11px] text-gray-400">
+          <div className="max-w-4xl mx-auto px-4 text-center space-y-3">
+            <p className="leading-relaxed text-gray-400 max-w-2xl mx-auto">
+              📜 <span className="font-semibold text-gray-300">Affiliate Disclosure:</span> ShopVibee participates in affiliate programs (including Amazon Associates, Flipkart, and partner brands). When you buy through links on our site, we may earn an affiliate commission at zero additional cost to you.
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-gray-300 pt-2">
+              <Link href="/terms" className="hover:underline">Conditions of Use & Sale</Link>
+              <Link href="/privacy" className="hover:underline">Privacy Notice</Link>
+              <Link href="/privacy" className="hover:underline">Interest-Based Ads</Link>
+              <Link href="/contact" className="hover:underline">Contact Us</Link>
               <Link href="/experts" className="hover:text-indigo-600 transition underline">
                Our Experts & Editorial Team
               </Link>
             </div>
+
+            <p className="text-gray-500 pt-1">
+              © {new Date().getFullYear()} ShopVibee.in, Inc. or its affiliates. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>
