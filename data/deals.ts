@@ -586,8 +586,8 @@ export const initialDeals: Deal[] = [
     "id": 15,
     "title": "Minimalist Marula Oil 5% Face Moisturizer For Dry Skin With Hyaluronic Acid For Deep Nourishment & Hydration, For Men & Women | 30 gm",
     "category": "Beauty",
-    "price": "₹178.00",
-    "originalPrice": "₹593.33",
+    "price": "₹188.00",
+    "originalPrice": "₹626.67",
     "discount": "70% OFF",
     "image": "https://i.ibb.co/KjGsdRjG/61-R-7-CQz-XKL-SL1500.jpg",
     "images": [
