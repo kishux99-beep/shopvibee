@@ -66,7 +66,7 @@ export const topDealsData: TopDeal[] = [
     "id": 2,
     "title": "JBL Tune 520BT Wireless On Ear Headphones with Mic, Upto 57H Battery, Speed Charge : 5 Min Charge Gives Up to 3H of Playback, Multipoint Connect, Customizable Bass with Headphones App, BT 5.3 (Black)",
     "category": "Electronics",
-    "price": "₹2,814.00",
+    "price": "₹2,799.00",
     "originalPrice": "₹4,999",
     "discount": "44% OFF",
     "image": "https://i.ibb.co/Y7SXD7WG/RECIa-Dy-LSXEd-ETVPa-SXCyb-Us-Qxa-Zj-Byo.jpg",
