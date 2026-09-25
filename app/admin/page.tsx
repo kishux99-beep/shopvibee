@@ -5,6 +5,7 @@ export default function AdminPage() {
   // Password state
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [passInput, setPassInput] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   // Form states
   const [title, setTitle] = useState('')
@@ -50,14 +51,23 @@ export default function AdminPage() {
           <p className="text-xs text-gray-400 text-center mb-6">Yeh area secure hai. Password darj karein.</p>
           
           <form onSubmit={handleLogin} className="space-y-4">
-            <input 
-              type="password"
-              className="border border-gray-700 bg-gray-950 text-white p-3 block w-full rounded-lg outline-none focus:border-blue-600 text-sm" 
-              placeholder="Enter Admin Password..." 
-              value={passInput} 
-              onChange={(e) => setPassInput(e.target.value)} 
-              required
-            />
+            <div className="relative">
+              <input 
+                type={showPassword ? "text" : "password"}
+                className="border border-gray-700 bg-gray-950 text-white p-3 pr-10 block w-full rounded-lg outline-none focus:border-blue-600 text-sm" 
+                placeholder="Enter Admin Password..." 
+                value={passInput} 
+                onChange={(e) => setPassInput(e.target.value)} 
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-sm"
+              >
+                {showPassword ? "👁️‍🗨️" : "👁️"}
+              </button>
+            </div>
             <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold p-3.5 w-full rounded-lg transition text-sm">
               Unlock Panel 🔓
             </button>
@@ -98,7 +108,15 @@ export default function AdminPage() {
         </select>
 
         <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Price</label>
-        <input className="border border-gray-700 bg-gray-950 text-white p-3 block w-full mb-4 rounded-lg outline-none text-sm" placeholder="e.g. ₹610" value={price} onChange={(e) => setPrice(e.target.value)} />
+        <input 
+          className="border border-gray-700 bg-gray-950 text-white p-3 block w-full mb-4 rounded-lg outline-none text-sm" 
+          placeholder="e.g. 610" 
+          value={price} 
+          onChange={(e) => {
+            let val = e.target.value.replace(/[^0-9]/g, ''); // Sirf numbers allow karega
+            setPrice(val ?`₹ ${val}`:''); // Automatic ₹ add kar dega
+          }} 
+        />
 
         <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Deal Link</label>
         <input className="border border-gray-700 bg-gray-950 text-white p-3 block w-full mb-6 rounded-lg outline-none text-sm" placeholder="https://..." value={link} onChange={(e) => setLink(e.target.value)} />
