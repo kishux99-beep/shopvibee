@@ -551,8 +551,8 @@ export const initialDeals: Deal[] = [
     "id": 14,
     "title": "DDN_R_ Portable Blender Mixer Juicer for Home | Mini Blender for Smoothies & Juices | 2-Jar Capacity (400ml*2) | 40 Watts Fruit Mixers 1500 Mah USB Rechargeable Battery | Auto Stop 40 Seconds",
     "category": "Kitchen",
-    "price": "₹783.00",
-    "originalPrice": "₹78,300.00",
+    "price": "₹699.00",
+    "originalPrice": "₹69,900.00",
     "discount": "99% OFF",
     "image": "https://i.ibb.co/sJk1mgzP/61n-p-R879d-L-SL1024.jpg",
     "images": [
