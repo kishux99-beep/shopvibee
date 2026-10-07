@@ -651,9 +651,9 @@ export const initialDeals: Deal[] = [
     "id": 18,
     "title": "AGARO Spark 20000 mAh Compact Power Bank, 45W PD & 22.5W QC Output for Smartphones, Portable, USB A & PD Output, USB C Input, Superfast Charge Technology for Android, iPhones, Tablets & Headphones",
     "category": "Electronics",
-    "price": "₹2,399.00",
+    "price": "₹2,327.00",
     "originalPrice": "₹4,599",
-    "discount": "48% OFF",
+    "discount": "49% OFF",
     "image": "https://m.media-amazon.com/images/I/41jTxMHqYYL._AC_SL1500_.jpg",
     "images": [
       "https://m.media-amazon.com/images/I/41jTxMHqYYL._AC_SL1500_.jpg",
