@@ -223,9 +223,9 @@ export const initialDeals: Deal[] = [
     "id": 17,
     "title": "Zebronics Thunder Pro (2026 Upgrade) Wireless Headphones, BT v6.0, Up to 60h Playback, Dual Pairing, 40mm Drivers, ENC, Gaming Mode, Deep Bass, AUX & microSD, Rapid Charging (Beige)",
     "category": "Electronics",
-    "price": "₹799.00",
+    "price": "₹749.00",
     "originalPrice": "₹1,899",
-    "discount": "58% OFF",
+    "discount": "61% OFF",
     "image": "https://m.media-amazon.com/images/I/41+hPuACLJL._AC_SL1500_.jpg",
     "images": [
       "https://m.media-amazon.com/images/I/41+hPuACLJL._AC_SL1500_.jpg",
