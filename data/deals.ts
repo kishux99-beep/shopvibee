@@ -586,8 +586,8 @@ export const initialDeals: Deal[] = [
     "id": 15,
     "title": "Minimalist Marula Oil 5% Face Moisturizer For Dry Skin With Hyaluronic Acid For Deep Nourishment & Hydration, For Men & Women | 30 gm",
     "category": "Beauty",
-    "price": "₹179.00",
-    "originalPrice": "₹596.67",
+    "price": "₹189.00",
+    "originalPrice": "₹630.00",
     "discount": "70% OFF",
     "image": "https://i.ibb.co/KjGsdRjG/61-R-7-CQz-XKL-SL1500.jpg",
     "images": [
@@ -615,9 +615,9 @@ export const initialDeals: Deal[] = [
     "id": 6,
     "title": "GRAPHENE 1:32 Scale DieCast Metal Toy Car Pull Back Action Openable Doors 4x4 Thar/Jeep Premium Car Toy Light Music for Kids Realistic Miniature Model Best Gift 2+yrs Girls Boys Random Colors",
     "category": "TOYS & GAMES",
-    "price": "₹299.00",
+    "price": "₹309.00",
     "originalPrice": "₹999",
-    "discount": "70% OFF",
+    "discount": "69% OFF",
     "image": "https://i.ibb.co/Fqyv3jBr/51p-Git1u-TFL-SL1280.jpg",
     "images": [
       "https://i.ibb.co/Fqyv3jBr/51p-Git1u-TFL-SL1280.jpg",
